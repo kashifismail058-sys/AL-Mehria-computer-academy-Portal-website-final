@@ -1,0 +1,1595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AL-Mehria Computer Academy</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Montserrat:wght@400;700&family=Cairo:wght@400;700&family=Tajawal:wght@400;700&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Playfair+Display:wght@400;700&family=Merriweather:wght@400;700&family=Raleway:wght@400;700&family=Oswald:wght@400;700&family=Nunito:wght@400;700&family=Quicksand:wght@400;700&family=Lateef:wght@400;700&family=Almarai:wght@400;700&family=Changa:wght@400;700&family=El+Messiri:wght@400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--current-font:'Poppins',sans-serif}
+body{font-family:var(--current-font);margin:0;padding:0}
+.font-poppins{font-family:Poppins,sans-serif!important}.font-roboto{font-family:Roboto,sans-serif!important}
+.font-opensans{font-family:'Open Sans',sans-serif!important}.font-montserrat{font-family:Montserrat,sans-serif!important}
+.font-nastaliq{font-family:'Noto Nastaliq Urdu',serif!important}.font-amiri{font-family:Amiri,serif!important}
+.font-scheherazade{font-family:'Scheherazade New',serif!important}.font-cairo{font-family:Cairo,sans-serif!important}
+.font-tajawal{font-family:Tajawal,sans-serif!important}.font-playfair{font-family:'Playfair Display',serif!important}
+.font-merriweather{font-family:Merriweather,serif!important}.font-raleway{font-family:Raleway,sans-serif!important}
+.font-oswald{font-family:Oswald,sans-serif!important}.font-nunito{font-family:Nunito,sans-serif!important}
+.font-quicksand{font-family:Quicksand,sans-serif!important}.font-lateef{font-family:Lateef,serif!important}
+.font-almarai{font-family:Almarai,sans-serif!important}.font-changa{font-family:Changa,sans-serif!important}
+.font-elmessiri{font-family:'El Messiri',sans-serif!important}.font-reem{font-family:'Reem Kufi',sans-serif!important}
+.urdu-text{font-family:'Noto Nastaliq Urdu',serif;direction:rtl}.rtl{direction:rtl;text-align:right}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.animate-marquee{animation:marquee var(--speed,20s) linear infinite}
+.animate-pulse-custom{animation:pulse 2s infinite}.animate-blink{animation:blink 1s infinite}
+.video-container{background:linear-gradient(135deg,#0f172a,#1d4ed8,#7c3aed,#f97316);background-size:400% 400%;animation:videoGradient 8s ease infinite}
+@keyframes videoGradient{0%{background-position:0 0}25%{background-position:100% 0}50%{background-position:100% 100%}75%{background-position:0 100%}100%{background-position:0 0}}
+.header-animated{background:linear-gradient(180deg,#000,#7f1d1d,#b91c1c,#f97316,#eab308,#16a34a,#1d4ed8,#4f46e5);background-size:400% 400%;animation:headerGradient 16s ease-in-out infinite}
+@keyframes headerGradient{0%{background-position:50% 0}25%{background-position:0 50%}50%{background-position:50% 100%}75%{background-position:100% 50%}100%{background-position:50% 0}}
+.rainbow-bg{background:linear-gradient(90deg,#ff6b6b,#feca57,#48dbfb,#ff9ff3,#54a0ff,#5f27cd);background-size:200%;animation:rainbow 3s linear infinite}
+@keyframes rainbow{0%{background-position:0 50%}100%{background-position:200% 50%}}
+.tri-color-marquee{background:linear-gradient(90deg,#000,#b91c1c,#2563eb);background-size:300% 100%;animation:triColorBg 6s linear infinite}
+.tri-color-marquee-text{animation:triColorText 4s linear infinite}
+@keyframes triColorBg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+@keyframes triColorText{0%{color:#fff}33%{color:#facc15}66%{color:#a5b4fc}100%{color:#fff}}
+.video-overlay-mode{position:fixed!important;top:0;left:0;right:0;bottom:0;width:100vw!important;height:100vh!important;z-index:9999;background:#000;display:flex!important;flex-direction:column!important}
+.video-overlay-mode .video-inner{flex:1;padding-top:0!important}
+.video-overlay-mode .video-inner iframe,.video-overlay-mode .video-inner video{position:relative!important;width:100%!important;height:100%!important}
+.modal{backdrop-filter:blur(5px)}
+#signatureCanvas{touch-action:none}
+.diploma-template{border:20px solid;padding:40px;min-height:500px;position:relative;overflow:hidden}
+.diploma-gold{border-color:#d4af37;background:linear-gradient(135deg,#fffef0,#fff8dc)}
+.diploma-blue{border-color:#1e3a8a;background:linear-gradient(135deg,#eff6ff,#dbeafe)}
+.diploma-green{border-color:#166534;background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
+.diploma-red{border-color:#991b1b;background:linear-gradient(135deg,#fef2f2,#fee2e2)}
+.diploma-purple{border-color:#6b21a8;background:linear-gradient(135deg,#faf5ff,#f3e8ff)}
+.diploma-urdu{border-color:#065f46;background:linear-gradient(135deg,#ecfdf5,#d1fae5);direction:rtl}
+.diploma-custom{border-color:#d4af37;background-size:cover!important;background-position:center!important}
+.super-announce-bar{background:linear-gradient(90deg,#dc2626,#ea580c,#d97706,#dc2626);background-size:300% 100%;animation:superAnnounceBg 4s linear infinite}
+@keyframes superAnnounceBg{0%{background-position:0 50%}100%{background-position:300% 50%}}
+.deploy-box{background:linear-gradient(135deg,#0f172a,#1e1b4b,#312e81);border:3px solid #6366f1}
+.live-pulse{animation:livePulse 2s infinite}
+@keyframes livePulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.7)}70%{box-shadow:0 0 0 15px rgba(239,68,68,0)}}
+.speaker-active{animation:speakerPulse 1s infinite}
+@keyframes speakerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.reg-border{background:linear-gradient(120deg,#000,#7f1d1d,#b91c1c,#f97316,#eab308,#16a34a,#1d4ed8,#4f46e5);background-size:300% 300%;animation:regBorderGradient 14s ease-in-out infinite}
+@keyframes regBorderGradient{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+@keyframes marquee-up{0%{transform:translateY(100%)}100%{transform:translateY(-100%)}}
+@keyframes marquee-down{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+.animate-marquee-up{animation:marquee-up 15s linear infinite}
+.animate-marquee-down{animation:marquee-down 15s linear infinite}
+#registrationForm label{font-size:.95rem}
+#registrationForm input[type=tel],#registrationForm input[type=text],#registrationForm select{padding:.9rem;font-size:1.05rem}
+#registrationForm button[type=submit]{font-size:1.25rem;padding:1.1rem}
+.admin-section{transition:all .3s}.admin-section:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.idcard-front{background:linear-gradient(135deg,#0c1445,#1a237e,#283593);border-radius:16px;padding:20px;color:white;width:340px;min-height:220px;position:relative;overflow:hidden}
+.idcard-front::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.05);border-radius:50%}
+.idcard-front::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;background:rgba(255,255,255,.03);border-radius:50%}
+.fee-paid{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:2px solid #16a34a;color:#166534}
+.fee-unpaid{background:linear-gradient(135deg,#fee2e2,#fecaca);border:2px solid #dc2626;color:#991b1b}
+.guide-section{max-height:400px;overflow-y:auto;direction:rtl;text-align:right;font-family:'Noto Nastaliq Urdu',serif}
+.guide-section::-webkit-scrollbar{width:6px}.guide-section::-webkit-scrollbar-thumb{background:#6366f1;border-radius:3px}
+.guide-tab{cursor:pointer;transition:all .2s}.guide-tab:hover{transform:scale(1.02)}.guide-tab.active{ring:4px solid white}
+</style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+<div id="root"></div>
+<div id="fbLiveIndicator" class="hidden fixed top-2 right-2 z-[200] bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse-custom">🔥 Firebase LIVE</div>
+<button id="globalSpeakerBtn" onclick="openGlobalSpeaker()" class="hidden fixed top-2 left-2 z-[200] bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-purple-700 shadow-xl">🔊 Speak to All</button>
+
+<!-- PASSWORD MODAL -->
+<div id="passwordModal" class="modal fixed inset-0 bg-black/70 z-[200] hidden items-center justify-center">
+<div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl">
+<div class="text-center mb-6"><div class="text-6xl mb-3">🔐</div><h2 class="text-2xl font-bold">Admin Login</h2></div>
+<input type="password" id="adminPasswordInput" placeholder="••••" class="w-full px-4 py-3 border-2 rounded-xl text-center text-2xl tracking-widest mb-4" onkeypress="if(event.key==='Enter')checkPassword()">
+<button onclick="checkPassword()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">🔓 Login</button>
+<p id="passwordError" class="text-red-500 text-center mt-3 hidden">❌ Ghalat Password!</p>
+</div></div>
+
+<!-- GLOBAL SPEAKER MODAL -->
+<div id="globalSpeakerModal" class="modal fixed inset-0 bg-black/80 z-[210] hidden items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-lg w-full mx-auto shadow-2xl overflow-hidden">
+<div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 text-center">
+<div class="text-6xl mb-2 speaker-active">🔊</div><h2 class="text-2xl font-bold">Global Speaker</h2>
+<p class="text-purple-200 text-sm">تمام students کو بول کر message دیں!</p></div>
+<div class="p-6 space-y-4">
+<div class="flex gap-2"><textarea id="globalSpeakText" rows="3" class="flex-1 px-4 py-3 border-2 rounded-xl text-lg" placeholder="Message لکھیں یا بولیں..."></textarea>
+<div class="flex flex-col gap-1"><button onclick="startVoice('globalSpeakText','en-US')" class="bg-blue-500 text-white px-3 py-2 rounded-xl font-bold">🎤EN</button>
+<button onclick="startVoice('globalSpeakText','ur-PK')" class="bg-green-500 text-white px-3 py-2 rounded-xl font-bold">🎤UR</button></div></div>
+<div class="grid grid-cols-2 gap-3">
+<div><label class="block text-xs font-bold mb-1">🗣️ Voice</label>
+<select id="globalSpeakLang" class="w-full px-3 py-2 border-2 rounded-xl"><option value="ur-PK">🇵🇰 Urdu</option><option value="en-US">🇬🇧 English</option><option value="hi-IN">🇮🇳 Hindi</option></select></div>
+<div><label class="block text-xs font-bold mb-1">🔁 Repeat</label>
+<select id="globalSpeakRepeat" class="w-full px-3 py-2 border-2 rounded-xl"><option value="0">No</option><option value="2">2 min</option><option value="5">5 min</option><option value="10">10 min</option><option value="30">30 min</option></select></div></div>
+<button onclick="sendGlobalSpeak()" class="w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white py-4 rounded-xl font-bold text-xl">🔊 SPEAK NOW</button>
+<button onclick="stopGlobalSpeak()" class="w-full bg-red-500 text-white py-3 rounded-xl font-bold">⏹️ Stop</button>
+<button onclick="closeGlobalSpeaker()" class="w-full bg-gray-200 py-3 rounded-xl font-bold">✕ Close</button>
+</div></div></div>
+
+<!-- BROADCAST BAR -->
+<div id="broadcastBar" class="hidden bg-red-600 text-white py-3 px-4 animate-pulse-custom">
+<div class="container mx-auto flex items-center justify-center gap-3">
+<span class="w-3 h-3 bg-white rounded-full animate-blink"></span><span class="font-bold">🔴 LIVE:</span>
+<span id="broadcastText" class="font-bold"></span></div></div>
+
+<!-- LANGUAGE -->
+<div class="bg-gray-800 text-white py-2 px-4">
+<div class="container mx-auto flex justify-between items-center"><span class="text-sm">🌐</span>
+<div class="flex gap-2"><button onclick="setLanguage('en')" id="btnEN" class="px-4 py-1 rounded-full text-sm font-bold bg-blue-600">🇬🇧 EN</button>
+<button onclick="setLanguage('ur')" id="btnUR" class="px-4 py-1 rounded-full text-sm font-bold bg-gray-600 urdu-text">🇵🇰 اردو</button></div></div></div>
+
+<!-- VIEWER GROUP -->
+<div class="bg-yellow-50 border-b border-yellow-200 text-xs"><div class="container mx-auto px-4 py-1 flex items-center justify-between gap-2">
+<span class="font-semibold text-yellow-700">🎯 Group</span>
+<div class="flex items-center gap-2"><input id="viewerGroupInput" placeholder="ALL" class="w-32 px-2 py-1 border border-yellow-300 rounded text-xs">
+<button onclick="saveViewerGroup()" class="px-3 py-1 bg-yellow-500 text-white rounded font-bold text-xs">Save</button></div>
+<span id="viewerGroupStatus" class="text-xs text-yellow-700">All</span></div></div>
+
+<!-- SUPER ANNOUNCEMENT -->
+<div id="superAnnounceBar" class="hidden super-announce-bar text-white py-4 px-4 shadow-lg">
+<div class="container mx-auto flex items-center justify-between gap-3">
+<div class="flex items-center gap-2"><span class="text-3xl">📢</span>
+<button onclick="toggleSuperSpeaker()" id="superSpeakerBtn" class="bg-white/20 hover:bg-white/40 rounded-full px-4 py-2 text-sm font-bold">🔊</button></div>
+<div class="flex-1 text-center"><p id="superAnnounceText" class="text-lg sm:text-xl md:text-2xl font-bold"></p>
+<p id="superAnnounceTimer" class="text-xs text-white/70 mt-1"></p></div>
+<span id="superAnnounceRepeatIcon" class="hidden text-2xl speaker-active">🔊</span></div></div>
+
+<!-- CUSTOMER FEEDS TOP -->
+<div id="customerFeedTop"></div>
+
+<!-- HEADER -->
+<header id="mainHeader" class="header-animated text-white py-6"><div class="container mx-auto px-4">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-4"><div class="text-6xl">💻</div>
+<div class="text-center md:text-left"><h1 id="academyName" class="text-3xl md:text-4xl font-bold">AL-Mehria Computer Academy</h1>
+<p id="academyTagline" class="text-blue-200 text-lg">Learn Technology, Build Future</p></div></div>
+<div class="text-center md:text-right bg-white/10 p-4 rounded-xl">
+<p id="instructorName" class="text-xl font-semibold">👨‍🏫 Instructor: Kashif Ismail</p>
+<p id="phoneNumber" class="text-2xl font-bold">📞 03027822058</p>
+<p id="addressText" class="text-blue-200">📍 Makhdoompur Pahoran</p></div></div></div></header>
+
+<!-- TOP PROMO -->
+<div id="topPromoBar" class="tri-color-marquee text-white py-4 overflow-hidden">
+<div id="topPromoInner" class="animate-marquee whitespace-nowrap inline-block" style="--speed:18s">
+<span class="mx-8 font-bold tri-color-marquee-text text-base sm:text-lg md:text-xl" id="topPromoText1">🎓 AL-Mehria Computer Academy | المہریہ کمپیوٹر اکیڈمی | 📞 03027822058</span>
+<span class="mx-8 font-bold tri-color-marquee-text text-base sm:text-lg md:text-xl" id="topPromoText2">🎓 Admissions Open | داخلے جاری ہیں</span></div></div>
+
+<div id="marqueeContainer1"></div>
+
+<!-- RAMADAN TOGGLE BAR -->
+<div id="ramadanToggleBar" class="bg-gradient-to-r from-emerald-800 to-teal-800 py-3 px-4">
+<div class="container mx-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-2xl">🌙</span>
+<span class="text-white font-bold text-sm sm:text-base">رمضان المبارک 2026 کیلنڈر</span>
+<span class="text-emerald-300 text-xs hidden sm:inline">(1447 ہجری)</span>
+<span id="ramadanFbBadge" class="hidden bg-green-500/30 text-green-200 px-2 py-0.5 rounded-full text-[10px]">🔥 Firebase</span>
+</div>
+<button onclick="toggleRamadanCalendar()" id="ramadanToggleBtn" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 transition-all">
+<span id="ramadanToggleIcon">👁️</span>
+<span id="ramadanToggleText">Show Calendar</span>
+</button>
+</div>
+</div>
+
+<!-- RAMADAN CALENDAR SECTION -->
+<section id="ramadanSection" class="bg-gradient-to-br from-emerald-900 via-teal-900 to-green-900 py-6 relative overflow-hidden hidden">
+<div class="absolute top-0 left-0 w-full h-full pointer-events-none opacity-10">
+<div class="absolute top-4 left-8 text-8xl">🌙</div>
+<div class="absolute top-10 right-12 text-7xl">⭐</div>
+<div class="absolute bottom-4 left-1/4 text-6xl">🕌</div>
+<div class="absolute bottom-8 right-1/4 text-5xl">📿</div>
+<div class="absolute top-1/3 left-1/2 text-7xl">✨</div>
+</div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="text-center mb-6">
+<div class="inline-block bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-400 text-transparent bg-clip-text">
+<h2 class="text-4xl md:text-5xl font-bold mb-1">🌙 رمضان المبارک 2026 🌙</h2>
+</div>
+<p class="text-emerald-200 text-xl md:text-2xl font-bold urdu-text mt-2">سحری و افطاری کیلنڈر</p>
+<div class="mt-3 bg-white/10 backdrop-blur-sm rounded-2xl py-3 px-6 inline-block">
+<p class="text-yellow-300 font-bold text-lg">🎓 AL-Mehria Computer Academy</p>
+<p class="text-emerald-200 text-sm">👨‍🏫 Kashif Ismail | 📞 03027822058 | 📍 Makhdoompur Pahoran</p>
+</div>
+</div>
+<div class="bg-gradient-to-r from-yellow-600/40 via-amber-500/40 to-yellow-600/40 rounded-full overflow-hidden mb-4 border border-yellow-500/30">
+<div class="animate-marquee whitespace-nowrap inline-block py-2" style="--speed:25s">
+<span class="mx-6 text-yellow-200 font-bold urdu-text text-lg">🤲 اَللّٰهُمَّ اِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّيْ 🤲</span>
+<span class="mx-6 text-emerald-200 font-bold urdu-text text-lg">🕌 رمضان کریم — رحمتوں، مغفرت اور نجات کا مہینہ 🕌</span>
+<span class="mx-6 text-yellow-200 font-bold urdu-text text-lg">🤲 اَللّٰهُمَّ اِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّيْ 🤲</span>
+</div>
+</div>
+<div id="ramadanTodayBox" class="bg-gradient-to-r from-yellow-500/20 via-amber-500/30 to-yellow-500/20 backdrop-blur-sm rounded-2xl p-4 mb-4 border border-yellow-500/30 text-center">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<div class="bg-white/10 rounded-xl p-3"><p class="text-yellow-400 text-xs font-bold">📅 آج</p><p id="ramadanTodayDate" class="text-white font-bold text-lg">--</p><p id="ramadanTodayRoza" class="text-emerald-300 font-bold text-sm">--</p></div>
+<div class="bg-white/10 rounded-xl p-3"><p class="text-yellow-400 text-xs font-bold">🌅 سحری</p><p id="ramadanTodaySehri" class="text-white font-bold text-2xl">--:--</p><p class="text-emerald-300 text-xs urdu-text">سحری ختم</p></div>
+<div class="bg-white/10 rounded-xl p-3"><p class="text-yellow-400 text-xs font-bold">🌇 افطاری</p><p id="ramadanTodayIftar" class="text-white font-bold text-2xl">--:--</p><p class="text-emerald-300 text-xs urdu-text">افطار کا وقت</p></div>
+<div class="bg-white/10 rounded-xl p-3"><p class="text-yellow-400 text-xs font-bold">⏱️ روزہ</p><p id="ramadanTodayHours" class="text-white font-bold text-2xl">--</p><p class="text-emerald-300 text-xs urdu-text">گھنٹے</p></div>
+</div>
+</div>
+<div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 mb-4 border border-emerald-500/30">
+<h3 class="text-yellow-300 font-bold text-center text-lg mb-3 urdu-text">🕌 نماز کے اوقات (تخمینہ — مخدوم پور پہوڑاں)</h3>
+<div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+<div class="bg-gradient-to-b from-indigo-900/80 to-indigo-800/60 rounded-xl p-3 text-center border border-indigo-400/20"><p class="text-indigo-300 text-xs font-bold">فجر</p><p class="text-white font-bold text-lg" id="namazFajr">5:00</p><p class="text-indigo-200 text-[10px]">Fajr</p></div>
+<div class="bg-gradient-to-b from-yellow-800/80 to-amber-800/60 rounded-xl p-3 text-center border border-yellow-400/20"><p class="text-yellow-300 text-xs font-bold">طلوع</p><p class="text-white font-bold text-lg" id="namazSunrise">6:20</p><p class="text-yellow-200 text-[10px]">Sunrise</p></div>
+<div class="bg-gradient-to-b from-orange-800/80 to-orange-700/60 rounded-xl p-3 text-center border border-orange-400/20"><p class="text-orange-300 text-xs font-bold">ظہر</p><p class="text-white font-bold text-lg" id="namazZuhr">12:15</p><p class="text-orange-200 text-[10px]">Zuhr</p></div>
+<div class="bg-gradient-to-b from-amber-800/80 to-yellow-700/60 rounded-xl p-3 text-center border border-amber-400/20"><p class="text-amber-300 text-xs font-bold">عصر</p><p class="text-white font-bold text-lg" id="namazAsr">3:45</p><p class="text-amber-200 text-[10px]">Asr</p></div>
+<div class="bg-gradient-to-b from-red-900/80 to-red-800/60 rounded-xl p-3 text-center border border-red-400/20"><p class="text-red-300 text-xs font-bold">مغرب</p><p class="text-white font-bold text-lg" id="namazMaghrib">6:10</p><p class="text-red-200 text-[10px]">Maghrib</p></div>
+<div class="bg-gradient-to-b from-purple-900/80 to-purple-800/60 rounded-xl p-3 text-center border border-purple-400/20"><p class="text-purple-300 text-xs font-bold">عشاء</p><p class="text-white font-bold text-lg" id="namazIsha">7:40</p><p class="text-purple-200 text-[10px]">Isha</p></div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 mb-4">
+<div class="bg-gradient-to-br from-green-600/40 to-emerald-600/40 rounded-xl p-3 text-center border border-green-400/30"><p class="text-2xl">🤲</p><p class="text-green-300 font-bold text-sm urdu-text">پہلا عشرہ</p><p class="text-white text-xs">رحمت</p><p class="text-green-200 text-[10px]">1-10 رمضان</p></div>
+<div class="bg-gradient-to-br from-yellow-600/40 to-amber-600/40 rounded-xl p-3 text-center border border-yellow-400/30"><p class="text-2xl">🙏</p><p class="text-yellow-300 font-bold text-sm urdu-text">دوسرا عشرہ</p><p class="text-white text-xs">مغفرت</p><p class="text-yellow-200 text-[10px]">11-20 رمضان</p></div>
+<div class="bg-gradient-to-br from-red-600/40 to-rose-600/40 rounded-xl p-3 text-center border border-red-400/30"><p class="text-2xl">🔥</p><p class="text-red-300 font-bold text-sm urdu-text">تیسرا عشرہ</p><p class="text-white text-xs">جہنم سے نجات</p><p class="text-red-200 text-[10px]">21-30 رمضان</p></div>
+</div>
+<div class="bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-emerald-500/30">
+<div class="bg-gradient-to-r from-emerald-700 to-teal-700 py-3 px-4">
+<h3 class="text-yellow-300 font-bold text-center text-lg urdu-text">📅 مکمل رمضان کیلنڈر 1447 ہجری / فروری - مارچ 2026</h3>
+<p class="text-emerald-200 text-center text-xs">(Makhdoompur Pahoran / Multan Region — تخمینی اوقات)</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-center" id="ramadanTable">
+<thead class="bg-emerald-800/80 text-yellow-300 sticky top-0"><tr><th class="p-2 text-xs">روزہ #</th><th class="p-2 text-xs">تاریخ</th><th class="p-2 text-xs">دن</th><th class="p-2 text-xs">🌅 سحری</th><th class="p-2 text-xs">🌇 افطاری</th><th class="p-2 text-xs">⏱️ گھنٹے</th></tr></thead>
+<tbody id="ramadanTableBody" class="text-white"></tbody>
+</table>
+</div>
+</div>
+<div class="mt-4 bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-yellow-500/30">
+<div class="grid md:grid-cols-2 gap-4">
+<div class="text-center"><p class="text-yellow-300 font-bold urdu-text text-lg mb-2">📿 روزے کی نیت</p><p class="text-white urdu-text text-sm leading-relaxed bg-white/10 rounded-xl p-3">وَبِصَوْمِ غَدٍ نَوَيْتُ مِنْ شَهْرِ رَمَضَانَ</p><p class="text-emerald-200 text-xs mt-1 urdu-text">میں نے ماہ رمضان کے کل کے روزے کی نیت کی</p></div>
+<div class="text-center"><p class="text-yellow-300 font-bold urdu-text text-lg mb-2">🤲 افطار کی دعا</p><p class="text-white urdu-text text-sm leading-relaxed bg-white/10 rounded-xl p-3">اَللّٰهُمَّ اِنِّيْ لَكَ صُمْتُ وَبِكَ اٰمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلٰي رِزْقِكَ اَفْطَرْتُ</p><p class="text-emerald-200 text-xs mt-1 urdu-text">اے اللہ! میں نے تیری خاطر روزہ رکھا، تجھ پر ایمان لایا، تجھ پر بھروسہ کیا اور تیرے رزق سے افطار کیا</p></div>
+</div>
+</div>
+<div class="mt-4 grid md:grid-cols-3 gap-3">
+<div class="bg-gradient-to-br from-blue-600/30 to-blue-800/30 rounded-xl p-3 border border-blue-400/20 text-center"><p class="text-2xl mb-1">🌅</p><p class="text-blue-300 font-bold urdu-text text-sm">سحری میں کیا کھائیں؟</p><p class="text-white text-xs mt-1 urdu-text">دلیہ، انڈے، کھجور، دودھ، روٹی، پانی زیادہ پیئیں</p></div>
+<div class="bg-gradient-to-br from-orange-600/30 to-orange-800/30 rounded-xl p-3 border border-orange-400/20 text-center"><p class="text-2xl mb-1">🌇</p><p class="text-orange-300 font-bold urdu-text text-sm">افطاری میں کیا کھائیں؟</p><p class="text-white text-xs mt-1 urdu-text">کھجور، پانی، پھل، دہی، شوربہ، ہلکا کھانا</p></div>
+<div class="bg-gradient-to-br from-purple-600/30 to-purple-800/30 rounded-xl p-3 border border-purple-400/20 text-center"><p class="text-2xl mb-1">💪</p><p class="text-purple-300 font-bold urdu-text text-sm">تراویح کی نماز</p><p class="text-white text-xs mt-1 urdu-text">20 رکعت (مع وتر 3) — عشاء کے بعد</p></div>
+</div>
+<div class="mt-4 bg-gradient-to-r from-yellow-500/20 via-amber-500/20 to-yellow-500/20 rounded-full overflow-hidden border border-yellow-500/20">
+<div class="animate-marquee whitespace-nowrap inline-block py-2" style="--speed:22s">
+<span class="mx-6 text-yellow-300 font-bold text-sm">🎓 AL-Mehria Computer Academy — رمضان 2026 میں بھی پڑھائی جاری! | 📞 03027822058 | 📍 مخدوم پور پہوڑاں</span>
+<span class="mx-6 text-emerald-300 font-bold text-sm">🌙 رمضان مبارک 2026 — اللہ سب کے روزے اور نمازیں قبول فرمائے — آمین 🤲</span>
+<span class="mx-6 text-yellow-300 font-bold text-sm">🎓 AL-Mehria Computer Academy — رمضان 2026 میں بھی پڑھائی جاری! | 📞 03027822058 | 📍 مخدوم پور پہوڑاں</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- VIDEO -->
+<div id="videoSection" class="bg-gray-900"><div class="container mx-auto px-4 py-2">
+<div id="liveClassBanner" class="hidden mb-4">
+<div class="bg-gradient-to-r from-red-600 via-red-700 to-red-900 rounded-2xl p-4 sm:p-6 text-white text-center live-pulse shadow-2xl border-2 border-red-400">
+<div class="flex items-center justify-center gap-3 mb-2"><span class="w-5 h-5 bg-white rounded-full animate-blink"></span>
+<span class="text-2xl sm:text-4xl font-bold tracking-wide">🔴 LIVE CLASS</span>
+<span class="w-5 h-5 bg-white rounded-full animate-blink"></span></div>
+<p id="liveClassTitle" class="text-lg sm:text-2xl mb-3 text-red-100">Join Now!</p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+<a id="liveClassLink" href="#" target="_blank" class="inline-flex items-center gap-2 bg-white text-red-600 font-bold px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-2xl hover:bg-gray-100 shadow-lg hover:scale-105 transition-all">
+<span class="animate-pulse">🎥</span> JOIN LIVE CLASS</a>
+<button onclick="embedLiveInVideoBox()" class="inline-flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white font-bold px-6 py-3 rounded-full text-sm sm:text-lg shadow-lg">📺 Watch Here</button>
+</div>
+<p class="text-red-200 text-xs sm:text-sm mt-3">⏱️ <span id="liveStartTime"></span></p>
+</div></div>
+<div id="videoMainContainer" class="video-container rounded-2xl shadow-2xl max-w-5xl mx-auto relative group overflow-hidden">
+<button onclick="toggleCustomVideoFullscreen()" class="absolute top-2 right-2 z-50 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full"><span id="videoMaxIcon">⤢</span></button>
+<div id="videoLiveBadge" class="hidden absolute top-2 left-2 z-50 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse-custom flex items-center gap-1">
+<span class="w-2 h-2 bg-white rounded-full animate-blink"></span> LIVE</div>
+<div class="video-inner relative pt-[56.25%] bg-black overflow-hidden">
+<iframe id="videoFrame" class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/ScMzIvxBSi4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; camera; microphone" allowfullscreen></iframe>
+<video id="videoPlayer" class="absolute inset-0 w-full h-full hidden" controls></video></div>
+<div id="attachedMarquee" class="rainbow-bg text-white py-4 overflow-hidden">
+<div class="animate-marquee whitespace-nowrap inline-block" style="--speed:15s">
+<span id="videoPromoText" class="mx-8 text-xl font-bold">🎓 AL-Mehria Computer Academy — Best Training! 🎓</span>
+<span class="mx-8 text-xl font-bold">🎓 المہریہ کمپیوٹر اکیڈمی — بہترین ٹریننگ! 🎓</span></div></div>
+<div id="videoStatusBar" class="bg-gradient-to-r from-purple-900 to-indigo-900 py-3 px-4 text-center">
+<div class="flex items-center justify-center gap-2"><span class="w-3 h-3 bg-red-500 rounded-full animate-blink"></span>
+<span id="videoStatusText" class="text-white font-bold text-xl">📺 Promotional Video</span></div></div></div></div></div>
+
+<div id="marqueeContainer2"></div>
+<div id="dynamicSectionsContainer"></div>
+
+<!-- REGISTRATION -->
+<section class="py-8 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+<div class="container mx-auto px-4"><div class="max-w-3xl mx-auto">
+<div id="regCardClosed" onclick="openRegForm()" class="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 rounded-3xl p-8 cursor-pointer hover:scale-105 transition-all shadow-2xl">
+<div class="text-center"><div class="text-7xl mb-4 animate-bounce">📝</div>
+<h2 class="text-3xl font-bold text-white mb-2">CLICK TO REGISTER</h2>
+<p class="text-2xl font-bold text-white urdu-text">رجسٹریشن کے لیے کلک کریں</p></div></div>
+<div id="regCardOpen" class="hidden">
+<button onclick="closeRegForm()" class="w-full bg-red-500 text-white py-3 rounded-xl font-bold mb-4">✕ Close</button>
+<div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+<div class="bg-gradient-to-r from-blue-800 to-purple-800 py-6 px-6 text-white text-center">
+<div class="text-5xl mb-2">🎓💻</div><h3 class="text-2xl font-bold">AL-Mehria Computer Academy</h3>
+<p class="text-blue-200 mt-2">📍 Makhdoompur Pahoran | 📞 03027822058</p></div>
+<form id="registrationForm" class="p-6 space-y-4">
+<div><label id="lblName" class="block font-bold text-gray-700 mb-1">👤 Student Name <span class="text-red-500">*</span></label>
+<div class="flex gap-2"><input id="regName" required placeholder="Name..." class="flex-1 px-4 py-3 border-2 rounded-xl">
+<button type="button" onclick="startVoice('regName','en-US')" class="bg-blue-500 text-white px-3 rounded-xl">🎤</button></div></div>
+<div><label id="lblFather" class="block font-bold text-gray-700 mb-1">👨 Father's Name <span class="text-red-500">*</span></label>
+<div class="flex gap-2"><input id="regFather" required placeholder="Father..." class="flex-1 px-4 py-3 border-2 rounded-xl">
+<button type="button" onclick="startVoice('regFather','en-US')" class="bg-blue-500 text-white px-3 rounded-xl">🎤</button></div></div>
+<div><label class="block font-bold text-gray-700 mb-1">📱 Contact <span class="text-red-500">*</span></label>
+<input type="tel" id="regPhone" required placeholder="03001234567" class="w-full px-4 py-3 border-2 rounded-xl text-center text-xl"></div>
+<div><label class="block font-bold text-gray-700 mb-1">📚 Course <span class="text-red-500">*</span></label>
+<select id="regCourse" required class="w-full px-4 py-3 border-2 rounded-xl"><option value="">-- Select --</option><option>MS Office</option><option>Web Development</option><option>Graphic Design</option><option>Python Programming</option><option>Computer Hardware</option><option>All Courses</option></select></div>
+<div><label class="block font-bold text-gray-700 mb-1">🏠 Address</label>
+<input id="regAddress" placeholder="Address..." class="w-full px-4 py-3 border-2 rounded-xl"></div>
+<div class="bg-green-50 p-4 rounded-xl border-2 border-green-200">
+<h4 class="text-lg font-bold text-green-800 mb-3 text-center">💰 Payment</h4>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+<label class="cursor-pointer"><input type="radio" name="payment" value="JazzCash" class="hidden peer" required><div class="peer-checked:ring-4 peer-checked:ring-red-500 bg-white p-3 rounded-xl border-2 text-center hover:bg-red-50"><div class="text-3xl">📱</div><p class="font-bold text-red-600 text-sm">JazzCash</p></div></label>
+<label class="cursor-pointer"><input type="radio" name="payment" value="Easypaisa" class="hidden peer"><div class="peer-checked:ring-4 peer-checked:ring-green-500 bg-white p-3 rounded-xl border-2 text-center hover:bg-green-50"><div class="text-3xl">💚</div><p class="font-bold text-green-600 text-sm">Easypaisa</p></div></label>
+<label class="cursor-pointer"><input type="radio" name="payment" value="Bank" class="hidden peer"><div class="peer-checked:ring-4 peer-checked:ring-blue-500 bg-white p-3 rounded-xl border-2 text-center hover:bg-blue-50"><div class="text-3xl">🏦</div><p class="font-bold text-blue-600 text-sm">Bank</p></div></label>
+<label class="cursor-pointer"><input type="radio" name="payment" value="Cash" class="hidden peer"><div class="peer-checked:ring-4 peer-checked:ring-yellow-500 bg-white p-3 rounded-xl border-2 text-center hover:bg-yellow-50"><div class="text-3xl">💵</div><p class="font-bold text-yellow-600 text-sm">Cash</p></div></label></div>
+<div class="mt-3 p-3 bg-white rounded-xl text-sm text-center">
+<span class="bg-red-100 px-3 py-1 rounded-full">📱 JazzCash: <span id="jazzNum">03027822058</span></span>
+<span class="bg-green-100 px-3 py-1 rounded-full ml-2">💚 Easypaisa: <span id="easyNum">03027822058</span></span></div></div>
+
+<!-- Attachments: Photos & IDs -->
+<div class="mt-4 bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-3">
+  <h4 class="text-base font-bold text-gray-800 mb-1">📎 Attachments</h4>
+  <p class="text-[11px] text-gray-500 mb-2">Student photo, ID cards اور signature یہاں upload کریں (optional).</p>
+  <div class="grid md:grid-cols-2 gap-3 text-sm">
+    <!-- Student Photo -->
+    <div>
+      <label class="block font-bold text-gray-700 mb-1">🧑‍🎓 Student Photo</label>
+      <div class="flex items-center gap-3">
+        <div class="w-20 h-20 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden bg-white" id="regStudentPhotoBox">
+          <span id="regStudentPhotoIcon" class="text-2xl text-gray-400">📷</span>
+          <img id="regStudentPhotoPreview" class="hidden w-full h-full object-cover" alt="Student Photo" />
+        </div>
+        <input type="file" id="regStudentPhoto" accept="image/*" class="text-[11px]" onchange="handleRegImageUpload(this,'regStudentPhotoPreview','regStudentPhotoIcon')">
+      </div>
+    </div>
+    <!-- Student ID Front -->
+    <div>
+      <label class="block font-bold text-gray-700 mb-1">🪪 Student ID Front</label>
+      <div class="flex items-center gap-3">
+        <div class="w-20 h-20 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden bg-white">
+          <span id="regStudentIdFrontIcon" class="text-2xl text-gray-400">🪪</span>
+          <img id="regStudentIdFrontPreview" class="hidden w-full h-full object-cover" alt="Student ID Front" />
+        </div>
+        <input type="file" id="regStudentIdFront" accept="image/*" class="text-[11px]" onchange="handleRegImageUpload(this,'regStudentIdFrontPreview','regStudentIdFrontIcon')">
+      </div>
+    </div>
+    <!-- Student ID Back -->
+    <div>
+      <label class="block font-bold text-gray-700 mb-1">🪪 Student ID Back</label>
+      <div class="flex items-center gap-3">
+        <div class="w-20 h-20 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden bg-white">
+          <span id="regStudentIdBackIcon" class="text-2xl text-gray-400">🪪</span>
+          <img id="regStudentIdBackPreview" class="hidden w-full h-full object-cover" alt="Student ID Back" />
+        </div>
+        <input type="file" id="regStudentIdBack" accept="image/*" class="text-[11px]" onchange="handleRegImageUpload(this,'regStudentIdBackPreview','regStudentIdBackIcon')">
+      </div>
+    </div>
+    <!-- Father ID Front -->
+    <div>
+      <label class="block font-bold text-gray-700 mb-1">👨‍👦 Father ID Front</label>
+      <div class="flex items-center gap-3">
+        <div class="w-20 h-20 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden bg-white">
+          <span id="regFatherIdFrontIcon" class="text-2xl text-gray-400">🪪</span>
+          <img id="regFatherIdFrontPreview" class="hidden w-full h-full object-cover" alt="Father ID Front" />
+        </div>
+        <input type="file" id="regFatherIdFront" accept="image/*" class="text-[11px]" onchange="handleRegImageUpload(this,'regFatherIdFrontPreview','regFatherIdFrontIcon')">
+      </div>
+    </div>
+    <!-- Father ID Back -->
+    <div>
+      <label class="block font-bold text-gray-700 mb-1">👨‍👦 Father ID Back</label>
+      <div class="flex items-center gap-3">
+        <div class="w-20 h-20 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden bg-white">
+          <span id="regFatherIdBackIcon" class="text-2xl text-gray-400">🪪</span>
+          <img id="regFatherIdBackPreview" class="hidden w-full h-full object-cover" alt="Father ID Back" />
+        </div>
+        <input type="file" id="regFatherIdBack" accept="image/*" class="text-[11px]" onchange="handleRegImageUpload(this,'regFatherIdBackPreview','regFatherIdBackIcon')">
+      </div>
+    </div>
+  </div>
+
+  <!-- Signature -->
+  <div class="mt-2">
+    <label class="block font-bold text-gray-700 mb-1">✍️ Signature</label>
+    <div class="border-2 border-gray-300 rounded-xl p-2 bg-white">
+      <canvas id="signatureCanvas" class="w-full h-24 bg-white rounded-lg"></canvas>
+      <div class="flex justify-between items-center mt-1">
+        <p class="text-[10px] text-gray-500">Mouse / mobile touch سے دستخط کریں</p>
+        <button type="button" onclick="clearRegSignature()" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-[11px] font-semibold">🧹 Clear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-4 rounded-xl font-bold text-xl">✅ Submit</button>
+</form></div></div></div></section>
+
+<!-- REG SUCCESS -->
+<div id="regSuccessModal" class="modal fixed inset-0 bg-black/80 z-[150] hidden items-center justify-center p-4 overflow-auto">
+<div class="bg-white rounded-3xl max-w-lg w-full mx-auto my-8 shadow-2xl">
+<div class="bg-gradient-to-r from-green-500 to-green-600 py-6 px-6 text-center rounded-t-3xl"><div class="text-6xl mb-2">✅</div><h3 class="text-2xl font-bold text-white">Success!</h3></div>
+<div id="regSlipContent" class="p-6 bg-gray-50"></div>
+<div class="p-6 space-y-3">
+<div class="grid grid-cols-3 gap-3"><button onclick="shareWhatsApp()" class="bg-green-500 text-white py-3 rounded-xl font-bold">📱</button>
+<button onclick="shareEmail()" class="bg-blue-500 text-white py-3 rounded-xl font-bold">📧</button>
+<button onclick="downloadSlip()" class="bg-purple-500 text-white py-3 rounded-xl font-bold">🖼️</button></div>
+<button onclick="copyRegText()" class="w-full bg-gray-200 py-3 rounded-xl font-bold">📋 Copy</button>
+<button onclick="closeRegModal()" class="w-full bg-red-500 text-white py-3 rounded-xl font-bold">✕</button></div></div></div>
+
+<!-- COURSES -->
+<main class="py-8"><div class="container mx-auto px-4">
+<h2 id="coursesTitle" class="text-3xl font-bold text-center text-gray-800 mb-8">📚 Our Courses</h2>
+<div class="max-w-2xl mx-auto space-y-4">
+<div class="bg-white rounded-3xl shadow-xl overflow-hidden border-t-4 border-blue-600">
+<img src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=800" alt="MS Office" class="w-full h-40 sm:h-56 object-cover" loading="lazy">
+<div class="p-5"><h3 class="text-2xl font-bold text-blue-800 text-center mb-2">MS Office</h3>
+<p class="text-gray-600 text-center mb-3">Word, Excel, PowerPoint, Inpage</p>
+<div class="w-full bg-blue-50 rounded-full overflow-hidden border border-blue-100">
+<div class="animate-marquee whitespace-nowrap inline-block text-sm sm:text-base py-3 px-4" style="--speed:20s">
+<span class="mx-4 font-semibold text-blue-700">MS Word • MS Excel • MS PowerPoint • Inpage</span>
+<span class="mx-4 font-semibold text-blue-700 urdu-text">ایم ایس ورڈ • ایم ایس ایکسل • ایم ایس پاورپوائنٹ • انپیج</span>
+</div></div></div></div>
+<div class="bg-white rounded-3xl shadow-xl overflow-hidden border-t-4 border-green-600">
+<img src="https://images.pexels.com/photos/4974914/pexels-photo-4974914.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Web" class="w-full h-40 sm:h-56 object-cover" loading="lazy">
+<div class="p-5"><h3 class="text-2xl font-bold text-green-800 text-center mb-2">Web Development</h3>
+<p class="text-gray-600 text-center mb-3">HTML, CSS, JavaScript</p>
+<div class="w-full bg-green-50 rounded-full overflow-hidden border border-green-100">
+<div class="animate-marquee whitespace-nowrap inline-block text-sm sm:text-base py-3 px-4" style="--speed:20s">
+<span class="mx-4 font-semibold text-green-700">HTML • CSS • JavaScript • Responsive Design</span>
+<span class="mx-4 font-semibold text-green-700 urdu-text">ایچ ٹی ایم ایل • سی ایس ایس • جاوا اسکرپٹ • ریسپانسیو ویب سائٹ</span>
+</div></div></div></div>
+<div class="bg-white rounded-3xl shadow-xl overflow-hidden border-t-4 border-purple-600">
+<img src="https://images.pexels.com/photos/4348403/pexels-photo-4348403.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Design" class="w-full h-40 sm:h-56 object-cover" loading="lazy">
+<div class="p-5"><h3 class="text-2xl font-bold text-purple-800 text-center mb-2">Graphic Design</h3>
+<p class="text-gray-600 text-center mb-3">Photoshop, Illustrator</p>
+<div class="w-full bg-purple-50 rounded-full overflow-hidden border border-purple-100">
+<div class="animate-marquee whitespace-nowrap inline-block text-sm sm:text-base py-3 px-4" style="--speed:20s">
+<span class="mx-4 font-semibold text-purple-700">Photoshop • Illustrator • Logo Design • Social Media Posts</span>
+<span class="mx-4 font-semibold text-purple-700 urdu-text">فوٹوشاپ • السٹریٹر • لوگو ڈیزائن • سوشل میڈیا پوسٹس</span>
+</div></div></div></div></div>
+
+<!-- CONTACT -->
+<section class="bg-gradient-to-r from-blue-900 to-blue-600 text-white rounded-3xl p-10 text-center shadow-2xl mt-12">
+<h2 class="text-4xl font-bold mb-8">📞 Contact Us</h2>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="bg-gradient-to-br from-pink-500 to-orange-500 p-6 rounded-3xl shadow-2xl flex flex-col items-center justify-center min-h-[200px]"><div class="text-5xl mb-3">📍</div><p class="font-bold text-xl">Location</p><p id="contactLocationText" class="text-sm">AL-Mehria Computer Academy Makhdumpur Pahoran Purana Lari Adda Near AL-Mehria Masjid — M. Kashif Ismail — 03027822058</p></div>
+<div class="bg-gradient-to-br from-blue-500 to-purple-600 p-6 rounded-3xl shadow-2xl flex flex-col items-center justify-center min-h-[200px]"><p class="text-5xl mb-3">📞</p><p class="font-bold text-3xl">03027822058</p><div class="mt-3"><a href="https://wa.me/923027822058" target="_blank" class="bg-green-500 text-white px-3 py-1.5 rounded-full text-xs font-bold">🟢 WhatsApp</a></div></div>
+<div class="bg-gradient-to-br from-emerald-500 to-emerald-600 p-6 rounded-3xl shadow-2xl flex flex-col items-center justify-center min-h-[200px]"><p class="text-5xl mb-3">👨‍🏫</p><p class="font-bold text-2xl">Kashif Ismail</p><p class="urdu-text text-lg">کاشف اسماعیل</p></div></div></section>
+</div></main>
+
+<!-- CUSTOMER FEEDS BOTTOM -->
+<div id="customerFeedBottom"></div>
+
+<!-- FOOTER -->
+<footer id="mainFooter" class="bg-gray-900 text-white py-8 text-center">
+<div class="text-4xl mb-3">💻</div><p class="text-xl font-bold">AL-Mehria Computer Academy</p>
+<p class="text-gray-400 urdu-text">المہریہ کمپیوٹر اکیڈمی مخدوم پور پہوڑاں</p>
+<p class="text-gray-500 mt-4">© 2024 All Rights Reserved</p></footer>
+
+<!-- FLOATING BUTTONS -->
+<button onclick="showPasswordModal()" class="fixed bottom-6 right-6 z-50 bg-blue-800 text-white p-4 rounded-full shadow-2xl hover:bg-blue-900 transition-all hover:scale-110" style="width:56px;height:56px;display:flex;align-items:center;justify-content:center;">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+</button>
+<a href="https://wa.me/923027822058" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white rounded-full shadow-2xl hover:bg-green-600 transition-all hover:scale-110 flex items-center justify-center" style="width:56px;height:56px;">
+<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+<div id="voiceIndicator" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/90 text-white px-12 py-10 rounded-3xl z-[100] text-center">
+<div class="text-7xl mb-4 animate-pulse">🎤</div><p class="text-2xl font-bold" id="voiceLangText">Listening...</p></div>
+
+<!-- ============ ADMIN PANEL ============ -->
+<div id="adminPanel" class="fixed inset-0 bg-gray-900/95 z-[100] hidden overflow-y-auto">
+<div class="container mx-auto px-4 py-6">
+<div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+<div><h1 class="text-3xl font-bold text-white">⚙️ Admin Control Center</h1>
+<p class="text-gray-400">Firebase + Dynamic + Voice — Full Control!</p></div>
+<div class="flex gap-2"><span id="fbStatusBadge" class="hidden bg-green-500 text-white px-3 py-2 rounded-lg text-sm font-bold">🔥 LIVE</span>
+<button onclick="closeAdminPanel()" class="bg-red-500 text-white px-6 py-3 rounded-lg font-bold">✕ Close</button></div></div>
+
+<!-- 1. FIREBASE -->
+<div class="bg-white rounded-2xl p-6 shadow-lg border-4 border-orange-400 mb-6 admin-section">
+<h2 class="text-xl font-bold mb-2">🔥 Firebase Setup (ایک Key — سب کنٹرول!)</h2>
+<div class="grid md:grid-cols-3 gap-3 text-sm mb-3">
+<div><label class="block text-xs font-bold mb-1">API Key</label><input id="fbApiKey" class="w-full px-3 py-2 border-2 rounded-lg" placeholder="AIzaSy..."></div>
+<div><label class="block text-xs font-bold mb-1">Database URL</label><input id="fbDbUrl" class="w-full px-3 py-2 border-2 rounded-lg" placeholder="https://xxx.firebaseio.com"></div>
+<div><label class="block text-xs font-bold mb-1">Project ID</label><input id="fbProjectId" class="w-full px-3 py-2 border-2 rounded-lg" placeholder="project-id"></div></div>
+<!-- Optional one-box config paste -->
+<div class="mt-2 text-xs">
+  <label class="block text-[11px] font-bold mb-1">🔑 Firebase Config Snippet (optional)</label>
+  <textarea id="fbConfigBox" rows="3" class="w-full px-3 py-2 border-2 rounded-lg text-[11px]" placeholder="Firebase console se milne wala firebaseConfig {...} yahan paste karein"></textarea>
+  <button onclick="parseFirebaseConfigBox()" class="mt-1 w-full bg-gray-800 text-white py-2 rounded-lg font-bold text-[11px]">📥 Parse & Fill Above Fields</button>
+  <p class="mt-1 text-[10px] text-gray-500">Tip: Project settings → Web app → firebaseConfig object copy karein, yahan paste karein, phir 🔥 Connect & Save dabayen.</p>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-2">
+<button onclick="connectFirebase()" class="bg-orange-500 text-white py-2 rounded-lg font-bold">🔥 Connect & Save</button>
+<button onclick="pushAllToFirebase()" class="bg-blue-500 text-white py-2 rounded-lg font-bold">⬆️ Push All</button></div>
+<p id="fbStatus" class="text-center text-sm font-bold mt-2"></p></div>
+
+<!-- 2. DEPLOYMENT CONTROL BOX -->
+<div class="deploy-box rounded-2xl p-6 shadow-2xl mb-6 text-white admin-section">
+<div class="flex items-center gap-3 mb-4"><div class="text-5xl">🚀</div>
+<div><h2 class="text-2xl font-bold">Deployment Control Box</h2>
+<p class="text-indigo-300 text-sm">بغیر re-deploy — سب LIVE بدلیں!</p></div></div>
+<div class="space-y-3 text-sm">
+<div class="grid md:grid-cols-2 gap-3">
+<div><label class="block text-xs font-bold text-indigo-200 mb-1">🏫 Academy Name</label>
+<div class="flex gap-1"><input id="deployAcademyName" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white" value="AL-Mehria Computer Academy">
+<button onclick="startVoice('deployAcademyName','en-US')" class="bg-blue-500 text-white px-2 rounded-lg text-xs">🎤</button></div></div>
+<div><label class="block text-xs font-bold text-indigo-200 mb-1">✏️ Tagline</label>
+<div class="flex gap-1"><input id="deployTagline" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white" value="Learn Technology, Build Future">
+<button onclick="startVoice('deployTagline','en-US')" class="bg-blue-500 text-white px-2 rounded-lg text-xs">🎤</button></div></div></div>
+<div class="grid md:grid-cols-3 gap-3">
+<div><label class="block text-xs font-bold text-indigo-200 mb-1">📞 Phone</label>
+<input id="deployPhone" class="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white" value="03027822058"></div>
+<div><label class="block text-xs font-bold text-indigo-200 mb-1">👨‍🏫 Instructor</label>
+<input id="deployInstructor" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white" value="Kashif Ismail"></div>
+<div><label class="block text-xs font-bold text-indigo-200 mb-1">📍 Address</label>
+<input id="deployAddress" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white" value="Makhdoompur Pahoran"></div></div>
+<div class="grid grid-cols-3 gap-3">
+<div><label class="block text-xs font-bold text-indigo-200 mb-1">🎨 Header</label>
+<input type="color" id="deployHeaderColor" value="#1e3a8a" class="w-full h-10 rounded-lg border-0 cursor-pointer"></div>
+<div><label class="block text-xs font-bold text-indigo-200 mb-1">🖌️ Body</label>
+<input type="color" id="deployBodyBg" value="#f3f4f6" class="w-full h-10 rounded-lg border-0 cursor-pointer"></div>
+<div><label class="block text-xs font-bold text-indigo-200 mb-1">🦶 Footer</label>
+<input type="color" id="deployFooterBg" value="#111827" class="w-full h-10 rounded-lg border-0 cursor-pointer"></div></div>
+<!-- RAMADAN CALENDAR CONTROL -->
+<div class="bg-white/10 rounded-xl p-4 border border-white/20 mt-4">
+<h3 class="font-bold text-emerald-300 mb-2">🌙 Ramadan Calendar Control</h3>
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm text-white">Show Ramadan Calendar</span>
+<label class="relative inline-flex cursor-pointer"><input type="checkbox" id="ramadanToggleDeploy" class="sr-only peer" onchange="toggleRamadanFromDeploy()"><div class="w-14 h-8 bg-gray-600 rounded-full peer-checked:bg-emerald-500"></div><div class="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform peer-checked:translate-x-6"></div></label>
+</div>
+<p class="text-[10px] text-emerald-200 mb-2">Students کو رمضان کیلنڈر نظر آئے گا — سحری/افطاری/نماز اوقات</p>
+<button onclick="endRamadanCalendar()" class="mt-1 w-full bg-emerald-700 hover:bg-emerald-600 text-white py-1.5 rounded-lg text-[11px] font-bold">🗑️ End Ramadan 2026 (Hide Calendar)</button>
+</div>
+<!-- EVENTS / OCCASIONS MANAGER -->
+<div class="bg-white/10 rounded-xl p-4 border border-white/20 mt-4">
+<h3 class="font-bold text-amber-300 mb-2">🎉 Events & Occasions Manager</h3>
+<p class="text-[10px] text-amber-200 mb-2">رمضان، عید، شبِ برات، میلہ، کوئی بھی ایونٹ — stylish card بنائیں اور ویب سائٹ پر لگائیں!</p>
+<div class="grid grid-cols-3 md:grid-cols-6 gap-1 mb-3">
+<button onclick="addQuickEvent('ramadan')" class="bg-emerald-600/80 hover:bg-emerald-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-emerald-400/40"><div class="text-lg">🌙</div>رمضان</button>
+<button onclick="addQuickEvent('eidfitr')" class="bg-green-600/80 hover:bg-green-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-green-400/40"><div class="text-lg">🎉</div>عید الفطر</button>
+<button onclick="addQuickEvent('eidadha')" class="bg-amber-600/80 hover:bg-amber-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-amber-400/40"><div class="text-lg">🐑</div>عید الاضحٰی</button>
+<button onclick="addQuickEvent('shabbarat')" class="bg-purple-600/80 hover:bg-purple-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-purple-400/40"><div class="text-lg">🌕</div>شبِ برات</button>
+<button onclick="addQuickEvent('meraj')" class="bg-indigo-600/80 hover:bg-indigo-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-indigo-400/40"><div class="text-lg">🕌</div>شبِ معراج</button>
+<button onclick="addQuickEvent('milad')" class="bg-teal-600/80 hover:bg-teal-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-teal-400/40"><div class="text-lg">🕋</div>12 ربیع الاول</button>
+</div>
+<div class="grid grid-cols-3 md:grid-cols-6 gap-1 mb-3">
+<button onclick="addQuickEvent('independence')" class="bg-green-700/80 hover:bg-green-600 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-green-400/40"><div class="text-lg">🇵🇰</div>14 اگست</button>
+<button onclick="addQuickEvent('iqbal')" class="bg-blue-700/80 hover:bg-blue-600 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-blue-400/40"><div class="text-lg">⭐</div>یومِ اقبال</button>
+<button onclick="addQuickEvent('quaid')" class="bg-gray-600/80 hover:bg-gray-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-gray-400/40"><div class="text-lg">🏛️</div>یومِ قائد</button>
+<button onclick="addQuickEvent('newyear')" class="bg-pink-600/80 hover:bg-pink-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-pink-400/40"><div class="text-lg">🎊</div>نیا سال</button>
+<button onclick="addQuickEvent('mela')" class="bg-orange-600/80 hover:bg-orange-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-orange-400/40"><div class="text-lg">🎪</div>میلہ</button>
+<button onclick="addQuickEvent('custom')" class="bg-rose-600/80 hover:bg-rose-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-rose-400/40"><div class="text-lg">✍️</div>Custom</button>
+</div>
+<div id="eventFormArea" class="hidden bg-black/20 rounded-xl p-3 mb-3 border border-amber-400/30">
+<div class="grid md:grid-cols-2 gap-2 mb-2">
+<div class="flex gap-1"><input id="eventTitle" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-sm" placeholder="Event Title...">
+<button onclick="startVoice('eventTitle','en-US')" class="bg-blue-500 text-white px-2 rounded-lg text-xs">🎤EN</button>
+<button onclick="startVoice('eventTitle','ur-PK')" class="bg-green-500 text-white px-2 rounded-lg text-xs">🎤UR</button></div>
+<div><select id="eventIcon" class="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-sm">
+<option value="🌙">🌙 چاند</option><option value="🎉">🎉 جشن</option><option value="🐑">🐑 قربانی</option><option value="🕌">🕌 مسجد</option><option value="🕋">🕋 کعبہ</option><option value="🌕">🌕 چاندنی</option><option value="📿">📿 تسبیح</option><option value="🎊">🎊 پارٹی</option><option value="🎪">🎪 میلہ</option><option value="🇵🇰">🇵🇰 پاکستان</option><option value="⭐">⭐ ستارہ</option><option value="🏛️">🏛️ عمارت</option><option value="📢">📢 اعلان</option><option value="🎓">🎓 تعلیم</option><option value="💐">💐 پھول</option><option value="🤲">🤲 دعا</option><option value="✨">✨ چمک</option><option value="❤️">❤️ دل</option></select></div></div>
+<div class="flex gap-1 mb-2"><textarea id="eventContent" rows="3" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-xs" placeholder="Event details / message..."></textarea>
+<div class="flex flex-col gap-1"><button onclick="startVoice('eventContent','en-US')" class="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs">🎤EN</button><button onclick="startVoice('eventContent','ur-PK')" class="bg-green-500 text-white px-2 py-1 rounded-lg text-xs">🎤UR</button></div></div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
+<div><label class="text-[10px] text-amber-200">BG Color</label><input type="color" id="eventBgColor" value="#065f46" class="w-full h-8 rounded border-0"></div>
+<div><label class="text-[10px] text-amber-200">Text Color</label><input type="color" id="eventTextColor" value="#ffffff" class="w-full h-8 rounded border-0"></div>
+<div><label class="text-[10px] text-amber-200">Start Date</label><input type="date" id="eventStartDate" class="w-full px-2 py-1 rounded bg-white/10 border border-white/20 text-white text-xs"></div>
+<div><label class="text-[10px] text-amber-200">End Date</label><input type="date" id="eventEndDate" class="w-full px-2 py-1 rounded bg-white/10 border border-white/20 text-white text-xs"></div>
+</div>
+<div class="flex items-center gap-3 mb-2">
+<label class="flex items-center gap-1 text-xs text-amber-200"><input type="checkbox" id="eventMarquee" class="w-4 h-4"> Marquee پٹی</label>
+<label class="flex items-center gap-1 text-xs text-amber-200"><input type="checkbox" id="eventUrdu" class="w-4 h-4" checked> RTL / اردو</label>
+</div>
+<button onclick="saveEvent()" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white py-2 rounded-xl font-bold text-sm">🎉 Add Event Card</button>
+</div>
+<div id="eventsList" class="max-h-48 overflow-y-auto space-y-2 mt-2"></div>
+</div>
+<!-- CUSTOM PAGES BUILDER -->
+<div class="bg-white/10 rounded-xl p-4 border border-white/20 mt-4">
+<h3 class="font-bold text-pink-300 mb-2">📄 Custom Pages Builder</h3>
+<p class="text-[10px] text-pink-200 mb-2">ویب سائٹ پر نئے pages/sections بنائیں — deploy کے بعد بھی!</p>
+<div class="grid md:grid-cols-2 gap-2 mb-2">
+<div class="flex gap-1"><input id="customPageTitle" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-sm" placeholder="Page Title...">
+<button onclick="startVoice('customPageTitle','en-US')" class="bg-blue-500 text-white px-2 rounded-lg text-xs">🎤</button>
+<button onclick="startVoice('customPageTitle','ur-PK')" class="bg-green-500 text-white px-2 rounded-lg text-xs">🎤</button></div>
+<div><select id="customPageIcon" class="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-sm">
+<option value="📋">📋 General</option><option value="📢">📢 Notice</option><option value="🎓">🎓 Education</option><option value="📅">📅 Schedule</option><option value="💡">💡 Tips</option><option value="📖">📖 Content</option><option value="🏆">🏆 Achievement</option><option value="🌙">🌙 Islamic</option><option value="📝">📝 Form</option><option value="🖼️">🖼️ Gallery</option></select></div>
+</div>
+<div class="flex gap-1 mb-2"><textarea id="customPageContent" rows="3" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-xs" placeholder="Page content... (HTML bhi likh sakte hain)"></textarea>
+<div class="flex flex-col gap-1"><button onclick="startVoice('customPageContent','en-US')" class="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs">🎤EN</button><button onclick="startVoice('customPageContent','ur-PK')" class="bg-green-500 text-white px-2 py-1 rounded-lg text-xs">🎤UR</button></div></div>
+<div class="grid grid-cols-3 gap-2 mb-2">
+<div><label class="text-xs text-pink-200">BG Color</label><input type="color" id="customPageBg" value="#1e40af" class="w-full h-8 rounded border-0"></div>
+<div><label class="text-xs text-pink-200">Text Color</label><input type="color" id="customPageTextColor" value="#ffffff" class="w-full h-8 rounded border-0"></div>
+<div><label class="text-xs text-pink-200">Style</label>
+<select id="customPageStyle" class="w-full px-2 py-1 rounded bg-white/10 border border-white/20 text-white text-xs"><option value="card">🃏 Card</option><option value="banner">📢 Banner</option><option value="full">📄 Full Section</option></select></div>
+</div>
+<div class="flex items-center gap-2 mb-2"><input type="checkbox" id="customPageMarquee" class="w-4 h-4"><label class="text-xs text-pink-200">چلتی ہوئی پٹی بھی لگائیں (Marquee)</label></div>
+<button onclick="addCustomPage()" class="w-full bg-gradient-to-r from-pink-500 to-rose-600 text-white py-2 rounded-xl font-bold text-sm">📄➕ Add Page/Section</button>
+<div id="customPagesList" class="mt-3 max-h-40 overflow-y-auto space-y-2"></div>
+</div>
+<!-- CARD & POSTER GENERATOR -->
+<div class="bg-white/10 rounded-xl p-4 border border-white/20 mt-4">
+<h3 class="font-bold text-cyan-300 mb-2">🎨 Card & Poster Generator</h3>
+<p class="text-[10px] text-cyan-200 mb-3">رمضان، عید، Birthday، Wedding، Business — کسی کے بھی نام سے stylish card بنائیں!</p>
+<div class="grid grid-cols-3 md:grid-cols-6 gap-1 mb-3">
+<button onclick="openCardGen('ramadan')" class="bg-emerald-600/80 hover:bg-emerald-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-emerald-400/40"><div class="text-lg">🌙</div>رمضان</button>
+<button onclick="openCardGen('eid')" class="bg-green-600/80 hover:bg-green-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-green-400/40"><div class="text-lg">🎉</div>عید مبارک</button>
+<button onclick="openCardGen('eidadha')" class="bg-amber-600/80 hover:bg-amber-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-amber-400/40"><div class="text-lg">🐑</div>عید الاضحٰی</button>
+<button onclick="openCardGen('birthday')" class="bg-pink-600/80 hover:bg-pink-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-pink-400/40"><div class="text-lg">🎂</div>Birthday</button>
+<button onclick="openCardGen('wedding')" class="bg-rose-600/80 hover:bg-rose-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-rose-400/40"><div class="text-lg">💍</div>Wedding</button>
+<button onclick="openCardGen('business')" class="bg-blue-600/80 hover:bg-blue-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-blue-400/40"><div class="text-lg">🏢</div>Business</button>
+</div>
+<div class="grid grid-cols-3 md:grid-cols-6 gap-1 mb-3">
+<button onclick="openCardGen('academy')" class="bg-indigo-600/80 hover:bg-indigo-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-indigo-400/40"><div class="text-lg">🎓</div>Academy</button>
+<button onclick="openCardGen('announce')" class="bg-orange-600/80 hover:bg-orange-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-orange-400/40"><div class="text-lg">📢</div>اعلان</button>
+<button onclick="openCardGen('achievement')" class="bg-yellow-600/80 hover:bg-yellow-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-yellow-400/40"><div class="text-lg">🏆</div>کامیابی</button>
+<button onclick="openCardGen('dua')" class="bg-teal-600/80 hover:bg-teal-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-teal-400/40"><div class="text-lg">🤲</div>دعا</button>
+<button onclick="openCardGen('pak')" class="bg-green-700/80 hover:bg-green-600 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-green-400/40"><div class="text-lg">🇵🇰</div>14 اگست</button>
+<button onclick="openCardGen('custom')" class="bg-gray-600/80 hover:bg-gray-500 text-white p-2 rounded-lg text-center text-[10px] font-bold border border-gray-400/40"><div class="text-lg">✍️</div>Custom</button>
+</div>
+</div>
+<!-- LAYOUT & PAGE CUSTOMISER (LIGHT) -->
+<div class="bg-white/10 rounded-xl p-4 border border-white/20 mt-4">
+<h3 class="font-bold text-sky-300 mb-2">🧱 Layout & Page Customiser</h3>
+<p class="text-[10px] text-sky-200 mb-2">اہم sections hide/show کریں، notice bars لگائیں، اور gradients / colors کو manage کریں۔</p>
+<div class="grid grid-cols-3 gap-2 text-[11px] mb-3">
+<label class="flex items-center gap-1 text-sky-100"><input type="checkbox" id="layoutHeader" class="w-3 h-3" checked onchange="data.layout.showHeader=this.checked;saveData();renderLayoutFromSettings()"> Header</label>
+<label class="flex items-center gap-1 text-sky-100"><input type="checkbox" id="layoutRamadan" class="w-3 h-3" checked onchange="data.layout.showRamadan=this.checked;saveData();renderLayoutFromSettings()"> Ramadan</label>
+<label class="flex items-center gap-1 text-sky-100"><input type="checkbox" id="layoutVideo" class="w-3 h-3" checked onchange="data.layout.showVideo=this.checked;saveData();renderLayoutFromSettings()"> Video</label>
+<label class="flex items-center gap-1 text-sky-100"><input type="checkbox" id="layoutReg" class="w-3 h-3" checked onchange="data.layout.showRegistration=this.checked;saveData();renderLayoutFromSettings()"> Registration</label>
+<label class="flex items-center gap-1 text-sky-100"><input type="checkbox" id="layoutCourses" class="w-3 h-3" checked onchange="data.layout.showCourses=this.checked;saveData();renderLayoutFromSettings()"> Courses</label>
+<label class="flex items-center gap-1 text-sky-100"><input type="checkbox" id="layoutFooter" class="w-3 h-3" checked onchange="data.layout.showFooter=this.checked;saveData();renderLayoutFromSettings()"> Footer</label>
+</div>
+<div class="mt-1 mb-2 border-t border-white/10 pt-2">
+<p class="text-[10px] text-sky-200 mb-1">📌 Quick Customer Feed (notice bar)</p>
+<div class="flex gap-1 mb-1">
+  <input id="cfText" class="flex-1 px-2 py-1 rounded-lg bg-white/10 border border-white/20 text-white text-[11px]" placeholder="مثال: آج demo class شام 4 بجے...">
+  <select id="cfPos" class="px-2 py-1 rounded-lg bg-white/10 border border-white/20 text-white text-[11px]">
+    <option value="top">Top</option>
+    <option value="bottom">Bottom</option>
+  </select>
+</div>
+<button onclick="addCustomerFeed(document.getElementById('cfText').value, document.getElementById('cfPos').value)" class="w-full bg-sky-500 hover:bg-sky-400 text-white py-1.5 rounded-lg text-[11px] font-bold">➕ Add Feed</button>
+</div>
+<!-- COLOR & GRADIENT STUDIO -->
+<div class="mt-2 border-t border-white/10 pt-2">
+  <p class="text-[10px] text-sky-200 mb-1">🎨 Color & Gradient Studio</p>
+  <div class="grid grid-cols-2 gap-1 mb-2 text-[10px] text-sky-100">
+    <select id="themeTarget" class="px-2 py-1 rounded bg-white/10 border border-white/20 text-[10px] text-white">
+      <option value="header">Header</option>
+      <option value="ramadan">Ramadan Bar</option>
+      <option value="video">Video Box</option>
+      <option value="registration">Registration</option>
+      <option value="courses">Courses/Contact</option>
+      <option value="footer">Footer</option>
+    </select>
+    <select id="themePreset" class="px-2 py-1 rounded bg-white/10 border border-white/20 text-[10px] text-white">
+      <option value="">-- Preset --</option>
+      <option value="sunset">🌇 Sunset</option>
+      <option value="ocean">🌊 Ocean</option>
+      <option value="forest">🌲 Forest</option>
+      <option value="royal">👑 Royal</option>
+      <option value="neon">💡 Neon</option>
+      <option value="ramadan">🌙 Islamic</option>
+    </select>
+  </div>
+  <div class="grid grid-cols-3 gap-1 mb-1">
+    <input type="color" id="themeC1" class="w-full h-7 rounded border-0">
+    <input type="color" id="themeC2" class="w-full h-7 rounded border-0">
+    <input type="color" id="themeC3" class="w-full h-7 rounded border-0">
+  </div>
+  <div class="flex gap-1 mb-1">
+    <button onclick="applyThemePreset()" class="flex-1 bg-sky-600 hover:bg-sky-500 text-white py-1 rounded text-[10px] font-bold">✨ Preset</button>
+    <button onclick="saveThemeForTarget()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-1 rounded text-[10px] font-bold">💾 Save to Page</button>
+  </div>
+  <div class="flex gap-1 mb-1">
+    <button onclick="copyThemeFromTarget()" class="flex-1 bg-gray-700 text-white py-1 rounded text-[10px] font-semibold">📋 Copy</button>
+    <button onclick="pasteThemeToTarget()" class="flex-1 bg-indigo-600 text-white py-1 rounded text-[10px] font-semibold">📥 Paste</button>
+  </div>
+  <p class="text-[9px] text-sky-300 mt-1">Mic buttons اوپر استعمال کریں (Deployment Box / Events / Custom Pages) تاکہ آپ آواز سے بھی colors / text بدل سکیں، باقی سب live رہے گا۔</p>
+</div>
+</div>
+
+<!-- DYNAMIC FIELD BUILDER -->
+<div class="bg-white/10 rounded-xl p-4 border border-white/20 mt-4">
+<h3 class="font-bold text-yellow-300 mb-2">🧩 Dynamic Field Builder</h3>
+<div class="grid md:grid-cols-2 gap-2 mb-2">
+<div class="flex gap-1"><input id="dynFieldTitle" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white" placeholder="Title...">
+<button onclick="startVoice('dynFieldTitle','ur-PK')" class="bg-green-500 text-white px-2 rounded-lg text-xs">🎤</button></div>
+<div class="flex gap-1"><textarea id="dynFieldContent" rows="2" class="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-xs" placeholder="Content..."></textarea>
+<button onclick="startVoice('dynFieldContent','ur-PK')" class="bg-green-500 text-white px-2 rounded-lg text-xs">🎤</button></div></div>
+<div class="grid grid-cols-3 gap-2 mb-2">
+<div><label class="text-xs text-indigo-200">BG</label><input type="color" id="dynFieldBg" value="#1e40af" class="w-full h-8 rounded border-0"></div>
+<div><label class="text-xs text-indigo-200">Text</label><input type="color" id="dynFieldTextColor" value="#ffffff" class="w-full h-8 rounded border-0"></div>
+<div><label class="text-xs text-indigo-200">Size</label>
+<select id="dynFieldFontSize" class="w-full px-2 py-1 rounded bg-white/10 border border-white/20 text-white text-xs"><option value="text-lg">Normal</option><option value="text-xl">Large</option><option value="text-3xl">XL</option></select></div></div>
+<button onclick="addDynField()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 rounded-xl font-bold">➕ Add Section</button>
+<div id="dynFieldList" class="mt-3 max-h-32 overflow-y-auto space-y-2"></div></div>
+<button onclick="saveDeploySettings()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 rounded-xl font-bold text-lg mt-4">💾 SAVE ALL & DEPLOY LIVE 🚀</button>
+</div></div>
+
+<!-- 3. SUPER SMS + ANNOUNCEMENT -->
+<div class="bg-white rounded-2xl shadow-2xl mb-6 border-4 border-red-500 overflow-hidden admin-section">
+<div class="bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 text-white p-4"><h2 class="text-2xl font-bold">📩 Super SMS + 📢 Super Announcement</h2></div>
+<div class="p-6 space-y-4">
+<div class="bg-red-50 border-2 border-red-200 rounded-xl p-4">
+<h3 class="font-bold text-red-800 mb-3">📩 SMS Templates</h3>
+<div class="grid grid-cols-3 md:grid-cols-6 gap-2 mb-3">
+<button onclick="applySmsTemplate('fee')" class="bg-red-100 hover:bg-red-200 text-red-700 p-2 rounded-xl text-center text-xs font-bold border-2 border-red-300"><div class="text-xl">💰</div>Fee</button>
+<button onclick="applySmsTemplate('absent')" class="bg-orange-100 hover:bg-orange-200 text-orange-700 p-2 rounded-xl text-center text-xs font-bold border-2 border-orange-300"><div class="text-xl">🚫</div>Absent</button>
+<button onclick="applySmsTemplate('late')" class="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 p-2 rounded-xl text-center text-xs font-bold border-2 border-yellow-300"><div class="text-xl">⏰</div>Late</button>
+<button onclick="applySmsTemplate('congrats')" class="bg-green-100 hover:bg-green-200 text-green-700 p-2 rounded-xl text-center text-xs font-bold border-2 border-green-300"><div class="text-xl">🎉</div>Congrats</button>
+<button onclick="applySmsTemplate('exam')" class="bg-blue-100 hover:bg-blue-200 text-blue-700 p-2 rounded-xl text-center text-xs font-bold border-2 border-blue-300"><div class="text-xl">📝</div>Exam</button>
+<button onclick="applySmsTemplate('custom')" class="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-xl text-center text-xs font-bold border-2 border-gray-300"><div class="text-xl">✍️</div>Custom</button></div>
+<div class="mb-3"><label class="block text-xs font-bold mb-1">👤 Name/Group</label>
+<div class="flex gap-1"><input id="smsTargetName" class="flex-1 px-3 py-2 border-2 rounded-lg" placeholder="Ali, G1...">
+<button onclick="startVoice('smsTargetName','en-US')" class="bg-blue-500 text-white text-xs px-2 rounded-lg">🎤</button></div></div>
+<div class="mb-3"><label class="block text-xs font-bold mb-1">✉️ Message</label>
+<div class="flex gap-2"><textarea id="smsMessageText" rows="3" class="flex-1 px-3 py-2 border-2 rounded-xl text-sm" placeholder="Message..."></textarea>
+<div class="flex flex-col gap-1"><button onclick="startVoice('smsMessageText','en-US')" class="bg-blue-500 text-white text-xs px-3 py-1 rounded-lg">🎤EN</button><button onclick="startVoice('smsMessageText','ur-PK')" class="bg-green-500 text-white text-xs px-3 py-1 rounded-lg">🎤UR</button></div></div></div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+<button onclick="sendSmsWhatsApp()" class="bg-green-500 text-white py-2 rounded-xl font-bold text-sm">📱 WhatsApp</button>
+<button onclick="sendSmsEmail()" class="bg-blue-500 text-white py-2 rounded-xl font-bold text-sm">📧 Email</button>
+<button onclick="copySmsText()" class="bg-gray-200 text-gray-800 py-2 rounded-xl font-bold text-sm">📋 Copy</button>
+<button onclick="smsToAnnouncement()" class="bg-red-500 text-white py-2 rounded-xl font-bold text-sm">📢 Announce</button></div></div>
+<div class="bg-orange-50 border-2 border-orange-300 rounded-xl p-4">
+<h3 class="font-bold text-orange-800 mb-3">📢 Super Announcement — Auto-Speak! 🔊</h3>
+<div class="mb-3"><label class="block text-xs font-bold mb-1">📢 Text</label>
+<div class="flex gap-2"><textarea id="superAnnounceInput" rows="3" class="flex-1 px-3 py-2 border-2 rounded-xl text-sm" placeholder="Announcement..."></textarea>
+<div class="flex flex-col gap-1"><button onclick="startVoice('superAnnounceInput','en-US')" class="bg-blue-500 text-white text-xs px-3 py-1 rounded-lg">🎤EN</button><button onclick="startVoice('superAnnounceInput','ur-PK')" class="bg-green-500 text-white text-xs px-3 py-1 rounded-lg">🎤UR</button></div></div></div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+<div><label class="block text-xs font-bold mb-1">🔊 Auto-Speak</label><select id="superAnnounceSpeakInterval" class="w-full px-2 py-2 border-2 rounded-lg text-xs"><option value="0">Off</option><option value="1">1 min</option><option value="2">2 min</option><option value="5">5 min</option><option value="10">10 min</option><option value="30">30 min</option><option value="60">1 hr</option></select></div>
+<div><label class="block text-xs font-bold mb-1">⏱️ Duration</label><select id="superAnnounceDuration" class="w-full px-2 py-2 border-2 rounded-lg text-xs"><option value="0">♾️ Always</option><option value="10">10 min</option><option value="30">30 min</option><option value="60">1 hr</option></select></div>
+<div><label class="block text-xs font-bold mb-1">🗣️ Voice</label><select id="superAnnounceVoiceLang" class="w-full px-2 py-2 border-2 rounded-lg text-xs"><option value="ur-PK">🇵🇰 Urdu</option><option value="en-US">🇬🇧 EN</option><option value="hi-IN">🇮🇳 HI</option></select></div>
+<div class="flex items-end"><button onclick="saveSuperAnnouncement()" class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-2 rounded-xl font-bold text-sm">📢🔊 ACTIVATE!</button></div></div>
+<button onclick="stopSuperAnnouncement()" class="w-full bg-gray-600 text-white py-2 rounded-xl font-bold">⏹️ Stop</button></div></div></div>
+
+<!-- 4. DASHBOARD -->
+<div class="bg-white rounded-2xl shadow-2xl mb-6 border-4 border-purple-500 overflow-hidden admin-section">
+<div class="bg-gradient-to-r from-purple-700 to-indigo-700 text-white p-4"><h2 class="text-2xl font-bold">🎓 Academy Dashboard</h2></div>
+<div class="p-6">
+<div class="grid md:grid-cols-3 gap-4 mb-6">
+<div onclick="openDiplomaGenerator()" class="bg-gradient-to-br from-yellow-400 to-orange-500 p-6 rounded-2xl text-white cursor-pointer hover:scale-105 transition-all shadow-lg"><div class="text-5xl mb-3">🏆</div><h3 class="text-xl font-bold">Diploma Generator</h3></div>
+<div onclick="openIdCardGenerator()" class="bg-gradient-to-br from-blue-400 to-blue-600 p-6 rounded-2xl text-white cursor-pointer hover:scale-105 transition-all shadow-lg"><div class="text-5xl mb-3">🪪</div><h3 class="text-xl font-bold">ID Card Maker</h3></div>
+<div class="bg-gradient-to-br from-green-400 to-green-600 p-6 rounded-2xl text-white shadow-lg"><div class="text-5xl mb-3">💰</div><h3 class="text-xl font-bold">Fee Manager</h3><p class="text-sm" id="feeStats">-</p></div></div>
+<div class="bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
+<div class="flex justify-between items-center mb-4 flex-wrap gap-2"><h3 class="text-xl font-bold">👥 Students</h3>
+<div class="flex gap-2"><input id="studentSearch" placeholder="🔍" class="px-3 py-2 border rounded-lg w-32" onkeyup="filterStudents()">
+<button onclick="exportStudents()" class="bg-green-500 text-white px-4 py-2 rounded-lg font-bold">📤</button></div></div>
+<div class="overflow-x-auto max-h-64 overflow-y-auto">
+<table class="w-full text-left"><thead class="bg-gray-200 sticky top-0"><tr><th class="p-3">Student</th><th class="p-3">Course</th><th class="p-3">Fee</th><th class="p-3">Actions</th></tr></thead>
+<tbody id="studentTableBody"><tr><td colspan="4" class="p-8 text-center text-gray-500">No students</td></tr></tbody></table></div></div></div></div>
+
+<!-- 5. CAPTURE & PROMO STUDIO -->
+<div class="bg-white rounded-2xl shadow-2xl mb-6 border-4 border-cyan-500 overflow-hidden admin-section">
+  <div class="bg-gradient-to-r from-cyan-600 to-sky-600 text-white p-4">
+    <h2 class="text-2xl font-bold">📸 Capture & Reel Studio</h2>
+    <p class="text-xs text-cyan-100">Website se direct JPG aur screen recording bana kar Facebook/Instagram reels ke liye use karein.</p>
+  </div>
+  <div class="p-4 space-y-3 text-sm">
+    <div class="bg-cyan-50 border border-cyan-200 rounded-xl p-3">
+      <h3 class="font-bold text-cyan-800 mb-2">🖼️ Section to JPG</h3>
+      <div class="grid md:grid-cols-2 gap-2 items-center">
+        <select id="captureTarget" class="px-2 py-2 border-2 rounded-lg text-xs w-full">
+          <option value="full">🌐 Full Page</option>
+          <option value="header">🏫 Header</option>
+          <option value="ramadan">🌙 Ramadan Calendar</option>
+          <option value="video">📺 Video Section</option>
+          <option value="registration">📝 Registration Box</option>
+          <option value="courses">📚 Courses + Contact</option>
+          <option value="custom">#️⃣ Custom Selector</option>
+        </select>
+        <button onclick="captureTargetAsImage()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white py-2 rounded-lg font-bold text-xs">📸 Capture JPG (60KB)</button>
+      </div>
+      <p class="mt-1 text-[11px] text-cyan-700">Image download hone ke baad aap usay Facebook/Instagram post ya reel cover ke taur par upload kar sakte hain.</p>
+    </div>
+    <div class="bg-sky-50 border border-sky-200 rounded-xl p-3">
+      <h3 class="font-bold text-sky-800 mb-2">🎬 Screen Recording (for Reels)</h3>
+      <p class="text-[11px] text-sky-700 mb-2">Browser aap se poochay ga kis window/tab ko record karna hai. Apni website ka tab select karein.</p>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="startScreenRecording()" class="bg-sky-600 hover:bg-sky-500 text-white py-2 rounded-lg font-bold text-xs">🎬 Start Recording</button>
+        <button onclick="stopScreenRecording()" class="bg-gray-800 text-white py-2 rounded-lg font-bold text-xs">⏹ Stop & Download</button>
+      </div>
+      <p class="mt-1 text-[11px] text-sky-700">Video .webm format me download hogi; aap isay editor me open kar ke reel/post bana sakte hain.</p>
+    </div>
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
+      <h3 class="font-bold text-gray-800 mb-2">📋 Promo Caption (Website + WhatsApp)</h3>
+      <textarea id="promoCaption" rows="3" class="w-full px-3 py-2 border-2 rounded-lg text-xs">Visit our website: YOUR_WEBSITE_URL_HERE
+WhatsApp: https://wa.me/923027822058
+🎓 AL-Mehria Computer Academy — Makhdoompur Pahoran</textarea>
+      <button onclick="copyPromoCaption()" class="mt-2 w-full bg-gray-800 text-white py-2 rounded-lg font-bold text-xs">📋 Copy Caption for Post</button>
+    </div>
+  </div>
+</div>
+
+<!-- 5. VIDEO + LIVE + BROADCAST + MARQUEES + PAYMENT + PASSWORD -->
+<div class="grid lg:grid-cols-2 gap-6 mb-6">
+<div class="bg-white rounded-xl p-6 shadow-lg border-4 border-blue-500 admin-section">
+<h2 class="text-xl font-bold mb-2">📺 Video + 🔴 Live Class</h2>
+<div class="space-y-3 text-sm">
+<div class="flex items-center justify-between"><span class="font-bold">📺 Video On/Off</span>
+<label class="relative inline-flex cursor-pointer"><input type="checkbox" id="videoToggle" checked class="sr-only peer" onchange="toggleVideo()"><div class="w-14 h-8 bg-gray-300 rounded-full peer-checked:bg-green-500"></div><div class="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform peer-checked:translate-x-6"></div></label></div>
+<div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-3">
+<h3 class="font-bold text-blue-700 mb-2">📺 Video URL</h3>
+<div class="flex gap-1 mb-2"><input id="videoUrlInput" placeholder="YouTube URL..." class="flex-1 px-3 py-2 border-2 rounded-lg"></div>
+<button onclick="saveVideoSettings()" class="w-full bg-blue-600 text-white py-2 rounded-lg font-bold">💾 Save</button></div>
+<div class="bg-red-50 border-2 border-red-400 rounded-xl p-3">
+<h3 class="font-bold text-red-700 mb-2">🔴 Live Class — One Click!</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+<button onclick="quickLive('meet')" class="bg-green-500 text-white py-2 rounded-xl font-bold text-xs">📹 Meet</button>
+<button onclick="quickLive('zoom')" class="bg-blue-500 text-white py-2 rounded-xl font-bold text-xs">🔵 Zoom</button>
+<button onclick="quickLive('youtube')" class="bg-red-500 text-white py-2 rounded-xl font-bold text-xs">▶️ YT Live</button>
+<button onclick="quickLive('custom')" class="bg-purple-500 text-white py-2 rounded-xl font-bold text-xs">🔗 Custom</button></div>
+<input id="liveClassUrl" placeholder="URL paste..." class="w-full px-3 py-2 border-2 border-red-300 rounded-lg text-sm mb-2">
+<input id="liveClassTitleInput" placeholder="Class Title..." class="w-full px-3 py-2 border-2 border-red-300 rounded-lg mb-2 text-sm">
+<div class="grid grid-cols-2 gap-2">
+<button onclick="startLiveClass()" class="bg-red-600 text-white py-3 rounded-xl font-bold">🔴 GO LIVE</button>
+<button onclick="stopLiveClass()" class="bg-gray-700 text-white py-3 rounded-xl font-bold">⏹️ Stop</button></div>
+<div id="liveClassStatus" class="hidden mt-2 bg-red-600 text-white text-center py-2 rounded-lg font-bold text-sm animate-pulse-custom">🔴 LIVE NOW!</div>
+</div></div></div>
+<div class="space-y-6">
+<div class="bg-white rounded-xl p-6 shadow-lg border-4 border-red-500 admin-section">
+<h2 class="text-xl font-bold mb-2">🔴 Broadcast</h2>
+<div class="space-y-3"><input id="broadcastGroupsInput" placeholder="ALL, G1, G2" class="w-full px-3 py-2 border-2 rounded-lg text-xs">
+<div class="flex gap-1"><input id="broadcastInput" placeholder="Message..." class="flex-1 px-4 py-3 border-2 rounded-lg">
+<button onclick="startVoice('broadcastInput','ur-PK')" class="bg-green-500 text-white px-3 rounded-lg">🎤</button></div>
+<div class="flex gap-2"><button onclick="sendBroadcast()" class="flex-1 bg-red-600 text-white py-3 rounded-lg font-bold">🔴 SEND</button>
+<button onclick="stopBroadcast()" class="bg-gray-600 text-white px-6 py-3 rounded-lg font-bold">⏹️</button></div></div></div>
+<div class="bg-white rounded-xl p-6 shadow-lg border-4 border-yellow-500 admin-section">
+<h2 class="text-xl font-bold mb-2">📢 Marquees</h2>
+<div class="space-y-3 text-sm">
+<div class="flex gap-1"><input id="topPromoText1Input" class="flex-1 px-2 py-1 border rounded" placeholder="Line 1..."></div>
+<div class="flex gap-1"><input id="topPromoText2Input" class="flex-1 px-2 py-1 border rounded" placeholder="Line 2..."></div>
+<button onclick="savePromotionSettings()" class="w-full bg-yellow-500 text-white py-2 rounded-lg font-bold">💾 Save</button>
+<div class="flex gap-1"><input id="newMarqueeText" placeholder="Custom..." class="flex-1 px-2 py-2 border rounded-lg">
+<button onclick="startVoice('newMarqueeText','ur-PK')" class="bg-green-500 text-white px-2 rounded-lg">🎤</button></div>
+<select id="marqueeBg" class="w-full px-2 py-2 border rounded-lg text-xs"><option value="bg-blue-600">🔵</option><option value="bg-green-600">🟢</option><option value="bg-red-600">🔴</option><option value="rainbow-bg">🌈</option></select>
+<select id="marqueeSpeed" class="w-full px-2 py-2 border rounded-lg text-xs"><option value="30">Slow</option><option value="20" selected>Normal</option><option value="10">Fast</option></select>
+<button onclick="addMarquee()" class="w-full bg-orange-500 text-white py-2 rounded-lg font-bold">➕ Add</button>
+<div id="marqueeList" class="max-h-32 overflow-y-auto space-y-2"></div></div></div></div></div>
+<div class="grid lg:grid-cols-2 gap-6 mb-6">
+<div class="bg-white rounded-xl p-6 shadow-lg border-4 border-green-500 admin-section">
+<h2 class="text-xl font-bold mb-2">💳 Payment + 🔐 Password</h2>
+<div class="space-y-2 text-sm">
+<input id="jazzCashNameInput" value="Kashif Ismail" class="w-full px-3 py-2 border-2 rounded-lg" placeholder="JazzCash Name">
+<input id="jazzCashNumber" value="03027822058" class="w-full px-3 py-2 border-2 rounded-lg" placeholder="JazzCash #">
+<input id="easypaisaNameInput" value="Kashif Ismail" class="w-full px-3 py-2 border-2 rounded-lg" placeholder="Easypaisa Name">
+<input id="easypaisaNumber" value="03027822058" class="w-full px-3 py-2 border-2 rounded-lg" placeholder="Easypaisa #">
+<button onclick="savePaymentNumbers()" class="w-full bg-green-600 text-white py-2 rounded-lg font-bold">💾 Save Payment</button>
+<div class="border-t pt-3 mt-3"><input type="password" id="currentPassword" placeholder="Current Password" class="w-full px-3 py-2 border-2 rounded-lg mb-2">
+<input type="password" id="newPassword" placeholder="New Password" class="w-full px-3 py-2 border-2 rounded-lg mb-2">
+<button onclick="changePassword()" class="w-full bg-gray-800 text-white py-2 rounded-lg font-bold">🔑 Change</button></div></div></div>
+<div class="bg-white rounded-xl p-6 shadow-lg border-4 border-indigo-500 admin-section">
+<h2 class="text-xl font-bold mb-4 text-center">📘 مکمل گائیڈز (اردو)</h2>
+<div class="grid grid-cols-3 gap-2 mb-4">
+<button onclick="showGuide('readme')" id="guideTabReadme" class="guide-tab bg-indigo-500 text-white py-2 rounded-xl font-bold text-xs">📖 Admin Guide</button>
+<button onclick="showGuide('firebase')" id="guideTabFirebase" class="guide-tab bg-orange-500 text-white py-2 rounded-xl font-bold text-xs">🔥 Firebase Guide</button>
+<button onclick="showGuide('github')" id="guideTabGithub" class="guide-tab bg-gray-800 text-white py-2 rounded-xl font-bold text-xs">🐙 GitHub Pages</button></div>
+<div id="guideContent" class="guide-section bg-gray-50 rounded-xl p-4 border-2 border-gray-200 text-sm leading-loose"></div>
+</div>
+</div>
+
+</div></div>
+
+<!-- DIPLOMA MODAL -->
+<div id="diplomaModal" class="modal fixed inset-0 bg-black/90 z-[150] hidden overflow-y-auto">
+<div class="container mx-auto px-4 py-8"><div class="bg-white rounded-2xl shadow-2xl max-w-6xl mx-auto max-h-[90vh] flex flex-col overflow-hidden">
+<div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-4 flex justify-between items-center">
+<h2 class="text-2xl font-bold">🏆 Diploma Generator</h2>
+<button onclick="closeDiplomaGenerator()" class="bg-white/20 px-4 py-2 rounded-lg font-bold">✕</button></div>
+<div class="grid lg:grid-cols-2 gap-6 p-6 overflow-y-auto flex-1">
+<div class="space-y-3">
+<div><label class="text-sm font-bold">Student Name *</label><div class="flex gap-1"><input id="dipStudentName" placeholder="Name..." class="flex-1 px-3 py-2 border-2 rounded-lg" oninput="updateDiplomaPreview()"><button onclick="startVoice('dipStudentName','en-US')" class="bg-blue-500 text-white px-2 rounded-lg">🎤</button><button onclick="startVoice('dipStudentName','ur-PK')" class="bg-green-500 text-white px-2 rounded-lg">🎤</button></div></div>
+<div><label class="text-sm font-bold">Father</label><input id="dipFatherName" placeholder="Father..." class="w-full px-3 py-2 border-2 rounded-lg" oninput="updateDiplomaPreview()"></div>
+<div class="grid grid-cols-2 gap-2"><div><label class="text-sm font-bold">Course</label><select id="dipCourse" class="w-full px-3 py-2 border-2 rounded-lg" onchange="updateDiplomaPreview()"><option>MS Office</option><option>Web Development</option><option>Graphic Design</option><option>Python Programming</option><option>Computer Hardware</option></select></div><div><label class="text-sm font-bold">Duration</label><input id="dipDuration" value="3 Months" class="w-full px-3 py-2 border-2 rounded-lg" oninput="updateDiplomaPreview()"></div></div>
+<div class="grid grid-cols-2 gap-2"><div><label class="text-sm font-bold">Grade</label><select id="dipGrade" class="w-full px-3 py-2 border-2 rounded-lg" onchange="updateDiplomaPreview()"><option value="A+">A+</option><option value="A">A</option><option value="B+">B+</option><option value="B">B</option><option value="C">C</option></select></div><div><label class="text-sm font-bold">Reg No</label><input id="dipRegNo" value="ALM-2024-001" class="w-full px-3 py-2 border-2 rounded-lg" oninput="updateDiplomaPreview()"></div></div>
+<div><label class="text-sm font-bold">Date</label><input type="date" id="dipDate" class="w-full px-3 py-2 border-2 rounded-lg" onchange="updateDiplomaPreview()"></div>
+<div><label class="text-sm font-bold">Text Color</label><input type="color" id="dipTextColor" value="#1e3a8a" class="w-full h-10 border-2 rounded-lg" onchange="updateDiplomaPreview()"></div>
+<div class="grid grid-cols-3 gap-2">
+<button onclick="setDiplomaTemplate('gold')" class="bg-yellow-400 p-2 rounded-lg font-bold text-sm border-4 border-yellow-600">🥇Gold</button>
+<button onclick="setDiplomaTemplate('blue')" class="bg-blue-400 p-2 rounded-lg font-bold text-white text-sm border-4 border-blue-600">🔵Blue</button>
+<button onclick="setDiplomaTemplate('green')" class="bg-green-400 p-2 rounded-lg font-bold text-white text-sm border-4 border-green-600">🟢Green</button>
+<button onclick="setDiplomaTemplate('red')" class="bg-red-400 p-2 rounded-lg font-bold text-white text-sm border-4 border-red-600">🔴Red</button>
+<button onclick="setDiplomaTemplate('purple')" class="bg-purple-400 p-2 rounded-lg font-bold text-white text-sm border-4 border-purple-600">🟣Purple</button>
+<button onclick="setDiplomaTemplate('urdu')" class="bg-emerald-400 p-2 rounded-lg font-bold text-sm border-4 border-emerald-600 urdu-text">اردو</button></div>
+<button onclick="downloadDiploma()" class="w-full bg-green-500 text-white py-4 rounded-xl font-bold text-xl mt-4">⬇️ Download JPG</button></div>
+<div class="bg-gray-100 rounded-xl p-4">
+<h3 class="text-lg font-bold text-center mb-3">👁️ Preview</h3>
+<div id="diplomaPreview" class="diploma-template diploma-gold text-center">
+<div class="text-4xl mb-2">🎓</div><h1 class="text-3xl font-bold text-gray-800 mb-1">CERTIFICATE</h1><p class="text-lg text-gray-600 mb-3 tracking-widest">OF ACHIEVEMENT</p><p class="text-gray-600 mb-2">This is to certify that</p><h2 id="prevName" class="text-2xl font-bold text-blue-800 border-b-2 border-blue-800 inline-block px-8 py-2 mb-2">Student Name</h2><p class="text-gray-600 mb-1">S/O <span id="prevFather">Father Name</span></p><p class="text-gray-600 mt-3">has successfully completed</p><h3 id="prevCourse" class="text-xl font-bold text-green-800 mt-2">Course</h3><p class="text-gray-600">Duration: <span id="prevDuration">3 Months</span> | Grade: <span id="prevGrade" class="font-bold text-orange-600">A+</span></p>
+<div class="mt-4 pt-3 border-t border-gray-300"><div class="grid grid-cols-2 gap-4 text-sm"><div><p class="text-gray-500 text-xs">Reg No:</p><p id="prevRegNo" class="font-bold text-sm">ALM-2024-001</p></div><div><p class="text-gray-500 text-xs">Date:</p><p id="prevDate" class="font-bold text-sm">DD-MM-YYYY</p></div></div></div>
+<div class="mt-4 flex justify-between items-end"><div class="text-center"><div class="border-t-2 border-gray-400 w-28 mx-auto mb-1"></div><p class="text-xs font-bold">Instructor</p></div><div class="text-center"><div class="text-3xl">🏛️</div><p class="text-[10px] font-bold">AL-Mehria Academy</p></div><div class="text-center"><div class="border-t-2 border-gray-400 w-28 mx-auto mb-1"></div><p class="text-xs font-bold">Principal</p></div></div>
+</div></div></div></div></div></div>
+
+<!-- ID CARD MODAL -->
+<div id="idCardModal" class="modal fixed inset-0 bg-black/90 z-[150] hidden overflow-y-auto">
+<div class="container mx-auto px-4 py-8"><div class="bg-white rounded-2xl shadow-2xl max-w-4xl mx-auto max-h-[90vh] flex flex-col overflow-hidden">
+<div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-4 flex justify-between items-center">
+<h2 class="text-2xl font-bold">🪪 ID Card</h2>
+<button onclick="closeIdCardGenerator()" class="bg-white/20 px-4 py-2 rounded-lg font-bold">✕</button></div>
+<div class="grid md:grid-cols-2 gap-6 p-6 overflow-y-auto flex-1">
+<div class="space-y-3">
+<div onclick="document.getElementById('idCardPhoto').click()" class="w-32 h-32 mx-auto bg-blue-100 rounded-2xl flex items-center justify-center cursor-pointer border-4 border-dashed border-blue-400 overflow-hidden"><img id="idCardPhotoPreview" class="hidden w-full h-full object-cover"><span id="idCardPhotoIcon" class="text-5xl">📷</span></div>
+<input type="file" id="idCardPhoto" accept="image/*" onchange="previewIdCardPhoto(this)" class="hidden">
+<input id="idCardName" placeholder="Name" class="w-full px-4 py-2 border-2 rounded-lg" oninput="updateIdCardPreview()">
+<input id="idCardFather" placeholder="Father" class="w-full px-4 py-2 border-2 rounded-lg" oninput="updateIdCardPreview()">
+<select id="idCardCourse" class="w-full px-4 py-2 border-2 rounded-lg" onchange="updateIdCardPreview()"><option>MS Office</option><option>Web Development</option><option>Graphic Design</option></select>
+<input id="idCardRegNo" placeholder="Reg No" class="w-full px-4 py-2 border-2 rounded-lg" oninput="updateIdCardPreview()">
+<input id="idCardPhone" placeholder="Phone" class="w-full px-4 py-2 border-2 rounded-lg" oninput="updateIdCardPreview()">
+<button onclick="downloadIdCard()" class="w-full bg-blue-500 text-white py-3 rounded-lg font-bold text-lg">⬇️ Download</button></div>
+<div class="bg-gray-100 rounded-xl p-4">
+<h3 class="text-lg font-bold text-center mb-3">Preview</h3>
+<div id="idCardPreview" class="idcard-front mx-auto shadow-2xl">
+<div class="text-center border-b border-white/20 pb-3 mb-3"><div class="flex items-center justify-center gap-2 mb-1"><span class="text-2xl">🎓</span><span class="font-bold text-lg">AL-Mehria Computer Academy</span></div><p class="text-[10px] text-blue-200 tracking-wider">MAKHDOOMPUR PAHORAN</p></div>
+<div class="flex gap-4 items-start"><div id="idPhotoBox" class="w-24 h-28 bg-white/10 rounded-xl flex items-center justify-center text-4xl text-white/40 border-2 border-white/20 flex-shrink-0 overflow-hidden">👤</div>
+<div class="flex-1 space-y-1.5"><div><p class="text-[10px] text-blue-300">NAME</p><p class="font-bold text-base" id="idPrevName">Name</p></div><div><p class="text-[10px] text-blue-300">FATHER</p><p class="text-sm" id="idPrevFather">Father</p></div><div class="flex gap-3"><div><p class="text-[10px] text-blue-300">COURSE</p><p class="text-xs font-semibold" id="idPrevCourse">MS Office</p></div><div><p class="text-[10px] text-blue-300">REG#</p><p class="text-xs" id="idPrevReg">ALM-001</p></div></div></div></div>
+<div class="mt-3 pt-2 border-t border-white/20 text-center text-[10px]">📞 <span id="idPrevPhone">03027822058</span></div>
+<div class="mt-2 text-center"><div class="w-full h-6 bg-gradient-to-r from-green-500 via-white to-green-500 rounded-full flex items-center justify-center"><span class="text-[9px] font-bold text-gray-800 tracking-widest">STUDENT IDENTITY CARD</span></div></div>
+</div></div></div></div></div></div>
+
+<!-- CARD GENERATOR MODAL -->
+<div id="cardGenModal" class="modal fixed inset-0 bg-black/90 z-[160] hidden overflow-y-auto">
+<div class="container mx-auto px-4 py-6"><div class="bg-white rounded-2xl shadow-2xl max-w-5xl mx-auto max-h-[95vh] flex flex-col overflow-hidden">
+<div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 text-white p-4 flex justify-between items-center flex-shrink-0">
+<h2 class="text-xl font-bold">🎨 Card & Poster Generator</h2>
+<button onclick="closeCardGen()" class="bg-white/20 px-4 py-2 rounded-lg font-bold hover:bg-white/30">✕ Close</button></div>
+<div class="grid md:grid-cols-2 gap-4 p-5 overflow-y-auto flex-1">
+<div class="space-y-3">
+<div><label class="text-xs font-bold text-gray-600 mb-1 block">🏷️ Title / عنوان</label><div class="flex gap-1"><input id="cgTitle" class="flex-1 px-3 py-2 border-2 rounded-lg text-sm" placeholder="رمضان مبارک / Happy Birthday..."><button onclick="startVoice('cgTitle','en-US')" class="bg-blue-500 text-white px-2 rounded-lg text-xs">🎤EN</button><button onclick="startVoice('cgTitle','ur-PK')" class="bg-green-500 text-white px-2 rounded-lg text-xs">🎤UR</button></div></div>
+<div><label class="text-xs font-bold text-gray-600 mb-1 block">📝 Message Line 1</label><div class="flex gap-1"><input id="cgMsg1" class="flex-1 px-3 py-2 border-2 rounded-lg text-sm" placeholder="پہلی لائن..."><button onclick="startVoice('cgMsg1','ur-PK')" class="bg-green-500 text-white px-2 rounded-lg text-xs">🎤</button></div></div>
+<div><label class="text-xs font-bold text-gray-600 mb-1 block">📝 Message Line 2</label><div class="flex gap-1"><input id="cgMsg2" class="flex-1 px-3 py-2 border-2 rounded-lg text-sm" placeholder="دوسری لائن..."><button onclick="startVoice('cgMsg2','ur-PK')" class="bg-green-500 text-white px-2 rounded-lg text-xs">🎤</button></div></div>
+<div class="grid grid-cols-2 gap-2"><div><label class="text-xs font-bold text-gray-600 mb-1 block">👤 From</label><input id="cgFrom" class="w-full px-3 py-2 border-2 rounded-lg text-sm" placeholder="Kashif Ismail"></div><div><label class="text-xs font-bold text-gray-600 mb-1 block">📞 Contact</label><input id="cgContact" class="w-full px-3 py-2 border-2 rounded-lg text-sm" placeholder="03027822058"></div></div>
+<div><label class="text-xs font-bold text-gray-600 mb-1 block">📍 Address</label><input id="cgAddress" class="w-full px-3 py-2 border-2 rounded-lg text-sm" placeholder="Makhdoompur Pahoran"></div>
+<div><label class="text-xs font-bold text-gray-600 mb-1 block">🎨 Theme</label><select id="cgTheme" class="w-full px-3 py-2 border-2 rounded-lg text-sm" onchange="generateCardPreview()"><option value="emerald">🟢 Emerald</option><option value="blue">🔵 Blue</option><option value="purple">🟣 Purple</option><option value="rose">🌹 Rose</option><option value="amber">🟡 Amber</option><option value="gold">🥇 Gold</option><option value="indigo">💙 Indigo</option><option value="teal">🩵 Teal</option><option value="red">🔴 Red</option><option value="slate">⚫ Slate</option></select></div>
+<div class="flex items-center gap-2"><input type="checkbox" id="cgRamadanCal" class="w-4 h-4"><label class="text-xs font-bold text-gray-600">📅 رمضان کیلنڈر شامل کریں</label></div>
+<button onclick="generateCardPreview()" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 rounded-xl font-bold text-lg">👁️ Generate Preview</button>
+<div class="grid grid-cols-3 gap-2"><button onclick="downloadCard()" class="bg-purple-500 text-white py-2 rounded-xl font-bold text-sm">🖼️ Download</button><button onclick="shareCardWhatsApp()" class="bg-green-500 text-white py-2 rounded-xl font-bold text-sm">📱 WhatsApp</button><button onclick="copyCardText()" class="bg-gray-200 text-gray-800 py-2 rounded-xl font-bold text-sm">📋 Copy</button></div>
+</div>
+<div class="bg-gray-100 rounded-xl p-3">
+<h3 class="text-sm font-bold text-center mb-2 text-gray-600">👁️ Preview</h3>
+<div id="cardPreviewArea" class="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-emerald-700 via-teal-800 to-emerald-900 text-white min-h-[400px]">
+<div class="p-6 text-center" dir="rtl" style="font-family:'Noto Nastaliq Urdu',serif"><div class="text-6xl mb-3">🌙</div><h2 class="text-3xl font-bold mb-2" id="cgPrevTitle">رمضان مبارک</h2><div class="bg-white/10 rounded-2xl p-4 mb-3"><p class="text-lg mb-1" id="cgPrevMsg1">پہلی لائن</p><p class="text-base opacity-80" id="cgPrevMsg2">دوسری لائن</p></div><div id="cgPrevCalendar" class="hidden text-left text-xs bg-white/10 rounded-xl p-3 mb-3 max-h-48 overflow-y-auto"></div><div class="mt-3 bg-white/10 rounded-xl p-3"><p class="font-bold text-lg" id="cgPrevFrom">Kashif Ismail</p><p class="text-sm opacity-80" id="cgPrevContact">📞 03027822058</p><p class="text-xs opacity-60" id="cgPrevAddress">📍 Makhdoompur Pahoran</p></div></div>
+<div class="bg-black/30 py-2 px-4 text-center"><p class="text-xs opacity-60 text-white">🎓 Powered by AL-Mehria Computer Academy</p></div>
+</div>
+</div>
+</div>
+</div></div></div>
+
+<script type="module" src="/src/main.tsx"></script>
+<script>
+var currentLang="en",adminPassword=localStorage.getItem("adminPassword")||"7890",fontIndex=0,fontInterval=null,firebaseDB=null,fbConnected=false;
+var superSpeakTimer=null,globalSpeakTimer=null;
+var fontsEN=["font-poppins","font-roboto","font-opensans","font-montserrat","font-cairo","font-tajawal","font-playfair","font-merriweather","font-raleway","font-oswald","font-nunito","font-quicksand"];
+var fontsUR=["font-nastaliq","font-amiri","font-scheherazade","font-lateef","font-cairo","font-tajawal","font-almarai","font-changa","font-elmessiri","font-reem","font-nastaliq","font-amiri"];
+var data={marquees:[],videoUrl:"https://www.youtube.com/embed/ScMzIvxBSi4",videoEnabled:true,broadcast:"",broadcastGroups:"ALL",students:[],jazzCash:"03027822058",easypaisa:"03027822058",jazzCashName:"Kashif Ismail",easypaisaName:"Kashif Ismail",topPromo:{text1:"🎓 AL-Mehria Computer Academy | المہریہ کمپیوٹر اکیڈمی | 📞 03027822058",text2:"🎓 Admissions Open | داخلے جاری ہیں"},liveClass:{active:false,url:"",title:""},superAnnounce:{text:"",position:"top",enabled:false,speakInterval:0,duration:0,voiceLang:"ur-PK",createdAt:null},globalSpeak:{text:"",lang:"ur-PK",repeat:0,active:false},style:{headerColor:"",bodyBg:"",footerBg:"",academyName:"AL-Mehria Computer Academy",tagline:"Learn Technology, Build Future",phone:"03027822058",instructor:"Kashif Ismail",address:"Makhdoompur Pahoran"},dynamicSections:[],customPages:[],events:[],customerFeeds:[],layout:{showHeader:true,showRamadan:true,showVideo:true,showRegistration:true,showCourses:true,showFooter:true},themes:{},ramadanVisible:false,firebase:{apiKey:"",dbUrl:"",projectId:""}};
+var guides={readme:"<h2 class='text-xl font-bold text-indigo-800 mb-3'>📘 Admin Control Center — مکمل اردو گائیڈ</h2><p class='mb-2'><b>🔐 Password:</b> 7890</p><hr class='my-3'><h3 class='font-bold text-lg text-red-700 mt-3'>⭐ نیا! 🎉 Events & Occasions Manager</h3><p>Deployment Control Box کے اندر — رمضان، عید، شبِ برات، میلہ، یومِ آزادی — 12 ready templates!</p><hr class='my-3'><h3 class='font-bold text-lg text-purple-700 mt-3'>1. 🔥 Firebase Setup</h3><p>Firebase Console سے API Key, DB URL, Project ID لیں → Admin Panel → 🔥 Firebase → Connect & Save</p><h3 class='font-bold text-lg text-purple-700 mt-3'>2. 🚀 Deployment Control Box</h3><p>Academy Name, Tagline, Phone, Instructor, Address, Colors — سب یہاں سے بدلیں</p><h3 class='font-bold text-lg text-purple-700 mt-3'>3. 📩 Super SMS Generator</h3><p>6 Templates: 💰Fee | 🚫Absent | ⏰Late | 🎉Congrats | 📝Exam | ✍️Custom</p><h3 class='font-bold text-lg text-purple-700 mt-3'>4. 📢 Super Announcement</h3><p>Text لکھیں/بولیں → Auto-Speak → 📢🔊 ACTIVATE</p><h3 class='font-bold text-lg text-purple-700 mt-3'>5. 🎓 Dashboard</h3><p>🏆 Diploma Generator | 🪪 ID Card | 💰 Fee Manager | 👥 Students</p><h3 class='font-bold text-lg text-purple-700 mt-3'>6. 📺 Video + 🔴 Live Class</h3><p>Quick Buttons → 🔴 GO LIVE</p>",firebase:"<h2 class='text-xl font-bold text-orange-800 mb-3'>🔥 Firebase Setup — قدم بہ قدم</h2><h3 class='font-bold text-orange-700 mt-3'>Step 1:</h3><p>console.firebase.google.com → Create project</p><h3 class='font-bold text-orange-700 mt-3'>Step 2:</h3><p>Build → Realtime Database → Create → test mode</p><h3 class='font-bold text-orange-700 mt-3'>Step 3:</h3><p>⚙️ Settings → Project Settings → Web app → apiKey, databaseURL, projectId</p><h3 class='font-bold text-orange-700 mt-3'>Step 4:</h3><p>Admin Panel → 🔥 Firebase → Paste → 🔥 Connect & Save</p>",github:"<h2 class='text-xl font-bold text-gray-800 mb-3'>🐙 GitHub Pages — Deploy</h2><h3 class='font-bold text-gray-700 mt-3'>Step 1:</h3><p>github.com → New repository</p><h3 class='font-bold text-gray-700 mt-3'>Step 2:</h3><p>Upload index.html → Commit</p><h3 class='font-bold text-gray-700 mt-3'>Step 3:</h3><p>Settings → Pages → Deploy from branch → main</p><p class='bg-green-100 p-2 rounded font-bold mt-2'>https://yourname.github.io/academy/</p>"};
+function showGuide(tab){document.getElementById("guideContent").innerHTML=guides[tab]||""}
+function saveData(){localStorage.setItem("academyData",JSON.stringify(data));if(fbConnected&&firebaseDB){try{firebaseDB.ref("academyData").set(data)}catch(e){}}}
+function applyFontClass(cls){var b=document.body;b.classList.forEach(function(c){if(c.startsWith("font-"))b.classList.remove(c)});b.classList.add(cls)}
+function startFontRotation(){var fonts=currentLang==="ur"?fontsUR:fontsEN;fontIndex=0;applyFontClass(fonts[fontIndex]);if(fontInterval)clearInterval(fontInterval);fontInterval=setInterval(function(){fontIndex=(fontIndex+1)%fonts.length;applyFontClass(fonts[fontIndex])},5000)}
+function setLanguage(e){
+  currentLang=e;
+  document.getElementById("btnEN").className=e==="en"?"px-4 py-1 rounded-full text-sm font-bold bg-blue-600":"px-4 py-1 rounded-full text-sm font-bold bg-gray-600";
+  document.getElementById("btnUR").className=e==="ur"?"px-4 py-1 rounded-full text-sm font-bold bg-green-600 urdu-text":"px-4 py-1 rounded-full text-sm font-bold bg-gray-600 urdu-text";
+
+  var contactLoc=document.getElementById("contactLocationText");
+
+  if(e==="ur"){
+    document.body.classList.add("rtl");
+    document.getElementById("academyName").textContent="المہریہ کمپیوٹر اکیڈمی";
+    document.getElementById("academyTagline").textContent="ٹیکنالوجی سیکھیں، مستقبل بنائیں";
+    document.getElementById("coursesTitle").textContent="📚 ہمارے کورسز";
+    if(contactLoc){
+      contactLoc.textContent="المہریہ کمپیوٹر اکیڈمی مخدوم پور پہوڑاں پرانا لاری اڈا نزد المہریہ مسجد مخدوم پور پہوڑاں انسٹرکٹر کاشف اسماعیل 03027822058";
+      contactLoc.classList.add("urdu-text");
+    }
+  }else{
+    document.body.classList.remove("rtl");
+    document.getElementById("academyName").textContent=data.style.academyName||"AL-Mehria Computer Academy";
+    document.getElementById("academyTagline").textContent=data.style.tagline||"Learn Technology, Build Future";
+    document.getElementById("coursesTitle").textContent="📚 Our Courses";
+    if(contactLoc){
+      contactLoc.textContent="AL-Mehria Computer Academy Makhdumpur Pahoran Purana Lari Adda Near AL-Mehria Masjid — M. Kashif Ismail — 03027822058";
+      contactLoc.classList.remove("urdu-text");
+    }
+  }
+  startFontRotation();
+}
+function showPasswordModal(){document.getElementById("passwordModal").classList.remove("hidden");document.getElementById("passwordModal").classList.add("flex");document.getElementById("adminPasswordInput").focus()}
+function checkPassword(){if(document.getElementById("adminPasswordInput").value===adminPassword){document.getElementById("passwordModal").classList.add("hidden");document.getElementById("adminPanel").classList.remove("hidden");document.getElementById("passwordError").classList.add("hidden");loadAdminData();showGuide("readme")}else{document.getElementById("passwordError").classList.remove("hidden")}document.getElementById("adminPasswordInput").value=""}
+function closeAdminPanel(){document.getElementById("adminPanel").classList.add("hidden")}
+function changePassword(){var c=document.getElementById("currentPassword").value,n=document.getElementById("newPassword").value;if(c!==adminPassword){alert("❌ Wrong!");return}if(n.length<4){alert("Min 4!");return}adminPassword=n;localStorage.setItem("adminPassword",n);alert("✅ Changed!")}
+var recognition=null;function initVoice(){if("webkitSpeechRecognition" in window)recognition=new webkitSpeechRecognition();else if("SpeechRecognition" in window)recognition=new SpeechRecognition();if(recognition){recognition.continuous=false;recognition.interimResults=false;recognition.onstart=function(){document.getElementById("voiceIndicator").classList.remove("hidden")};recognition.onend=function(){document.getElementById("voiceIndicator").classList.add("hidden")};recognition.onresult=function(e){var t=e.results[0][0].transcript;if(window.currentVoiceInput){var el=document.getElementById(window.currentVoiceInput);if(el.tagName==="TEXTAREA")el.value+=t;else el.value+=t;el.dispatchEvent(new Event("input"))}}}}
+function startVoice(id,lang){if(!recognition){alert("Use Chrome!");return}window.currentVoiceInput=id;recognition.lang=lang;document.getElementById("voiceLangText").textContent=lang==="ur-PK"?"اردو میں بولیں...":"Speak...";try{recognition.start()}catch(e){}}
+function speakText(text,lang){if(!("speechSynthesis" in window))return;try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang=lang||"ur-PK";u.rate=0.9;window.speechSynthesis.speak(u)}catch(e){}}
+function openRegForm(){document.getElementById("regCardClosed").classList.add("hidden");document.getElementById("regCardOpen").classList.remove("hidden")}
+function closeRegForm(){document.getElementById("regCardOpen").classList.add("hidden");document.getElementById("regCardClosed").classList.remove("hidden")}
+var lastReg={};
+// Simple in-memory registration attachments (data URLs)
+var lastRegAttachments={studentPhoto:"",studentIdFront:"",studentIdBack:"",fatherIdFront:"",fatherIdBack:"",signature:""};
+
+function handleRegImageUpload(input, imgId, iconId){
+  if(input.files && input.files[0]){
+    var r=new FileReader();
+    r.onload=function(e){
+      var img=document.getElementById(imgId);
+      var icon=document.getElementById(iconId);
+      if(img){img.src=e.target.result;img.classList.remove("hidden");}
+      if(icon){icon.classList.add("hidden");}
+      // store in lastRegAttachments if IDs match
+      if(imgId==="regStudentPhotoPreview") lastRegAttachments.studentPhoto=e.target.result;
+      if(imgId==="regStudentIdFrontPreview") lastRegAttachments.studentIdFront=e.target.result;
+      if(imgId==="regStudentIdBackPreview") lastRegAttachments.studentIdBack=e.target.result;
+      if(imgId==="regFatherIdFrontPreview") lastRegAttachments.fatherIdFront=e.target.result;
+      if(imgId==="regFatherIdBackPreview") lastRegAttachments.fatherIdBack=e.target.result;
+    };
+    r.readAsDataURL(input.files[0]);
+  }
+}
+
+function closeRegModal(){document.getElementById("regSuccessModal").classList.add("hidden")}
+function getRegText(){return"🎓 AL-Mehria Computer Academy\n📍 Makhdoompur Pahoran | 📞 03027822058\n━━━━━━━━━━━\n👤 "+lastReg.name+"\n👨 "+lastReg.father+"\n📱 "+lastReg.phone+"\n📚 "+lastReg.course+"\n💰 "+lastReg.payment+"\n📅 "+lastReg.date+"\n🔢 "+lastReg.regNo}
+function shareWhatsApp(){window.open("https://wa.me/?text="+encodeURIComponent(getRegText()),"_blank")}
+function shareEmail(){window.open("mailto:?subject=Registration&body="+encodeURIComponent(getRegText()),"_blank")}
+function copyRegText(){navigator.clipboard.writeText(getRegText()).then(function(){alert("✅!")})}
+// Generic compressed download helper (~60KB target)
+function downloadCompressedCanvas(canvas, filename, maxKB){
+  try{
+    var maxBytes=(maxKB||60)*1024;
+    var targetWidth=1080;
+    var scale=Math.min(1,targetWidth/canvas.width||1);
+    var out=document.createElement("canvas");
+    out.width=Math.round(canvas.width*scale);
+    out.height=Math.round(canvas.height*scale);
+    var ctx=out.getContext("2d");
+    ctx.drawImage(canvas,0,0,out.width,out.height);
+    var quality=0.7;
+    var dataUrl=out.toDataURL("image/jpeg",quality);
+    // reduce quality step‑by‑step until under target or min quality reached
+    while(dataUrl.length*0.75>maxBytes && quality>0.35){
+      quality-=0.05;
+      dataUrl=out.toDataURL("image/jpeg",quality);
+    }
+    var a=document.createElement("a");
+    a.download=filename;
+    a.href=dataUrl;
+    a.click();
+  }catch(e){
+    // Fallback: direct original canvas
+    var a=document.createElement("a");
+    a.download=filename;
+    a.href=canvas.toDataURL("image/jpeg",0.7);
+    a.click();
+  }
+}
+function downloadSlip(){
+  html2canvas(document.getElementById("regSlipContent"),{scale:2,useCORS:true}).then(function(c){
+    downloadCompressedCanvas(c,"Reg_"+lastReg.regNo+".jpg",60);
+  });
+}
+var viewerGroup=localStorage.getItem("viewerGroup")||"ALL";
+function saveViewerGroup(){var e=document.getElementById("viewerGroupInput");viewerGroup=(e.value||"").trim().toUpperCase()||"ALL";localStorage.setItem("viewerGroup",viewerGroup);document.getElementById("viewerGroupStatus").textContent=viewerGroup==="ALL"?"All":"Group: "+viewerGroup;applyBroadcastVisibility()}
+function applyBroadcastVisibility(){var bar=document.getElementById("broadcastBar"),txt=document.getElementById("broadcastText");if(!data.broadcast){bar.classList.add("hidden");return}var g=(data.broadcastGroups||"ALL").toUpperCase();if(g==="ALL"||g.split(",").map(function(x){return x.trim()}).indexOf(viewerGroup)>=0){txt.textContent=data.broadcast;bar.classList.remove("hidden")}else{bar.classList.add("hidden")}}
+function sendBroadcast(){var m=document.getElementById("broadcastInput").value;if(!m){alert("Message!");return}data.broadcast=m;data.broadcastGroups=(document.getElementById("broadcastGroupsInput").value||"ALL").toUpperCase();saveData();applyBroadcastVisibility();alert("🔴 Sent!")}
+function stopBroadcast(){data.broadcast="";saveData();document.getElementById("broadcastBar").classList.add("hidden")}
+function toggleVideo(){data.videoEnabled=document.getElementById("videoToggle").checked;document.getElementById("videoSection").style.display=data.videoEnabled?"block":"none";saveData()}
+function toggleCustomVideoFullscreen(){var e=document.getElementById("videoMainContainer"),i=document.getElementById("videoMaxIcon");e.classList.toggle("video-overlay-mode");i.textContent=e.classList.contains("video-overlay-mode")?"✕":"⤢"}
+function saveVideoSettings(){var u=document.getElementById("videoUrlInput").value;if(!u)return;var a=u.trim();if(a.includes("watch?v="))a=a.replace("watch?v=","embed/");data.videoUrl=a;document.getElementById("videoFrame").src=a;saveData();alert("✅!")}
+function quickLive(type){var inp=document.getElementById("liveClassUrl"),ti=document.getElementById("liveClassTitleInput");if(type==="meet"){inp.value=prompt("Google Meet URL:","")||"";ti.value="Google Meet Class"}else if(type==="zoom"){inp.value=prompt("Zoom URL:","")||"";ti.value="Zoom Class"}else if(type==="youtube"){inp.value=prompt("YouTube Live URL:","")||"";ti.value="YouTube Live"}else{inp.value=prompt("Custom URL:","")||"";ti.value="Live Class"}if(inp.value)startLiveClass()}
+function startLiveClass(){var u=document.getElementById("liveClassUrl").value.trim();if(!u){alert("URL!");return}var title=document.getElementById("liveClassTitleInput").value.trim()||"Live Class";data.liveClass={active:true,url:u,title:title,startTime:new Date().toISOString()};saveData();applyLiveClass();data.superAnnounce={text:"🔴 LIVE CLASS: "+title+" — Abhi JOIN karein!",position:"top",enabled:true,speakInterval:2,duration:0,voiceLang:"ur-PK",createdAt:new Date().toISOString()};saveData();applySuperAnnouncement();speakText("Attention! Live class shuru ho gayi. "+title+". Abhi join karein!","ur-PK");document.getElementById("liveClassStatus").classList.remove("hidden");alert("🔴 LIVE!")}
+function stopLiveClass(){data.liveClass={active:false,url:"",title:""};if(data.videoUrl)document.getElementById("videoFrame").src=data.videoUrl;document.getElementById("videoLiveBadge").classList.add("hidden");document.getElementById("videoStatusText").textContent="📺 Promotional Video";document.getElementById("liveClassStatus").classList.add("hidden");if(data.superAnnounce)data.superAnnounce.enabled=false;applySuperAnnouncement();if(window.speechSynthesis)window.speechSynthesis.cancel();saveData();applyLiveClass();alert("⏹️ Stopped!")}
+function embedLiveInVideoBox(){if(!data.liveClass||!data.liveClass.url)return;var url=data.liveClass.url.trim();if(url.includes("watch?v="))url=url.replace("watch?v=","embed/");document.getElementById("videoFrame").src=url;document.getElementById("videoLiveBadge").classList.remove("hidden");document.getElementById("videoStatusText").textContent="🔴 LIVE — "+(data.liveClass.title||"")}
+function applyLiveClass(){var b=document.getElementById("liveClassBanner"),l=document.getElementById("liveClassLink"),t=document.getElementById("liveClassTitle");if(data.liveClass&&data.liveClass.active){b.classList.remove("hidden");l.href=data.liveClass.url;t.textContent=data.liveClass.title||"Live Class";embedLiveInVideoBox()}else{b.classList.add("hidden");document.getElementById("videoLiveBadge").classList.add("hidden");document.getElementById("videoStatusText").textContent="📺 Promotional Video"}}
+function applySmsTemplate(type){var name=document.getElementById("smsTargetName").value||"Student";var inst=data.style.instructor||"Kashif Ismail";var txt="";if(type==="fee")txt="Assalam o Alaikum "+name+"!\n\n💰 Fee pending hai.\n📱 "+data.jazzCash+"\n\nShukriya!\n👨‍🏫 "+inst;else if(type==="absent")txt="Assalam o Alaikum "+name+"!\n\n🚫 Aaj absent rahe.\n👨‍🏫 "+inst;else if(type==="late")txt="Assalam o Alaikum "+name+"!\n\n⏰ Aaj late aaye.\n👨‍🏫 "+inst;else if(type==="congrats")txt="Mubarak "+name+"! 🎉\n👨‍🏫 "+inst;else if(type==="exam")txt="Assalam o Alaikum "+name+"!\n📝 Exam: [Date]\n👨‍🏫 "+inst;document.getElementById("smsMessageText").value=txt}
+function sendSmsWhatsApp(){var t=document.getElementById("smsMessageText").value;if(t)window.open("https://wa.me/?text="+encodeURIComponent(t),"_blank")}
+function sendSmsEmail(){var t=document.getElementById("smsMessageText").value;if(t)window.open("mailto:?subject=Academy&body="+encodeURIComponent(t),"_blank")}
+function copySmsText(){var t=document.getElementById("smsMessageText").value;if(t)navigator.clipboard.writeText(t).then(function(){alert("✅!")})}
+function smsToAnnouncement(){var t=document.getElementById("smsMessageText").value;if(t){document.getElementById("superAnnounceInput").value=t;alert("📢 Copied!")}}
+function saveSuperAnnouncement(){var txt=document.getElementById("superAnnounceInput").value.trim();if(!txt){alert("Text!");return}data.superAnnounce={text:txt,position:"top",enabled:true,speakInterval:parseInt(document.getElementById("superAnnounceSpeakInterval").value)||0,duration:parseInt(document.getElementById("superAnnounceDuration").value)||0,voiceLang:document.getElementById("superAnnounceVoiceLang").value||"ur-PK",createdAt:new Date().toISOString()};saveData();applySuperAnnouncement();speakText(txt,data.superAnnounce.voiceLang);alert("📢🔊 ACTIVE!")}
+function stopSuperAnnouncement(){data.superAnnounce={text:"",enabled:false,speakInterval:0,duration:0,voiceLang:"ur-PK",createdAt:null};if(superSpeakTimer){clearInterval(superSpeakTimer);superSpeakTimer=null}if(window.speechSynthesis)window.speechSynthesis.cancel();saveData();applySuperAnnouncement()}
+function applySuperAnnouncement(){var bar=document.getElementById("superAnnounceBar"),txt=document.getElementById("superAnnounceText"),ri=document.getElementById("superAnnounceRepeatIcon");if(superSpeakTimer){clearInterval(superSpeakTimer);superSpeakTimer=null}if(!data.superAnnounce||!data.superAnnounce.enabled||!data.superAnnounce.text){bar.classList.add("hidden");return}txt.textContent=data.superAnnounce.text;bar.classList.remove("hidden");var iv=data.superAnnounce.speakInterval;if(iv>0){ri.classList.remove("hidden");superSpeakTimer=setInterval(function(){speakText(data.superAnnounce.text,data.superAnnounce.voiceLang)},iv*60000)}else{ri.classList.add("hidden")}}
+function toggleSuperSpeaker(){if(window.speechSynthesis&&window.speechSynthesis.speaking)window.speechSynthesis.cancel();else if(data.superAnnounce&&data.superAnnounce.text)speakText(data.superAnnounce.text,data.superAnnounce.voiceLang||"ur-PK")}
+function openGlobalSpeaker(){document.getElementById("globalSpeakerModal").classList.remove("hidden");document.getElementById("globalSpeakerModal").classList.add("flex")}
+function closeGlobalSpeaker(){document.getElementById("globalSpeakerModal").classList.add("hidden")}
+function sendGlobalSpeak(){var txt=document.getElementById("globalSpeakText").value.trim();if(!txt){alert("Message!");return}var lang=document.getElementById("globalSpeakLang").value;var rep=parseInt(document.getElementById("globalSpeakRepeat").value)||0;data.globalSpeak={text:txt,lang:lang,repeat:rep,active:true};saveData();speakText(txt,lang);if(globalSpeakTimer)clearInterval(globalSpeakTimer);if(rep>0)globalSpeakTimer=setInterval(function(){speakText(data.globalSpeak.text,data.globalSpeak.lang)},rep*60000);data.superAnnounce={text:"🔊 "+txt,position:"top",enabled:true,speakInterval:rep,duration:0,voiceLang:lang,createdAt:new Date().toISOString()};saveData();applySuperAnnouncement();alert("🔊 Sent!")}
+function stopGlobalSpeak(){data.globalSpeak={text:"",lang:"ur-PK",repeat:0,active:false};if(globalSpeakTimer){clearInterval(globalSpeakTimer);globalSpeakTimer=null}if(window.speechSynthesis)window.speechSynthesis.cancel();saveData()}
+function addMarquee(){var t=document.getElementById("newMarqueeText").value;if(!t)return;data.marquees.push({id:Date.now(),text:t,speed:document.getElementById("marqueeSpeed").value||"20",bg:document.getElementById("marqueeBg").value,enabled:true});document.getElementById("newMarqueeText").value="";saveData();renderMarquees();loadMarqueeList()}
+function renderMarquees(){var c1=document.getElementById("marqueeContainer1"),c2=document.getElementById("marqueeContainer2");c1.innerHTML="";c2.innerHTML="";if(!data.marquees)return;data.marquees.forEach(function(m,i){if(!m.enabled)return;var d=document.createElement("div");d.className=m.bg+" text-white py-2 overflow-hidden";d.innerHTML='<div class="animate-marquee whitespace-nowrap inline-block" style="--speed:'+(m.speed||20)+'s"><span class="mx-8 font-bold">'+m.text+'</span><span class="mx-8 font-bold">'+m.text+'</span></div>';if(i<2)c1.appendChild(d);else c2.appendChild(d)})}
+function loadMarqueeList(){var el=document.getElementById("marqueeList");if(!el||!data.marquees)return;el.innerHTML=data.marquees.map(function(m,i){return'<div class="flex items-center gap-2 bg-gray-100 p-2 rounded"><span class="flex-1 text-sm truncate">'+m.text+'</span><button onclick="deleteMarquee('+i+')" class="px-2 py-1 rounded text-xs bg-red-500 text-white">🗑</button></div>'}).join("")}
+function deleteMarquee(i){data.marquees.splice(i,1);saveData();renderMarquees();loadMarqueeList()}
+function savePaymentNumbers(){data.jazzCash=document.getElementById("jazzCashNumber").value;data.easypaisa=document.getElementById("easypaisaNumber").value;data.jazzCashName=document.getElementById("jazzCashNameInput").value;data.easypaisaName=document.getElementById("easypaisaNameInput").value;document.getElementById("jazzNum").textContent=data.jazzCash;document.getElementById("easyNum").textContent=data.easypaisa;saveData();alert("✅!")}
+function loadStudentTable(){var tb=document.getElementById("studentTableBody");var p=data.students?data.students.filter(function(s){return s.feePaid}).length:0;var fs=document.getElementById("feeStats");if(fs)fs.textContent=data.students&&data.students.length?"✅"+p+" | ❌"+(data.students.length-p):"-";if(!data.students||!data.students.length){tb.innerHTML='<tr><td colspan="4" class="p-8 text-center text-gray-500">No students</td></tr>';return}tb.innerHTML=data.students.map(function(s,i){return '<tr class="border-b hover:bg-gray-50">'+
+  '<td class="p-3"><b class="text-blue-800">'+s.name+'</b><p class="text-xs text-gray-500">📱'+s.phone+'</p></td>'+
+  '<td class="p-3 text-sm">'+s.course+'</td>'+
+  '<td class="p-3"><button onclick="toggleFee('+i+')" class="px-3 py-1 rounded-lg text-xs font-bold '+(s.feePaid?"fee-paid":"fee-unpaid")+'">'+(s.feePaid?"✅":"❌")+'</button></td>'+
+  '<td class="p-3"><div class="flex gap-1">'+
+    '<button onclick="generateDiplomaFor('+i+')" class="bg-yellow-100 text-yellow-700 p-1.5 rounded text-xs">🏆</button>'+
+    '<button onclick="generateIdCardFor('+i+')" class="bg-blue-100 text-blue-700 p-1.5 rounded text-xs">🪪</button>'+
+    '<button onclick="sendFeeReminder('+i+')" class="bg-red-100 text-red-700 p-1.5 rounded text-xs">💰</button>'+
+    '<button onclick="deleteStudent('+i+')" class="bg-gray-100 text-gray-700 p-1.5 rounded text-xs">🗑</button>'+
+  '</div></td>'+
+'</tr>';}).join("")}
+function toggleFee(i){data.students[i].feePaid=!data.students[i].feePaid;saveData();loadStudentTable()}
+function deleteStudent(i){if(confirm("Delete?")){data.students.splice(i,1);saveData();loadStudentTable()}}
+function filterStudents(){var q=document.getElementById("studentSearch").value.toLowerCase();document.querySelectorAll("#studentTableBody tr").forEach(function(r){r.style.display=r.textContent.toLowerCase().includes(q)?"":"none"})}
+function exportStudents(){var c="Name,Father,Phone,Course,Payment,Date,RegNo,FeePaid\n";data.students.forEach(function(s){c+='"'+s.name+'","'+s.father+'","'+s.phone+'","'+s.course+'","'+s.payment+'","'+s.date+'","'+(s.regNo||"")+'","'+(s.feePaid?"Yes":"No")+'"\n'});var b=new Blob([c],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="students.csv";a.click()}
+function sendFeeReminder(i){var s=data.students[i];var msg="Assalam o Alaikum "+s.name+"!\n💰 Fee pending.\n📱 "+data.jazzCash+"\n👨‍🏫 "+(data.style.instructor||"Kashif Ismail");window.open("https://wa.me/92"+s.phone.replace(/^0/,"")+"?text="+encodeURIComponent(msg),"_blank")}
+function generateDiplomaFor(i){var s=data.students[i];document.getElementById("dipStudentName").value=s.name;document.getElementById("dipFatherName").value=s.father;document.getElementById("dipCourse").value=s.course;document.getElementById("dipRegNo").value=s.regNo||"ALM-001";openDiplomaGenerator()}
+function generateIdCardFor(i){var s=data.students[i];document.getElementById("idCardName").value=s.name;document.getElementById("idCardFather").value=s.father;document.getElementById("idCardCourse").value=s.course;document.getElementById("idCardRegNo").value=s.regNo||"";document.getElementById("idCardPhone").value=s.phone;updateIdCardPreview();openIdCardGenerator()}
+function openDiplomaGenerator(){document.getElementById("diplomaModal").classList.remove("hidden");document.getElementById("dipDate").valueAsDate=new Date();updateDiplomaPreview()}
+function closeDiplomaGenerator(){document.getElementById("diplomaModal").classList.add("hidden")}
+function setDiplomaTemplate(t){var dp=document.getElementById("diplomaPreview");dp.className="diploma-template diploma-"+t+" text-center";if(t==="urdu")dp.classList.add("rtl")}
+function updateDiplomaPreview(){var pn=document.getElementById("prevName"),pf=document.getElementById("prevFather"),pc=document.getElementById("prevCourse"),pd=document.getElementById("prevDuration"),pg=document.getElementById("prevGrade"),pr=document.getElementById("prevRegNo"),pdt=document.getElementById("prevDate");if(pn)pn.textContent=document.getElementById("dipStudentName").value||"Student Name";if(pf)pf.textContent=document.getElementById("dipFatherName").value||"Father";if(pc)pc.textContent=document.getElementById("dipCourse").value;if(pd)pd.textContent=document.getElementById("dipDuration").value;if(pg)pg.textContent=document.getElementById("dipGrade").value;if(pr)pr.textContent=document.getElementById("dipRegNo").value;var dv=document.getElementById("dipDate").value;if(pdt)pdt.textContent=dv?new Date(dv).toLocaleDateString("en-PK"):"DD-MM-YYYY";var tc=document.getElementById("dipTextColor").value||"#1e3a8a";if(pn){pn.style.color=tc;pn.style.borderColor=tc}if(pc)pc.style.color=tc}
+function downloadDiploma(){
+  var n=document.getElementById("dipStudentName").value;
+  if(!n){alert("Name!");return}
+  html2canvas(document.getElementById("diplomaPreview"),{scale:2,useCORS:true}).then(function(c){
+    downloadCompressedCanvas(c,"Diploma_"+n.replace(/\s+/g,"_")+".jpg",60);
+  });
+}
+function openIdCardGenerator(){document.getElementById("idCardModal").classList.remove("hidden")}
+function closeIdCardGenerator(){document.getElementById("idCardModal").classList.add("hidden")}
+function previewIdCardPhoto(inp){if(inp.files&&inp.files[0]){var r=new FileReader();r.onload=function(e){document.getElementById("idCardPhotoPreview").src=e.target.result;document.getElementById("idCardPhotoPreview").classList.remove("hidden");document.getElementById("idCardPhotoIcon").classList.add("hidden");document.getElementById("idPhotoBox").innerHTML='<img src="'+e.target.result+'" class="w-full h-full object-cover rounded-xl">'};r.readAsDataURL(inp.files[0])}}
+function updateIdCardPreview(){document.getElementById("idPrevName").textContent=document.getElementById("idCardName").value||"Name";document.getElementById("idPrevFather").textContent=document.getElementById("idCardFather").value||"Father";document.getElementById("idPrevCourse").textContent=document.getElementById("idCardCourse").value;document.getElementById("idPrevReg").textContent=document.getElementById("idCardRegNo").value||"ALM-001";document.getElementById("idPrevPhone").textContent=document.getElementById("idCardPhone").value||"03027822058"}
+function downloadIdCard(){
+  var n=document.getElementById("idCardName").value;
+  if(!n){alert("Name!");return}
+  html2canvas(document.getElementById("idCardPreview"),{scale:2,useCORS:true}).then(function(c){
+    downloadCompressedCanvas(c,"ID_"+n.replace(/\s+/g,"_")+".jpg",60);
+  });
+}
+function savePromotionSettings(){data.topPromo.text1=document.getElementById("topPromoText1Input").value||data.topPromo.text1;data.topPromo.text2=document.getElementById("topPromoText2Input").value||data.topPromo.text2;saveData();document.getElementById("topPromoText1").textContent=data.topPromo.text1;document.getElementById("topPromoText2").textContent=data.topPromo.text2;alert("✅!")}
+function saveDeploySettings(){data.style={headerColor:document.getElementById("deployHeaderColor").value,bodyBg:document.getElementById("deployBodyBg").value,footerBg:document.getElementById("deployFooterBg").value,academyName:document.getElementById("deployAcademyName").value,tagline:document.getElementById("deployTagline").value,phone:document.getElementById("deployPhone").value,instructor:document.getElementById("deployInstructor").value,address:document.getElementById("deployAddress").value};saveData();applyDynamicStyle();alert("🚀 LIVE!")}
+function applyDynamicStyle(){
+  var s=data.style||{};
+  // basic single colors (backwards compatibility)
+  var h=document.getElementById("mainHeader");
+  if(s.headerColor&&h){h.style.background=s.headerColor;h.style.animation="none"}
+  if(s.bodyBg)document.body.style.backgroundColor=s.bodyBg;
+  var f=document.getElementById("mainFooter");
+  if(s.footerBg&&f)f.style.backgroundColor=s.footerBg;
+  if(s.academyName)document.getElementById("academyName").textContent=s.academyName;
+  if(s.tagline){var tl=document.getElementById("academyTagline");if(tl)tl.textContent=s.tagline}
+  if(s.phone)document.getElementById("phoneNumber").textContent="📞 "+s.phone;
+  if(s.instructor)document.getElementById("instructorName").textContent="👨‍🏫 Instructor: "+s.instructor;
+  if(s.address)document.getElementById("addressText").textContent="📍 "+s.address;
+
+  // apply rich themes if present
+  var th=data.themes||{};
+  if(th.header && h){
+    h.style.background = th.header.css || makeGradient(th.header);
+    h.style.animation = "none";
+  }
+  var ramBar=document.getElementById("ramadanToggleBar");
+  if(th.ramadan && ramBar){ramBar.style.background = th.ramadan.css || makeGradient(th.ramadan);}
+  var video=document.getElementById("videoMainContainer");
+  if(th.video && video){video.style.background = th.video.css || makeGradient(th.video);}
+  var reg=document.querySelector("section.py-8.bg-gradient-to-br.from-blue-900");
+  if(th.registration && reg){reg.style.background = th.registration.css || makeGradient(th.registration);}
+  var courses=document.querySelector("main.py-8 section.bg-gradient-to-r.from-blue-900");
+  if(th.courses && courses){courses.style.background = th.courses.css || makeGradient(th.courses);}
+  if(th.footer && f){f.style.background = th.footer.css || makeGradient(th.footer);}
+}
+
+function makeGradient(t){
+  if(!t) return "";
+  var c1=t.c1||"#0f172a"; var c2=t.c2||"#1d4ed8"; var c3=t.c3||"#7c3aed";
+  return "linear-gradient(135deg,"+c1+","+c2+","+c3+")";
+}
+
+var themeClipboard=null;
+function applyThemePreset(){
+  var preset=document.getElementById("themePreset").value;
+  var c1=document.getElementById("themeC1"),
+      c2=document.getElementById("themeC2"),
+      c3=document.getElementById("themeC3");
+  var map={
+    sunset:["#fdba74","#fb7185","#7c3aed"],
+    ocean:["#0ea5e9","#1d4ed8","#1e293b"],
+    forest:["#16a34a","#15803d","#052e16"],
+    royal:["#4f46e5","#7c3aed","#1e293b"],
+    neon:["#22c55e","#eab308","#ef4444"],
+    ramadan:["#022c22","#065f46","#0f172a"]
+  };
+  var arr=map[preset];
+  if(arr){c1.value=arr[0];c2.value=arr[1];c3.value=arr[2];}
+}
+function saveThemeForTarget(){
+  var target=document.getElementById("themeTarget").value;
+  if(!data.themes) data.themes={};
+  var c1=document.getElementById("themeC1").value||"#0f172a";
+  var c2=document.getElementById("themeC2").value||"#1d4ed8";
+  var c3=document.getElementById("themeC3").value||"#7c3aed";
+  data.themes[target]={c1:c1,c2:c2,c3:c3,css:makeGradient({c1:c1,c2:c2,c3:c3})};
+  saveData();
+  applyDynamicStyle();
+  alert("🎨 Theme applied on "+target+"!");
+}
+function copyThemeFromTarget(){
+  var target=document.getElementById("themeTarget").value;
+  if(data.themes && data.themes[target]){
+    themeClipboard=Object.assign({},data.themes[target]);
+    alert("📋 Theme copied from "+target+"!");
+  }else{
+    alert("No saved theme on "+target+" yet.");
+  }
+}
+function pasteThemeToTarget(){
+  if(!themeClipboard){alert("Clipboard empty");return;}
+  var target=document.getElementById("themeTarget").value;
+  if(!data.themes) data.themes={};
+  data.themes[target]=Object.assign({},themeClipboard);
+  document.getElementById("themeC1").value=themeClipboard.c1;
+  document.getElementById("themeC2").value=themeClipboard.c2;
+  document.getElementById("themeC3").value=themeClipboard.c3;
+  saveData();
+  applyDynamicStyle();
+  alert("📥 Theme pasted on "+target+"!");
+}
+
+// ===== LAYOUT & FULL PAGE CUSTOMISER =====
+function renderLayoutFromSettings(){
+  try{
+    var l=data.layout||{};
+    var header=document.getElementById("mainHeader");
+    var video=document.getElementById("videoSection");
+    var reg=document.querySelector("section.py-8.bg-gradient-to-br.from-blue-900");
+    var courses=document.querySelector("main.py-8");
+    var footer=document.getElementById("mainFooter");
+    if(header)header.style.display=l.showHeader!==false?"block":"none";
+    if(video)video.style.display=l.showVideo!==false?"block":"none";
+    if(reg)reg.style.display=l.showRegistration!==false?"block":"none";
+    if(courses)courses.style.display=l.showCourses!==false?"block":"none";
+    if(footer)footer.style.display=l.showFooter!==false?"block":"none";
+
+    // customer feeds
+    var top=document.getElementById("customerFeedTop");
+    var bottom=document.getElementById("customerFeedBottom");
+    if(top)top.innerHTML="";
+    if(bottom)bottom.innerHTML="";
+    if(data.customerFeeds && data.customerFeeds.length){
+      data.customerFeeds.forEach(function(cf){
+        var box=document.createElement("div");
+        box.className="w-full text-center py-2 px-4 "+(cf.bgClass||"bg-amber-500");
+        box.style.color=cf.textColor||"#fff";
+        box.innerHTML='<div class="container mx-auto flex items-center justify-center gap-2 text-sm md:text-base">'+
+          (cf.icon?'<span class="text-lg">'+cf.icon+'</span>':'')+
+          '<span class="font-semibold">'+cf.text+'</span></div>';
+        if(cf.position==="top" && top) top.appendChild(box);
+        else if(bottom) bottom.appendChild(box);
+      });
+    }
+  }catch(e){}
+}
+
+// example helper to quickly add a simple customer feed
+function addCustomerFeed(text, position){
+  if(!data.customerFeeds) data.customerFeeds=[];
+  data.customerFeeds.push({
+    id: Date.now(),
+    text: text || "New notice",
+    position: position || "top",
+    icon: "📌",
+    bgClass: "bg-amber-600",
+    textColor: "#ffffff"
+  });
+  saveData();
+  renderLayoutFromSettings();
+}
+
+function addDynField(){var t=document.getElementById("dynFieldTitle").value.trim();if(!t)return;if(!data.dynamicSections)data.dynamicSections=[];data.dynamicSections.push({id:Date.now(),title:t,content:document.getElementById("dynFieldContent").value.trim(),bg:document.getElementById("dynFieldBg").value,textColor:document.getElementById("dynFieldTextColor").value,fontSize:document.getElementById("dynFieldFontSize").value||"text-lg",enabled:true});document.getElementById("dynFieldTitle").value="";document.getElementById("dynFieldContent").value="";saveData();renderDynamicSections();loadDynFieldList()}
+function renderDynamicSections(){renderEventCards()}
+function loadDynFieldList(){var el=document.getElementById("dynFieldList");if(!el||!data.dynamicSections)return;el.innerHTML=data.dynamicSections.map(function(s,i){return'<div class="flex items-center gap-2 bg-white/10 p-2 rounded"><span class="flex-1 text-sm truncate text-white">'+s.title+'</span><button onclick="deleteDynField('+i+')" class="px-2 py-1 rounded text-xs bg-red-500 text-white">🗑</button></div>'}).join("")}
+function deleteDynField(i){data.dynamicSections.splice(i,1);saveData();renderDynamicSections();loadDynFieldList()}
+var quickEventTemplates={ramadan:{title:"🌙 رمضان المبارک 2026",icon:"🌙",content:"رمضان کریم مبارک ہو!",bg:"#065f46",textColor:"#ffffff",urdu:true,marquee:true},eidfitr:{title:"🎉 عید الفطر مبارک!",icon:"🎉",content:"عید مبارک ہو! 🎊",bg:"#15803d",textColor:"#ffffff",urdu:true,marquee:true},eidadha:{title:"🐑 عید الاضحٰی مبارک!",icon:"🐑",content:"عید الاضحٰی مبارک ہو! 🐑",bg:"#92400e",textColor:"#ffffff",urdu:true,marquee:true},shabbarat:{title:"🌕 شبِ برات مبارک",icon:"🌕",content:"شبِ برات مبارک! 🌕",bg:"#581c87",textColor:"#ffffff",urdu:true,marquee:true},meraj:{title:"🕌 شبِ معراج مبارک",icon:"🕌",content:"شبِ معراج مبارک! 🕌",bg:"#312e81",textColor:"#ffffff",urdu:true,marquee:true},milad:{title:"🕋 12 ربیع الاول",icon:"🕋",content:"12 ربیع الاول مبارک!",bg:"#0f766e",textColor:"#ffffff",urdu:true,marquee:true},independence:{title:"🇵🇰 14 اگست مبارک!",icon:"🇵🇰",content:"پاکستان زندہ باد! 🇵🇰🎊",bg:"#166534",textColor:"#ffffff",urdu:true,marquee:true},iqbal:{title:"⭐ یومِ اقبال",icon:"⭐",content:"علامہ اقبال — شاعرِ مشرق ⭐",bg:"#1e3a8a",textColor:"#ffffff",urdu:true,marquee:false},quaid:{title:"🏛️ یومِ قائد",icon:"🏛️",content:"قائداعظم — 25 دسمبر 🏛️",bg:"#374151",textColor:"#ffffff",urdu:true,marquee:false},newyear:{title:"🎊 نیا سال مبارک!",icon:"🎊",content:"نئے سال کی مبارکباد! 🎊",bg:"#be185d",textColor:"#ffffff",urdu:true,marquee:true},mela:{title:"🎪 میلہ",icon:"🎪",content:"میلے کی تفصیلات...",bg:"#c2410c",textColor:"#ffffff",urdu:true,marquee:false},custom:{title:"",icon:"🎉",content:"",bg:"#1e40af",textColor:"#ffffff",urdu:false,marquee:false}};
+function addQuickEvent(type){var tpl=quickEventTemplates[type]||quickEventTemplates.custom;document.getElementById("eventFormArea").classList.remove("hidden");document.getElementById("eventTitle").value=tpl.title||"";document.getElementById("eventContent").value=tpl.content||"";document.getElementById("eventBgColor").value=tpl.bg||"#1e40af";document.getElementById("eventTextColor").value=tpl.textColor||"#ffffff";document.getElementById("eventMarquee").checked=!!tpl.marquee;document.getElementById("eventUrdu").checked=!!tpl.urdu;if(type==="custom")document.getElementById("eventTitle").focus()}
+function saveEvent(){var title=document.getElementById("eventTitle").value.trim();if(!title){alert("Title!");return}if(!data.events)data.events=[];data.events.push({id:Date.now(),title:title,icon:document.getElementById("eventIcon").value||"🎉",content:document.getElementById("eventContent").value.trim(),bg:document.getElementById("eventBgColor").value||"#1e40af",textColor:document.getElementById("eventTextColor").value||"#ffffff",startDate:document.getElementById("eventStartDate").value||"",endDate:document.getElementById("eventEndDate").value||"",hasMarquee:document.getElementById("eventMarquee").checked,isUrdu:document.getElementById("eventUrdu").checked,enabled:true,createdAt:new Date().toISOString()});document.getElementById("eventTitle").value="";document.getElementById("eventContent").value="";document.getElementById("eventFormArea").classList.add("hidden");saveData();renderEventCards();loadEventsList();alert("🎉 Event Added!")}
+function adjustColor(hex,amount){var num=parseInt(hex.replace("#",""),16);var r=Math.min(255,Math.max(0,(num>>16)+amount));var g=Math.min(255,Math.max(0,((num>>8)&0x00FF)+amount));var b=Math.min(255,Math.max(0,(num&0x0000FF)+amount));return"#"+(0x1000000+r*0x10000+g*0x100+b).toString(16).slice(1)}
+function renderEventCards(){var container=document.getElementById("dynamicSectionsContainer");if(!container)return;container.innerHTML="";if(data.events)data.events.forEach(function(ev){if(!ev.enabled)return;var d=document.createElement("div");d.className="py-4 px-4";var rtl=ev.isUrdu?' dir="rtl" style="text-align:right;font-family:Noto Nastaliq Urdu,serif"':'';d.innerHTML='<div class="container mx-auto max-w-3xl"><div class="rounded-3xl shadow-2xl overflow-hidden border-2" style="border-color:'+ev.bg+'"><div class="p-6 text-center relative overflow-hidden" style="background:linear-gradient(135deg,'+ev.bg+','+adjustColor(ev.bg,-30)+');color:'+ev.textColor+'"><div class="relative z-10"'+rtl+'><div class="text-5xl mb-3">'+ev.icon+'</div><h2 class="text-2xl md:text-3xl font-bold mb-2">'+ev.title+'</h2><div class="bg-white/10 rounded-2xl p-4 mt-3 text-base leading-relaxed whitespace-pre-line">'+ev.content+'</div></div></div>'+(ev.hasMarquee?'<div class="overflow-hidden py-2" style="background:'+adjustColor(ev.bg,-20)+';color:'+ev.textColor+'"><div class="animate-marquee whitespace-nowrap inline-block" style="--speed:22s"><span class="mx-6 font-bold text-sm">'+ev.icon+' '+ev.title+' '+ev.icon+'</span><span class="mx-6 font-bold text-sm">'+ev.icon+' '+ev.title+' '+ev.icon+'</span></div></div>':'')+'<div class="py-2 px-4 text-center text-xs" style="background:'+adjustColor(ev.bg,-40)+';color:'+ev.textColor+'80">🎓 AL-Mehria Computer Academy | 📞 03027822058</div></div></div>';container.appendChild(d)});if(data.customPages)data.customPages.forEach(function(p){if(!p.enabled)return;var d=document.createElement("div");d.className="py-4 px-4";d.innerHTML='<div class="container mx-auto max-w-2xl"><div class="rounded-3xl shadow-xl overflow-hidden border-t-4" style="border-color:'+p.bg+'"><div class="p-6 text-center" style="background-color:'+(p.bg||"#1e40af")+';color:'+(p.textColor||"#fff")+'"><span class="text-4xl">'+p.icon+'</span><h3 class="text-2xl font-bold mt-2">'+p.title+'</h3></div><div class="bg-white p-5"><p class="text-gray-700 text-lg leading-relaxed">'+p.content+'</p></div></div></div>';container.appendChild(d)});if(data.dynamicSections)data.dynamicSections.forEach(function(s){if(!s.enabled)return;var d=document.createElement("div");d.className="py-6 px-4 text-center";d.style.backgroundColor=s.bg||"#1e40af";d.style.color=s.textColor||"#fff";d.innerHTML='<div class="container mx-auto"><h2 class="'+(s.fontSize||"text-lg")+' font-bold mb-2">'+s.title+'</h2><p class="text-lg">'+s.content+'</p></div>';container.appendChild(d)})}
+function loadEventsList(){var el=document.getElementById("eventsList");if(!el)return;if(!data.events||!data.events.length){el.innerHTML='<p class="text-xs text-amber-200 text-center">No events</p>';return}el.innerHTML=data.events.map(function(ev,i){return'<div class="flex items-center gap-2 bg-white/10 p-2 rounded '+(ev.enabled?"":"opacity-40")+'"><span class="text-lg">'+ev.icon+'</span><span class="flex-1 text-sm truncate text-white">'+ev.title+'</span><button onclick="toggleEvent('+i+')" class="px-2 py-1 rounded text-xs '+(ev.enabled?"bg-yellow-500":"bg-green-500")+' text-white">'+(ev.enabled?"⏸":"▶")+'</button><button onclick="deleteEvent('+i+')" class="px-2 py-1 rounded text-xs bg-red-500 text-white">🗑</button></div>'}).join("")}
+function toggleEvent(i){data.events[i].enabled=!data.events[i].enabled;saveData();renderEventCards();loadEventsList()}
+function deleteEvent(i){if(confirm("Delete?")){data.events.splice(i,1);saveData();renderEventCards();loadEventsList()}}
+function toggleRamadanCalendar(){
+  var sec=document.getElementById("ramadanSection"),
+      btn=document.getElementById("ramadanToggleIcon"),
+      txt=document.getElementById("ramadanToggleText");
+  if(sec.classList.contains("hidden")){
+    sec.classList.remove("hidden");
+    if(btn)btn.textContent="🙈";
+    if(txt)txt.textContent="Hide Calendar";
+    data.ramadanVisible=true;
+  }else{
+    sec.classList.add("hidden");
+    if(btn)btn.textContent="👁️";
+    if(txt)txt.textContent="Show Calendar";
+    data.ramadanVisible=false;
+  }
+  saveData();
+}
+
+function toggleRamadanFromDeploy(){
+  var cb=document.getElementById("ramadanToggleDeploy");
+  data.ramadanVisible=cb.checked;
+  saveData();
+  applyRamadanVisibility();
+}
+
+function endRamadanCalendar(){
+  if(!confirm("Ramadan 2026 calendar ko hide (end) karna hai?")) return;
+  data.ramadanVisible=false;
+  // optional: mark ended year-wise so next year aap dobara on kar saken
+  data.ramadanEndedAt = new Date().toISOString();
+  saveData();
+  applyRamadanVisibility();
+  alert("✅ Ramadan 2026 calendar hide ho gaya (30 din ke baad)");
+}
+
+function applyRamadanVisibility(){
+  var sec=document.getElementById("ramadanSection"),
+      btn=document.getElementById("ramadanToggleIcon"),
+      txt=document.getElementById("ramadanToggleText"),
+      bar=document.getElementById("ramadanToggleBar"),
+      cb=document.getElementById("ramadanToggleDeploy");
+
+  // auto-hide if 30 days over (after 18 March 2026)
+  try{
+    var now = new Date();
+    var end2026 = new Date("2026-03-19T00:00:00");
+    if(now.getTime() > end2026.getTime()){
+      data.ramadanVisible = false;
+    }
+  }catch(e){}
+
+  if(data.ramadanVisible){
+    if(sec) sec.classList.remove("hidden");
+    if(btn) btn.textContent = "🙈";
+    if(txt) txt.textContent = "Hide Calendar";
+  }else{
+    if(sec) sec.classList.add("hidden");
+    if(btn) btn.textContent = "👁️";
+    if(txt) txt.textContent = "Show Calendar";
+  }
+  if(cb) cb.checked = !!data.ramadanVisible;
+  if(bar) bar.style.display = data.layout && data.layout.showRamadan===false ? "none" : "block";
+}
+// old Ramadan toggle functions replaced by unified implementation above
+function addCustomPage(){var t=document.getElementById("customPageTitle").value.trim();if(!t){alert("Title!");return}if(!data.customPages)data.customPages=[];data.customPages.push({id:Date.now(),title:t,icon:document.getElementById("customPageIcon").value||"📋",content:document.getElementById("customPageContent").value.trim(),bg:document.getElementById("customPageBg").value,textColor:document.getElementById("customPageTextColor").value,style:document.getElementById("customPageStyle").value||"card",hasMarquee:document.getElementById("customPageMarquee").checked,enabled:true});document.getElementById("customPageTitle").value="";document.getElementById("customPageContent").value="";saveData();renderEventCards();loadCustomPagesList();alert("📄 Page Added!")}
+function loadCustomPagesList(){var el=document.getElementById("customPagesList");if(!el)return;if(!data.customPages||!data.customPages.length){el.innerHTML='<p class="text-xs text-pink-200 text-center">No pages</p>';return}el.innerHTML=data.customPages.map(function(p,i){return'<div class="flex items-center gap-2 bg-white/10 p-2 rounded"><span class="text-lg">'+p.icon+'</span><span class="flex-1 text-sm truncate text-white">'+p.title+'</span><button onclick="toggleCustomPage('+i+')" class="px-2 py-1 rounded text-xs '+(p.enabled?"bg-yellow-500":"bg-green-500")+' text-white">'+(p.enabled?"⏸":"▶")+'</button><button onclick="deleteCustomPage('+i+')" class="px-2 py-1 rounded text-xs bg-red-500 text-white">🗑</button></div>'}).join("")}
+function toggleCustomPage(i){data.customPages[i].enabled=!data.customPages[i].enabled;saveData();renderEventCards();loadCustomPagesList()}
+function deleteCustomPage(i){data.customPages.splice(i,1);saveData();renderEventCards();loadCustomPagesList()}
+function parseFirebaseConfigBox(){
+  var box=document.getElementById("fbConfigBox");
+  if(!box) return;
+  var txt=box.value.trim();
+  if(!txt){alert("Config snippet paste karein." );return;}
+  // try simple regex-based extraction
+  function grab(re){var m=txt.match(re);return m && m[1] ? m[1].trim() : "";}
+  var apiKey = grab(/apiKey\s*:\s*"([^"]+)"/);
+  if(!apiKey) apiKey = grab(/"apiKey"\s*:\s*"([^"]+)"/);
+  var dbUrl  = grab(/databaseURL\s*:\s*"([^"]+)"/);
+  if(!dbUrl) dbUrl = grab(/"databaseURL"\s*:\s*"([^"]+)"/);
+  var projId = grab(/projectId\s*:\s*"([^"]+)"/);
+  if(!projId) projId = grab(/"projectId"\s*:\s*"([^"]+)"/);
+
+  if(!apiKey && !dbUrl && !projId){
+    alert("Config samajh nahi aayi. Yaqeen karein ke aap firebaseConfig {...} ka pura block paste kar rahe hain.");
+    return;
+  }
+  if(apiKey) document.getElementById("fbApiKey").value = apiKey;
+  if(dbUrl)  document.getElementById("fbDbUrl").value  = dbUrl;
+  if(projId) document.getElementById("fbProjectId").value = projId;
+  alert("✅ Fields filled from config snippet. Ab 🔥 Connect & Save dabayein.");
+}
+
+function connectFirebase(){var k=document.getElementById("fbApiKey").value.trim(),u=document.getElementById("fbDbUrl").value.trim(),p=document.getElementById("fbProjectId").value.trim();if(!k||!u){document.getElementById("fbStatus").textContent="❌ API Key + DB URL!";return}data.firebase={apiKey:k,dbUrl:u,projectId:p};localStorage.setItem("fbConfig",JSON.stringify(data.firebase));try{if(!firebase.apps.length)firebase.initializeApp({apiKey:k,databaseURL:u,projectId:p});firebaseDB=firebase.database();fbConnected=true;firebaseDB.ref("academyData").set(data);firebaseDB.ref("academyData").on("value",function(snap){if(snap.val()){var adminOpen=!document.getElementById("adminPanel").classList.contains("hidden");if(!adminOpen){data=snap.val();localStorage.setItem("academyData",JSON.stringify(data));applyAllData()}}});document.getElementById("fbLiveIndicator").classList.remove("hidden");document.getElementById("fbStatusBadge").classList.remove("hidden");document.getElementById("globalSpeakerBtn").classList.remove("hidden");document.getElementById("fbStatus").textContent="✅ Connected!"}catch(e){document.getElementById("fbStatus").textContent="❌ "+e.message}}
+function pushAllToFirebase(){if(!fbConnected){document.getElementById("fbStatus").textContent="❌ Connect first!";return}firebaseDB.ref("academyData").set(data).then(function(){document.getElementById("fbStatus").textContent="✅ Pushed!"})}
+var cardTemplates={ramadan:{title:"🌙 رمضان المبارک 2026",msg1:"رمضان کریم مبارک ہو!",msg2:"سحری و افطاری کیلنڈر"},eid:{title:"🎉 عید مبارک!",msg1:"عید مبارک!",msg2:""},birthday:{title:"🎂 سالگرہ مبارک!",msg1:"سالگرہ مبارک!",msg2:""},custom:{title:"",msg1:"",msg2:""}};
+function openCardGen(type){var tpl=cardTemplates[type]||cardTemplates.custom;document.getElementById("cgTitle").value=tpl.title||"";document.getElementById("cgMsg1").value=tpl.msg1||"";document.getElementById("cgMsg2").value=tpl.msg2||"";document.getElementById("cgFrom").value=data.style.instructor||"Kashif Ismail";document.getElementById("cgContact").value=data.style.phone||"03027822058";document.getElementById("cgAddress").value=data.style.address||"Makhdoompur Pahoran";document.getElementById("cardGenModal").classList.remove("hidden");generateCardPreview()}
+function closeCardGen(){document.getElementById("cardGenModal").classList.add("hidden")}
+function generateCardPreview(){var title=document.getElementById("cgTitle").value||"Title";var msg1=document.getElementById("cgMsg1").value||"";var msg2=document.getElementById("cgMsg2").value||"";var from=document.getElementById("cgFrom").value||"";var contact=document.getElementById("cgContact").value||"";var addr=document.getElementById("cgAddress").value||"";var theme=document.getElementById("cgTheme").value||"emerald";var gradients={emerald:"from-emerald-700 via-teal-800 to-emerald-900",blue:"from-blue-600 via-blue-800 to-indigo-900",purple:"from-purple-600 via-purple-800 to-indigo-900",rose:"from-rose-500 via-pink-700 to-rose-900",amber:"from-amber-500 via-amber-700 to-orange-900",gold:"from-yellow-500 via-amber-600 to-yellow-800",indigo:"from-indigo-600 via-indigo-800 to-blue-900",teal:"from-teal-500 via-teal-700 to-cyan-900",red:"from-red-600 via-red-800 to-red-900",slate:"from-slate-600 via-slate-800 to-gray-900"};var grad=gradients[theme]||gradients.emerald;var icon=title.match(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u);icon=icon?icon[0]:"🌟";var area=document.getElementById("cardPreviewArea");area.className="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br "+grad+" text-white min-h-[400px]";area.innerHTML='<div class="relative p-6 text-center" dir="rtl" style="font-family:Noto Nastaliq Urdu,serif"><div class="relative z-10"><div class="text-6xl mb-3">'+icon+'</div><h2 class="text-2xl md:text-3xl font-bold mb-3">'+title+'</h2><div class="bg-white/10 rounded-2xl p-4 mb-3 border border-white/20">'+(msg1?'<p class="text-lg mb-1 font-semibold">'+msg1+'</p>':'')+(msg2?'<p class="text-sm opacity-80">'+msg2+'</p>':'')+'</div><div class="bg-white/10 rounded-xl p-3 border border-white/20">'+(from?'<p class="font-bold text-lg">'+from+'</p>':'')+(contact?'<p class="text-sm opacity-80">📞 '+contact+'</p>':'')+(addr?'<p class="text-xs opacity-60">📍 '+addr+'</p>':'')+'</div></div></div><div class="bg-black/30 py-2 px-4 text-center"><p class="text-[10px] opacity-50 text-white">🎓 AL-Mehria Computer Academy</p></div>'}
+function downloadCard(){
+  html2canvas(document.getElementById("cardPreviewArea"),{scale:2,useCORS:true}).then(function(c){
+    downloadCompressedCanvas(c,"Card.jpg",60);
+  });
+}
+function shareCardWhatsApp(){var txt=(document.getElementById("cgTitle").value||"")+"\n\n"+(document.getElementById("cgMsg1").value||"")+"\n"+(document.getElementById("cgMsg2").value||"")+"\n\n"+(document.getElementById("cgFrom").value||"")+"\n📞 "+(document.getElementById("cgContact").value||"");window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank")}
+function copyCardText(){var txt=(document.getElementById("cgTitle").value||"")+"\n\n"+(document.getElementById("cgMsg1").value||"")+"\n"+(document.getElementById("cgMsg2").value||"")+"\n\n"+(document.getElementById("cgFrom").value||"")+"\n📞 "+(document.getElementById("cgContact").value||"");navigator.clipboard.writeText(txt).then(function(){alert("✅ Copied!")})}
+
+// ===== CAPTURE & REEL STUDIO FUNCTIONS =====
+var screenRecorder=null, recordedChunks=[];
+
+function resolveCaptureElement(){
+  var target=document.getElementById("captureTarget").value;
+  if(target==="header") return document.getElementById("mainHeader");
+  if(target==="ramadan") return document.getElementById("ramadanSection");
+  if(target==="video") return document.getElementById("videoSection");
+  if(target==="registration") return document.querySelector("section.py-8.bg-gradient-to-br.from-blue-900");
+  if(target==="courses") return document.querySelector("main.py-8");
+  if(target==="custom"){
+    var sel=prompt("CSS selector likhein (e.g. #id, .class):","#mainHeader");
+    if(!sel) return null;
+    try{return document.querySelector(sel);}catch(e){return null;}
+  }
+  return document.body;
+}
+
+function captureTargetAsImage(){
+  var el=resolveCaptureElement();
+  if(!el){alert("Section nahi mila. Selector check karein.");return;}
+  html2canvas(el,{scale:2,useCORS:true}).then(function(c){
+    downloadCompressedCanvas(c,"SectionCapture.jpg",60);
+  });
+}
+
+async function startScreenRecording(){
+  if(screenRecorder){alert("Recording already running.");return;}
+  try{
+    const stream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true});
+    recordedChunks=[];
+    screenRecorder=new MediaRecorder(stream,{mimeType:"video/webm"});
+    screenRecorder.ondataavailable=function(e){if(e.data.size>0)recordedChunks.push(e.data);};
+    screenRecorder.onstop=function(){
+      var blob=new Blob(recordedChunks,{type:"video/webm"});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement("a");
+      a.href=url;
+      a.download="ALMehria_ReelRecording.webm";
+      a.click();
+      URL.revokeObjectURL(url);
+      screenRecorder=null;
+    };
+    screenRecorder.start();
+    alert("🎬 Recording start ho gayi. Kaam khatam ho to 'Stop & Download' dabayein.");
+  }catch(e){
+    alert("Screen record nahi ho saka: "+e.message);
+  }
+}
+
+function stopScreenRecording(){
+  if(screenRecorder){
+    screenRecorder.stop();
+    alert("⏹ Recording stop. Video download ho jayegi.");
+  }else{
+    alert("Koi active recording nahi mil rahi.");
+  }
+}
+
+function copyPromoCaption(){
+  var cap=document.getElementById("promoCaption");
+  if(!cap)return;
+  navigator.clipboard.writeText(cap.value).then(function(){
+    alert("📋 Promo caption copied! Ab Facebook/Instagram post/reel me paste karein.");
+  });
+}
+
+function initRamadanCalendar(){var ramadanData=[{roza:1,date:"17 Feb",month:1,day:"منگل/Tue",sehri:"5:38",iftar:"5:52"},{roza:2,date:"18 Feb",month:1,day:"بدھ/Wed",sehri:"5:37",iftar:"5:53"},{roza:3,date:"19 Feb",month:1,day:"جمعرات/Thu",sehri:"5:36",iftar:"5:54"},{roza:4,date:"20 Feb",month:1,day:"جمعہ/Fri",sehri:"5:35",iftar:"5:55"},{roza:5,date:"21 Feb",month:1,day:"ہفتہ/Sat",sehri:"5:34",iftar:"5:55"},{roza:6,date:"22 Feb",month:1,day:"اتوار/Sun",sehri:"5:33",iftar:"5:56"},{roza:7,date:"23 Feb",month:1,day:"پیر/Mon",sehri:"5:32",iftar:"5:57"},{roza:8,date:"24 Feb",month:1,day:"منگل/Tue",sehri:"5:31",iftar:"5:58"},{roza:9,date:"25 Feb",month:1,day:"بدھ/Wed",sehri:"5:30",iftar:"5:58"},{roza:10,date:"26 Feb",month:1,day:"جمعرات/Thu",sehri:"5:29",iftar:"5:59"},{roza:11,date:"27 Feb",month:1,day:"جمعہ/Fri",sehri:"5:28",iftar:"6:00"},{roza:12,date:"28 Feb",month:1,day:"ہفتہ/Sat",sehri:"5:27",iftar:"6:01"},{roza:13,date:"1 Mar",month:2,day:"اتوار/Sun",sehri:"5:25",iftar:"6:01"},{roza:14,date:"2 Mar",month:2,day:"پیر/Mon",sehri:"5:24",iftar:"6:02"},{roza:15,date:"3 Mar",month:2,day:"منگل/Tue",sehri:"5:23",iftar:"6:03"},{roza:16,date:"4 Mar",month:2,day:"بدھ/Wed",sehri:"5:22",iftar:"6:04"},{roza:17,date:"5 Mar",month:2,day:"جمعرات/Thu",sehri:"5:20",iftar:"6:04"},{roza:18,date:"6 Mar",month:2,day:"جمعہ/Fri",sehri:"5:19",iftar:"6:05"},{roza:19,date:"7 Mar",month:2,day:"ہفتہ/Sat",sehri:"5:18",iftar:"6:06"},{roza:20,date:"8 Mar",month:2,day:"اتوار/Sun",sehri:"5:16",iftar:"6:07"},{roza:21,date:"9 Mar",month:2,day:"پیر/Mon",sehri:"5:15",iftar:"6:07"},{roza:22,date:"10 Mar",month:2,day:"منگل/Tue",sehri:"5:14",iftar:"6:08"},{roza:23,date:"11 Mar",month:2,day:"بدھ/Wed",sehri:"5:12",iftar:"6:09"},{roza:24,date:"12 Mar",month:2,day:"جمعرات/Thu",sehri:"5:11",iftar:"6:09"},{roza:25,date:"13 Mar",month:2,day:"جمعہ/Fri",sehri:"5:10",iftar:"6:10"},{roza:26,date:"14 Mar",month:2,day:"ہفتہ/Sat",sehri:"5:08",iftar:"6:11"},{roza:27,date:"15 Mar",month:2,day:"اتوار/Sun",sehri:"5:07",iftar:"6:12"},{roza:28,date:"16 Mar",month:2,day:"پیر/Mon",sehri:"5:06",iftar:"6:12"},{roza:29,date:"17 Mar",month:2,day:"منگل/Tue",sehri:"5:04",iftar:"6:13"},{roza:30,date:"18 Mar",month:2,day:"بدھ/Wed",sehri:"5:03",iftar:"6:14"}];var tbody=document.getElementById("ramadanTableBody");if(!tbody)return;var today=new Date(),todayMonth=today.getMonth(),todayDay=today.getDate(),foundToday=false;var ashraColors=["from-green-800/30 to-emerald-800/30","from-yellow-800/30 to-amber-800/30","from-red-900/30 to-rose-900/30"];tbody.innerHTML="";ramadanData.forEach(function(r){var dateNum=parseInt(r.date),isToday=(todayMonth===r.month&&todayDay===dateNum),ashra=r.roza<=10?0:r.roza<=20?1:2;var sh=r.sehri.split(":"),ih=r.iftar.split(":");var sMin=parseInt(sh[0])*60+parseInt(sh[1]),iMin=parseInt(ih[0])*60+parseInt(ih[1]);if(iMin<720)iMin+=720;var diff=iMin+720-sMin,hrs=Math.floor(diff/60),mins=diff%60,durStr=hrs+"h "+mins+"m";var rowClass="bg-gradient-to-r "+ashraColors[ashra]+" border-b border-white/10";if(isToday){rowClass="bg-gradient-to-r from-yellow-600/60 to-amber-600/60 border-b-2 border-yellow-400";foundToday=true;var tDate=document.getElementById("ramadanTodayDate");if(tDate)tDate.textContent=r.date+" 2026";var tRoza=document.getElementById("ramadanTodayRoza");if(tRoza)tRoza.textContent="روزہ نمبر "+r.roza;var tSehri=document.getElementById("ramadanTodaySehri");if(tSehri)tSehri.textContent=r.sehri+" AM";var tIftar=document.getElementById("ramadanTodayIftar");if(tIftar)tIftar.textContent=r.iftar+" PM";var tHours=document.getElementById("ramadanTodayHours");if(tHours)tHours.textContent=durStr}var special="";if([21,23,25,27,29].indexOf(r.roza)>=0)special=' <span class="text-yellow-300 text-[10px]">🌟 طاق رات</span>';if(r.roza===27)special=' <span class="text-yellow-300 text-[10px] font-bold">✨ شبِ قدر ✨</span>';var row=document.createElement("tr");row.className=rowClass;row.innerHTML='<td class="p-2 font-bold '+(isToday?'text-yellow-300 text-lg':'text-emerald-300')+'">'+r.roza+(isToday?' 👈':'')+'</td><td class="p-2 text-xs">'+r.date+' 2026'+special+'</td><td class="p-2 text-xs urdu-text">'+r.day+'</td><td class="p-2 font-bold '+(isToday?'text-yellow-200 text-base':'text-blue-200')+'">'+r.sehri+' AM</td><td class="p-2 font-bold '+(isToday?'text-yellow-200 text-base':'text-orange-200')+'">'+r.iftar+' PM</td><td class="p-2 text-xs text-emerald-200">'+durStr+'</td>';tbody.appendChild(row)});if(!foundToday){var tDate=document.getElementById("ramadanTodayDate");if(tDate)tDate.textContent="17 Feb 2026";var tRoza=document.getElementById("ramadanTodayRoza");if(tRoza)tRoza.textContent="پہلا روزہ (تخمینہ)";var tSehri=document.getElementById("ramadanTodaySehri");if(tSehri)tSehri.textContent="5:38 AM";var tIftar=document.getElementById("ramadanTodayIftar");if(tIftar)tIftar.textContent="5:52 PM";var tHours=document.getElementById("ramadanTodayHours");if(tHours)tHours.textContent="~12h 14m"}var nm=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v};nm("namazFajr","5:20 AM");nm("namazSunrise","6:38 AM");nm("namazZuhr","12:18 PM");nm("namazAsr","3:40 PM");nm("namazMaghrib","6:00 PM");nm("namazIsha","7:25 PM")}
+function applyAllData(){renderMarquees();applyBroadcastVisibility();if(data.videoUrl){var f=document.getElementById("videoFrame");if(f&&f.src!==data.videoUrl)f.src=data.videoUrl}document.getElementById("videoSection").style.display=data.videoEnabled!==false?"block":"none";document.getElementById("jazzNum").textContent=data.jazzCash||"03027822058";document.getElementById("easyNum").textContent=data.easypaisa||"03027822058";document.getElementById("topPromoText1").textContent=data.topPromo?data.topPromo.text1:"";document.getElementById("topPromoText2").textContent=data.topPromo?data.topPromo.text2:"";applyLiveClass();applySuperAnnouncement();if(data.style)applyDynamicStyle();renderEventCards();renderLayoutFromSettings();if(data.globalSpeak&&data.globalSpeak.active&&data.globalSpeak.text)speakText(data.globalSpeak.text,data.globalSpeak.lang);applyRamadanVisibility()}
+function loadAdminData(){document.getElementById("videoToggle").checked=data.videoEnabled!==false;document.getElementById("videoUrlInput").value=data.videoUrl||"";document.getElementById("jazzCashNumber").value=data.jazzCash||"03027822058";document.getElementById("easypaisaNumber").value=data.easypaisa||"03027822058";document.getElementById("jazzCashNameInput").value=data.jazzCashName||"Kashif Ismail";document.getElementById("easypaisaNameInput").value=data.easypaisaName||"Kashif Ismail";document.getElementById("broadcastGroupsInput").value=data.broadcastGroups||"ALL";if(data.topPromo){document.getElementById("topPromoText1Input").value=data.topPromo.text1||"";document.getElementById("topPromoText2Input").value=data.topPromo.text2||""}if(data.superAnnounce){document.getElementById("superAnnounceInput").value=data.superAnnounce.text||"";document.getElementById("superAnnounceSpeakInterval").value=data.superAnnounce.speakInterval||0;document.getElementById("superAnnounceDuration").value=data.superAnnounce.duration||0;document.getElementById("superAnnounceVoiceLang").value=data.superAnnounce.voiceLang||"ur-PK"}if(data.liveClass){document.getElementById("liveClassUrl").value=data.liveClass.url||"";document.getElementById("liveClassTitleInput").value=data.liveClass.title||"";if(data.liveClass.active)document.getElementById("liveClassStatus").classList.remove("hidden")}if(data.style){document.getElementById("deployAcademyName").value=data.style.academyName||"AL-Mehria Computer Academy";document.getElementById("deployTagline").value=data.style.tagline||"Learn Technology, Build Future";document.getElementById("deployPhone").value=data.style.phone||"03027822058";document.getElementById("deployInstructor").value=data.style.instructor||"Kashif Ismail";document.getElementById("deployAddress").value=data.style.address||"Makhdoompur Pahoran";document.getElementById("deployHeaderColor").value=data.style.headerColor||"#1e3a8a";document.getElementById("deployBodyBg").value=data.style.bodyBg||"#f3f4f6";document.getElementById("deployFooterBg").value=data.style.footerBg||"#111827"}if(data.firebase){document.getElementById("fbApiKey").value=data.firebase.apiKey||"";document.getElementById("fbDbUrl").value=data.firebase.dbUrl||"";document.getElementById("fbProjectId").value=data.firebase.projectId||""}
+// init theme color pickers with current header theme or defaults
+try{
+  var th=data.themes||{};
+  var base=th.header||{c1:"#0f172a",c2:"#1d4ed8",c3:"#7c3aed"};
+  var c1El=document.getElementById("themeC1"),
+      c2El=document.getElementById("themeC2"),
+      c3El=document.getElementById("themeC3");
+  if(c1El){c1El.value=base.c1;}
+  if(c2El){c2El.value=base.c2;}
+  if(c3El){c3El.value=base.c3;}
+}catch(e){}
+// layout checkboxes
+try{
+  var l=data.layout||{};
+  var lh=document.getElementById("layoutHeader"), lr=document.getElementById("layoutRamadan"), lv=document.getElementById("layoutVideo"),
+      lreg=document.getElementById("layoutReg"), lc=document.getElementById("layoutCourses"), lf=document.getElementById("layoutFooter");
+  if(lh) lh.checked = l.showHeader!==false;
+  if(lr) lr.checked = l.showRamadan!==false;
+  if(lv) lv.checked = l.showVideo!==false;
+  if(lreg) lreg.checked = l.showRegistration!==false;
+  if(lc) lc.checked = l.showCourses!==false;
+  if(lf) lf.checked = l.showFooter!==false;
+}catch(e){}
+loadMarqueeList();loadStudentTable();loadDynFieldList();loadCustomPagesList();loadEventsList();var rcb=document.getElementById("ramadanToggleDeploy");if(rcb)rcb.checked=!!data.ramadanVisible}
+// Signature drawing setup
+var sigCanvas,sigCtx,isDrawing=false,lastSigPos={x:0,y:0};
+function initSignatureCanvas(){
+  sigCanvas=document.getElementById("signatureCanvas");
+  if(!sigCanvas) return;
+  sigCtx=sigCanvas.getContext("2d");
+  resizeSignatureCanvas();
+  sigCtx.lineWidth=2;
+  sigCtx.lineCap="round";
+  sigCtx.strokeStyle="#111827";
+  function getPos(e){
+    var rect=sigCanvas.getBoundingClientRect();
+    var x,y;
+    if(e.touches && e.touches.length){
+      x=e.touches[0].clientX-rect.left;
+      y=e.touches[0].clientY-rect.top;
+    }else{
+      x=e.clientX-rect.left;
+      y=e.clientY-rect.top;
+    }
+    return {x:x,y:y};
+  }
+  function start(e){
+    isDrawing=true;
+    lastSigPos=getPos(e);
+  }
+  function move(e){
+    if(!isDrawing) return;
+    e.preventDefault();
+    var pos=getPos(e);
+    sigCtx.beginPath();
+    sigCtx.moveTo(lastSigPos.x,lastSigPos.y);
+    sigCtx.lineTo(pos.x,pos.y);
+    sigCtx.stroke();
+    lastSigPos=pos;
+  }
+  function end(){isDrawing=false;}
+  sigCanvas.addEventListener("mousedown",start);
+  sigCanvas.addEventListener("mousemove",move);
+  window.addEventListener("mouseup",end);
+  sigCanvas.addEventListener("touchstart",start,{passive:false});
+  sigCanvas.addEventListener("touchmove",move,{passive:false});
+  sigCanvas.addEventListener("touchend",end);
+  window.addEventListener("resize",resizeSignatureCanvas);
+}
+function resizeSignatureCanvas(){
+  if(!sigCanvas) return;
+  var rect=sigCanvas.getBoundingClientRect();
+  var imgData=sigCtx?sigCtx.getImageData(0,0,sigCanvas.width,sigCanvas.height):null;
+  sigCanvas.width=rect.width;sigCanvas.height=rect.height;
+  if(sigCtx) sigCtx.putImageData(imgData,0,0);
+}
+function clearRegSignature(){
+  if(sigCtx && sigCanvas){
+    sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height);
+    lastRegAttachments.signature="";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){var saved=localStorage.getItem("academyData");if(saved){try{data=JSON.parse(saved)}catch(e){}}var vgi=document.getElementById("viewerGroupInput");if(vgi)vgi.value=viewerGroup;applyAllData();initVoice();startFontRotation();initSignatureCanvas();var fc=localStorage.getItem("fbConfig");if(fc){try{var fcc=JSON.parse(fc);if(fcc.apiKey&&fcc.dbUrl){data.firebase=fcc;setTimeout(function(){document.getElementById("fbApiKey").value=fcc.apiKey;document.getElementById("fbDbUrl").value=fcc.dbUrl;document.getElementById("fbProjectId").value=fcc.projectId||"";connectFirebase()},500)}}catch(x){}}initRamadanCalendar();var form=document.getElementById("registrationForm");if(form){form.addEventListener("submit",function(ev){ev.preventDefault();var p=document.querySelector('input[name="payment"]:checked');lastReg={name:document.getElementById("regName").value,father:document.getElementById("regFather").value,phone:document.getElementById("regPhone").value,course:document.getElementById("regCourse").value,address:document.getElementById("regAddress").value,payment:p?p.value:"None",date:new Date().toLocaleDateString("en-PK"),regNo:"ALM-"+Date.now().toString().slice(-6)};if(!data.students)data.students=[];data.students.push(lastReg);saveData();// capture signature (if drawn)
+try{
+  if(sigCanvas && sigCtx){
+    var blank=document.createElement('canvas');
+    blank.width=sigCanvas.width;blank.height=sigCanvas.height;
+    if(sigCanvas.toDataURL && sigCanvas.toDataURL()!==blank.toDataURL()){
+      lastRegAttachments.signature=sigCanvas.toDataURL('image/png');
+    }
+  }
+}catch(e){}
+
+var attachHtml='';
+attachHtml+='<div class="mt-3 grid grid-cols-2 gap-2 text-[10px]">';
+attachHtml+='<div><b>📎 Attachments:</b></div>';
+attachHtml+='<div>'+
+  (lastRegAttachments.studentPhoto?'<span class="inline-flex items-center gap-1 mr-2">🧑‍🎓 <span>Photo</span></span>':'')+
+  (lastRegAttachments.studentIdFront?'<span class="inline-flex items-center gap-1 mr-2">🪪 <span>Std ID</span></span>':'')+
+  (lastRegAttachments.fatherIdFront?'<span class="inline-flex items-center gap-1 mr-2">👨‍👦 <span>Father ID</span></span>':'')+
+  (lastRegAttachments.signature?'<span class="inline-flex items-center gap-1 mr-2">✍️ <span>Sign</span></span>':'<span class="text-gray-400">None</span>')+
+  '</div>';
+attachHtml+='</div>';
+
+document.getElementById("regSlipContent").innerHTML=
+  '<div class="bg-white rounded-xl shadow-lg p-4 border-2 border-blue-200">'+
+    '<div class="text-center border-b pb-3 mb-3">'+
+      '<h4 class="text-xl font-bold text-blue-800">🎓 AL-Mehria Academy</h4>'+"</div>"+
+    '<div class="space-y-2 text-sm">'+
+      '<p><b>👤</b> '+lastReg.name+'</p>'+
+      '<p><b>👨</b> '+lastReg.father+'</p>'+
+      '<p><b>📱</b> '+lastReg.phone+'</p>'+
+      '<p><b>📚</b> '+lastReg.course+'</p>'+
+      '<p><b>💰</b> '+lastReg.payment+'</p>'+
+      '<p><b>📅</b> '+lastReg.date+'</p>'+
+      '<p><b>🔢</b> '+lastReg.regNo+'</p>'+
+    '</div>'+attachHtml+
+  '</div>';document.getElementById("regSuccessModal").classList.remove("hidden");document.getElementById("regSuccessModal").classList.add("flex");form.reset();closeRegForm()})}});
+</script>
+</body>
+</html>

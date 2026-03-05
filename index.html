@@ -1592,7 +1592,7 @@ document.getElementById("regSlipContent").innerHTML=
   '</div>';document.getElementById("regSuccessModal").classList.remove("hidden");document.getElementById("regSuccessModal").classList.add("flex");form.reset();closeRegForm()})}});
 </script>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
 <script>
@@ -1610,7 +1610,13 @@ document.getElementById("regSlipContent").innerHTML=
       firebase.initializeApp(finalConfig);
   }
 
-  // ڈیٹا بیس کنکشن ٹیسٹ
+  firebase.database().ref().on('value', function(snapshot) {
+      console.log("Database Connected!");
+  });
+</script>
+</body>
+</html> 
+ 
   firebase.database().ref("academy Data").on('value', function(snapshot) {
       console.log("Portal Connected to Database!");
   });

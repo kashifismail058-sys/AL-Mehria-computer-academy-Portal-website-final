@@ -1591,5 +1591,29 @@ document.getElementById("regSlipContent").innerHTML=
     '</div>'+attachHtml+
   '</div>';document.getElementById("regSuccessModal").classList.remove("hidden");document.getElementById("regSuccessModal").classList.add("flex");form.reset();closeRegForm()})}});
 </script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script>
+  var finalConfig = {
+    apiKey: "AIzaSyCAP-MCt68avtic50JZNwcSfUG4kJ3Ulow",
+    authDomain: "old-file-portal-old-crash-web.firebaseapp.com",
+    databaseURL: "https://old-file-portal-old-crash-web-default-rtdb.firebaseio.com",
+    projectId: "old-file-portal-old-crash-web",
+    storageBucket: "old-file-portal-old-crash-web.firebasestorage.app",
+    messagingSenderId: "757319585508",
+    appId: "1:757319585508:web:f3248722bef0b2c9b0e6f1"
+  };
+
+  if (!firebase.apps.length) {
+      firebase.initializeApp(finalConfig);
+  }
+
+  // ڈیٹا بیس کنکشن ٹیسٹ
+  firebase.database().ref("academy Data").on('value', function(snapshot) {
+      console.log("Portal Connected to Database!");
+  });
+</script>
 </body>
 </html>

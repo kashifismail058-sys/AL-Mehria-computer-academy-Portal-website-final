@@ -1737,5 +1737,65 @@ document.getElementById("regSlipContent").innerHTML=
         if (box) box.innerText = m ? m : "خوش آمدید!";
     });
 </script>
+<div id="secretPanel" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 999999; padding: 20px; overflow-y: auto;">
+    <div style="background: white; max-width: 450px; margin: 40px auto; border-radius: 15px; padding: 25px; font-family: sans-serif; text-align: center; border: 5px solid #007bff;">
+        <h2 style="color: #333;">🛠️ ایڈمن کنٹرول پینل</h2>
+        <hr>
+        <div style="text-align: right; margin-top: 20px;">
+            <label style="font-weight: bold;">📢 نیا اعلان ٹائپ کریں:</label>
+            <input type="text" id="newStatus" placeholder="یہاں لکھیں..." style="width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 8px;">
+            <button onclick="saveToDb()" style="width: 100%; margin-top: 15px; background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;">ویب سائٹ اپ ڈیٹ کریں</button>
+        </div>
+        <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <button onclick="alert('رزلٹ پینل')" style="padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px;">📊 رزلٹ</button>
+            <button onclick="alert('داخلہ لسٹ')" style="padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px;">📝 داخلہ</button>
+        </div>
+        <button onclick="document.getElementById('secretPanel').style.display='none'" style="margin-top: 20px; background: #eee; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">بند کریں</button>
+    </div>
+</div>
+
+<script>
+  // کمپیوٹر والے آئیکن پر 3 بار کلک والا سسٹم
+  var clickCount = 0;
+  // آپ کی ویب سائٹ پر موجود کمپیوٹر آئیکن (fa-desktop یا fa-laptop) کو ڈھونڈ کر اس پر یہ فنکشن لگانا
+  document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('fa-desktop') || e.target.classList.contains('fa-laptop') || e.target.closest('.fa-desktop')) {
+          clickCount++;
+          if (clickCount === 3) {
+              clickCount = 0; // ری سیٹ
+              var p = prompt("ایڈمن کوڈ (7890) درج کریں:");
+              if (p === "7890") {
+                  document.getElementById('secretPanel').style.display = 'block';
+              } else {
+                  alert("غلط کوڈ!");
+              }
+          }
+          // 2 سیکنڈ بعد کلک کاؤنٹ ری سیٹ کر دیں تاکہ اگر وقفہ زیادہ ہو تو نہ کھلے
+          setTimeout(function(){ clickCount = 0; }, 2000);
+      }
+  });
+
+  function saveToDb() {
+      var val = document.getElementById("newStatus").value;
+      if (val && typeof firebase !== 'undefined') {
+          firebase.database().ref("announcement").set(val)
+          .then(function() { 
+              alert("✅ کامیابی! اعلان بدل گیا ہے۔"); 
+              document.getElementById('secretPanel').style.display = 'none';
+          });
+      }
+  }
+
+  // لائیو اپ ڈیٹ
+  if (typeof firebase !== 'undefined') {
+      firebase.database().ref("announcement").on("value", function(s) {
+          var t = s.val();
+          var target = document.getElementById("announcement-text");
+          if (target) target.innerText = t ? t : "خوش آمدید!";
+      });
+  }
+</script>
+</body>
+</html>
 </body>
 </html>

@@ -1622,4 +1622,38 @@ document.getElementById("regSlipContent").innerHTML=
   });
 </script>
 </body>
+<script>
+  // فائر بیس سے "اعلان" کا ڈیٹا لینے کے لیے
+  var db = firebase.database();
+  db.ref("announcement").on("value", function(snapshot) {
+      var val = snapshot.val();
+      if(val) {
+          document.getElementById("announcement-text").innerText = val;
+      } else {
+          document.getElementById("announcement-text").innerText = "خوش آمدید!";
+      }
+  });
+
+  // ایڈمن لاگ ان (7890) کے لیے فنکشن
+  function openAdmin() {
+      var pin = prompt("ایڈمن کوڈ درج کریں:");
+      if(pin === "7890") {
+          // یہاں اپنے ایڈمن پینل کا نام لکھیں
+          alert("خوش آمدید! اب آپ ڈیٹا بدل سکتے ہیں۔");
+          // اگر آپ کے پاس الگ فائل ہے تو یہاں اس کا نام لکھیں
+          // window.location.href = "admin.html"; 
+      } else {
+          alert("غلط کوڈ!");
+      }
+  }
+</script>
+
+<div style="position: fixed; bottom: 20px; right: 20px;">
+    <button onclick="openAdmin()" style="background: none; border: none; cursor: pointer;">
+        <i class="fa fa-gear" style="font-size: 24px; color: #333;"></i>
+    </button>
+</div>
+
+</body>
+</html>
 </html>

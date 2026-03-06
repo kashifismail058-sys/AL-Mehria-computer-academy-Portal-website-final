@@ -1673,14 +1673,18 @@ document.getElementById("regSlipContent").innerHTML=
   });
 
   // ب: گیئر بٹن پر کلک کرنے کے بعد کا کام
- <div id="finalPanel" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000000; padding: 20px; overflow-y: auto;">
+<div id="announcement-display-box" style="text-align: center; background: #222; color: #ffeb3b; padding: 10px; font-weight: bold; border-top: 2px solid #ff4757;">
+    📢 اعلان: <span id="announcement-text">لوڈنگ...</span>
+</div>
+
+<div id="finalPanel" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000000; padding: 20px; overflow-y: auto;">
     <div style="background: white; max-width: 450px; margin: 40px auto; border-radius: 15px; padding: 25px; font-family: sans-serif; text-align: center; border: 4px solid #28a745;">
         <h2 style="color: #333;">🛠️ ایڈمن کنٹرول پینل</h2>
         <hr>
         <div style="text-align: right; margin-top: 20px;">
             <label style="font-weight: bold; color: #555;">📢 ویب سائٹ کا اعلان بدلیں:</label>
-            <input type="text" id="statusVal" placeholder="یہاں نیا پیغام لکھیں..." style="width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
-            <button onclick="updateDb()" style="width: 100%; margin-top: 15px; background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px;">ویب سائٹ پر بھیجیں (Push)</button>
+            <input type="text" id="statusVal" placeholder="یہاں نیا پیغام لکھیں..." style="width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; color: black;">
+            <button onclick="updateDb()" style="width: 100%; margin-top: 15px; background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px;">ویب سائٹ اپ ڈیٹ کریں</button>
         </div>
         <button onclick="document.getElementById('finalPanel').style.display='none'" style="margin-top: 20px; background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">بند کریں</button>
     </div>
@@ -1688,7 +1692,7 @@ document.getElementById("regSlipContent").innerHTML=
 
 <script>
   var count = 0;
-  // ویب سائٹ پر کہیں بھی لگاتار 3 بار کلک کرنے سے پینل کھلے گا
+  // کہیں بھی 3 بار کلک کرنے سے پینل کھلے گا
   document.addEventListener('click', function () {
       count++;
       if (count === 3) {
@@ -1700,7 +1704,7 @@ document.getElementById("regSlipContent").innerHTML=
               alert("غلط کوڈ!");
           }
       }
-      setTimeout(function(){ count = 0; }, 2000); // 2 سیکنڈ میں کلک پورے کرنے ہوں گے
+      setTimeout(function(){ count = 0; }, 2000);
   });
 
   function updateDb() {
@@ -1714,14 +1718,15 @@ document.getElementById("regSlipContent").innerHTML=
       }
   }
 
-  // لائیو اپ ڈیٹ دکھانے کا فنکشن
-  if (typeof firebase !== 'undefined') {
-      firebase.database().ref("announcement").on("value", function(s) {
-          var t = s.val();
-          var target = document.getElementById("announcement-text");
-          if (target) target.innerText = t ? t : "خوش آمدید!";
-      });
-  }
+  // ڈیٹا بیس سے میسج لانے کا سسٹم
+  window.onload = function() {
+      if (typeof firebase !== 'undefined') {
+          firebase.database().ref("announcement").on("value", function(s) {
+              var t = s.val();
+              document.getElementById("announcement-text").innerText = t ? t : "خوش آمدید!";
+          });
+      }
+  };
 </script>
 </body>
 </html>

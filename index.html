@@ -1614,72 +1614,64 @@ document.getElementById("regSlipContent").innerHTML=
       console.log("Database Connected!");
   });
 <div id="announcement-display-box" style="text-align: center; background: #000; color: #ffeb3b; padding: 12px; font-weight: bold; border-top: 3px solid #ff4757; font-size: 18px; position: relative; z-index: 999;">
-    📢 اعلان: <span id="announcement-text">لوڈنگ...</span>
+    📢 اعلان: <span id="announcement-text">خوش آمدید!</span>
 </div>
 
 <div id="finalPanel" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000000; padding: 20px;">
     <div style="background: white; max-width: 400px; margin: 50px auto; border-radius: 15px; padding: 25px; text-align: center; border: 4px solid #28a745; font-family: sans-serif;">
         <h3 style="color: #333; margin-top: 0;">🛠️ ایڈمن کنٹرول پینل</h3>
         <input type="text" id="statusVal" placeholder="نیا اعلان یہاں لکھیں..." style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; margin-top: 10px; color: black; font-size: 16px;">
-        <button onclick="updateDb()" style="width: 100%; margin-top: 15px; background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px;">ویب سائٹ اپ ڈیٹ کریں</button>
+        <button onclick="updateDb()" style="width: 100%; margin-top: 15px; background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px;">اپ ڈیٹ کریں</button>
         <button onclick="document.getElementById('finalPanel').style.display='none'" style="margin-top: 15px; background: #6c757d; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">بند کریں</button>
     </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
 <script>
-  // 3 کلک والا خفیہ سسٹم
-  var clickCount = 0;
-  document.addEventListener('click', function () {
-      clickCount++;
-      if (clickCount === 3) {
-          clickCount = 0;
-          var pin = prompt("ایڈمن پاس ورڈ (7890) درج کریں:");
-          if (pin === "7890") { 
-              document.getElementById('finalPanel').style.display = 'block'; 
-          } else if (pin !== null) {
-              alert("غلط پاس ورڈ!");
+  // فائر بیس کنفیگریشن (یہ لازمی ہے)
+  var firebaseConfig = {
+    databaseURL: "https://al-mehria-default-rtdb.firebaseio.com/" 
+  };
+  
+  // اگر فائر بیس پہلے سے لوڈ نہیں ہے تو اسے چلائیں
+  if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+  }
+
+  var database = firebase.database();
+
+  // 3 کلک والا سسٹم (پورے پیج پر کہیں بھی)
+  var clicks = 0;
+  document.addEventListener('mousedown', function() {
+      clicks++;
+      if (clicks === 3) {
+          clicks = 0;
+          var pin = prompt("ایڈمن پاس ورڈ درج کریں:");
+          if (pin === "7890") {
+              document.getElementById('finalPanel').style.display = 'block';
           }
       }
-      setTimeout(function(){ clickCount = 0; }, 2000);
+      setTimeout(function() { clicks = 0; }, 2000);
   });
 
-  // فائر بیس میں ڈیٹا بھیجنے کا فنکشن
+  // ڈیٹا بیس میں میسج بھیجنا
   function updateDb() {
       var txt = document.getElementById("statusVal").value;
-      if (txt && typeof firebase !== 'undefined') {
-          firebase.database().ref("announcement").set(txt).then(function() { 
-              alert("✅ کامیابی! ویب سائٹ پر اعلان بدل گیا ہے۔"); 
+      if (txt) {
+          database.ref("announcement").set(txt).then(function() {
+              alert("✅ ویب سائٹ اپ ڈیٹ ہو گئی!");
               document.getElementById('finalPanel').style.display = 'none';
           });
       }
   }
 
-  // ڈیٹا بیس سے لائیو میسج دکھانا
-  window.addEventListener('load', function() {
-      if (typeof firebase !== 'undefined') {
-          firebase.database().ref("announcement").on("value", function(snapshot) {
-              var val = snapshot.val();
-              var target = document.getElementById("announcement-text");
-              if(target) { target.innerText = val ? val : "خوش آمدید!"; }
-          });
-      }
+  // ڈیٹا بیس سے میسج دکھانا
+  database.ref("announcement").on("value", function(snapshot) {
+      var val = snapshot.val();
+      document.getElementById("announcement-text").innerText = val ? val : "خوش آمدید!";
   });
-</script>
-
-</body>
-</html>
-
-
-
-  // ڈیٹا بیس سے میسج لانے کا سسٹم
-  window.onload = function() {
-      if (typeof firebase !== 'undefined') {
-          firebase.database().ref("announcement").on("value", function(s) {
-              var t = s.val();
-              document.getElementById("announcement-text").innerText = t ? t : "خوش آمدید!";
-          });
-      }
-  };
 </script>
 </body>
 </html>

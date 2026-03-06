@@ -1653,7 +1653,49 @@ document.getElementById("regSlipContent").innerHTML=
         <i class="fa fa-gear" style="font-size: 24px; color: #333;"></i>
     </button>
 </div>
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+    <button onclick="adminSystem()" style="background: #007bff; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <i class="fa fa-gear" style="font-size: 24px; color: white;"></i>
+    </button>
+</div>
 
+<script>
+  // فائر بیس ڈیٹا بیس کا حوالہ
+  var database = firebase.database();
+
+  // الف: ویب سائٹ پر اعلان خود بخود دکھانا
+  database.ref("announcement").on("value", function(snapshot) {
+      var msg = snapshot.val();
+      var displayArea = document.getElementById("announcement-text");
+      if(displayArea) {
+          displayArea.innerText = msg ? msg : "خوش آمدید!";
+      }
+  });
+
+  // ب: گیئر بٹن پر کلک کرنے کے بعد کا کام
+  function adminSystem() {
+      // پاس ورڈ پوچھنا
+      var pin = prompt("ایڈمن پاس ورڈ (PIN) درج کریں:");
+      
+      if(pin === "7890") {
+          // اگر پن ٹھیک ہو تو اعلان پوچھنا
+          var newMsg = prompt("ویب سائٹ کے لیے نیا اعلان لکھیں:");
+          
+          if(newMsg !== null && newMsg !== "") {
+              // ڈیٹا بیس میں اپ ڈیٹ کرنا
+              database.ref("announcement").set(newMsg)
+              .then(function() {
+                  alert("کامیابی! ویب سائٹ اپ ڈیٹ ہو گئی ہے۔");
+              })
+              .catch(function(error) {
+                  alert("خرابی: " + error.message);
+              });
+          }
+      } else {
+          alert("غلط کوڈ! آپ ایڈمن نہیں ہیں۔");
+      }
+  }
+</script>
 </body>
 </html>
 </html>

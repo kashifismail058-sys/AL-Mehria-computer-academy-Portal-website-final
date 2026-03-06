@@ -1673,120 +1673,48 @@ document.getElementById("regSlipContent").innerHTML=
   });
 
   // ب: گیئر بٹن پر کلک کرنے کے بعد کا کام
-  function adminSystem() {
-      // پاس ورڈ پوچھنا
-      var pin = prompt("ایڈمن پاس ورڈ (PIN) درج کریں:");
-      
-      if(pin === "7890") {
-          // اگر پن ٹھیک ہو تو اعلان پوچھنا
-          var newMsg = prompt("ویب سائٹ کے لیے نیا اعلان لکھیں:");
-          
-          if(newMsg !== null && newMsg !== "") {
-              // ڈیٹا بیس میں اپ ڈیٹ کرنا
-<div id="final-admin-trigger" style="position: fixed; bottom: 30px; right: 30px; z-index: 2147483647 !important;">
-    <button onclick="openSuperAdmin()" style="background: #ff4757; border: 3px solid white; border-radius: 50%; width: 65px; height: 65px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; font-size: 35px;">
-        ⚙️
-    </button>
-</div>
-
-<div id="superAdminPanel" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2147483647; overflow-y: auto; padding: 20px;">
-    <div style="background: white; max-width: 450px; margin: 40px auto; border-radius: 20px; padding: 30px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">
-        <h2 style="color: #2f3542; margin-bottom: 20px; border-bottom: 2px solid #f1f2f6; padding-bottom: 10px;">🛠️ ایڈمن کنٹرول</h2>
-        
-        <div style="text-align: right; margin-bottom: 25px;">
-            <label style="font-weight: bold; color: #57606f;">📢 نیا اعلان ٹائپ کریں:</label>
-            <input type="text" id="newAnn" placeholder="مثلاً: داخلہ جاری ہے..." style="width: 100%; padding: 15px; margin-top: 10px; border: 2px solid #dfe4ea; border-radius: 10px; font-size: 16px;">
-            <button onclick="sendToFirebase()" style="width: 100%; margin-top: 15px; background: #2ed573; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 18px;">اپ ڈیٹ کریں</button>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
-            <button onclick="alert('رزلٹ پینل کھولا جا رہا ہے...')" style="padding: 15px; background: #1e90ff; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">📊 رزلٹ</button>
-            <button onclick="alert('داخلہ لسٹ لوڈ ہو رہی ہے...')" style="padding: 15px; background: #1e90ff; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">📝 داخلہ</button>
-        </div>
-
-        <button onclick="document.getElementById('superAdminPanel').style.display='none'" style="background: #ced4da; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; color: #495057;">بند کریں (Close)</button>
-    </div>
-</div>
-
-<script>
-    function openSuperAdmin() {
-        var code = prompt("ایڈمن پاس ورڈ (7890) درج کریں:");
-        if (code === "7890") {
-            document.getElementById('superAdminPanel').style.display = 'block';
-        } else if (code !== null) {
-            alert("غلط پاس ورڈ! رسائی نہیں ملی۔");
-        }
-    }
-
-    function sendToFirebase() {
-        var inputVal = document.getElementById("newAnn").value;
-        if (inputVal) {
-            firebase.database().ref("announcement").set(inputVal)
-            .then(function() { 
-                alert("✅ ویب سائٹ اپ ڈیٹ ہو گئی!"); 
-                document.getElementById('superAdminPanel').style.display = 'none';
-            })
-            .catch(function(err) { alert("❌ خرابی: " + err.message); });
-        }
-    }
-
-    // لائیو میسج دکھانے کے لیے (اگر آپ کے پیج پر 'announcement-text' کی ID ہے)
-    firebase.database().ref("announcement").on("value", function(snap) {
-        var m = snap.val();
-        var box = document.getElementById("announcement-text");
-        if (box) box.innerText = m ? m : "خوش آمدید!";
-    });
-</script>
-<div id="secretPanel" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 999999; padding: 20px; overflow-y: auto;">
-    <div style="background: white; max-width: 450px; margin: 40px auto; border-radius: 15px; padding: 25px; font-family: sans-serif; text-align: center; border: 5px solid #007bff;">
+ <div id="finalPanel" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000000; padding: 20px; overflow-y: auto;">
+    <div style="background: white; max-width: 450px; margin: 40px auto; border-radius: 15px; padding: 25px; font-family: sans-serif; text-align: center; border: 4px solid #28a745;">
         <h2 style="color: #333;">🛠️ ایڈمن کنٹرول پینل</h2>
         <hr>
         <div style="text-align: right; margin-top: 20px;">
-            <label style="font-weight: bold;">📢 نیا اعلان ٹائپ کریں:</label>
-            <input type="text" id="newStatus" placeholder="یہاں لکھیں..." style="width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 8px;">
-            <button onclick="saveToDb()" style="width: 100%; margin-top: 15px; background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;">ویب سائٹ اپ ڈیٹ کریں</button>
+            <label style="font-weight: bold; color: #555;">📢 ویب سائٹ کا اعلان بدلیں:</label>
+            <input type="text" id="statusVal" placeholder="یہاں نیا پیغام لکھیں..." style="width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
+            <button onclick="updateDb()" style="width: 100%; margin-top: 15px; background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px;">ویب سائٹ پر بھیجیں (Push)</button>
         </div>
-        <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <button onclick="alert('رزلٹ پینل')" style="padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px;">📊 رزلٹ</button>
-            <button onclick="alert('داخلہ لسٹ')" style="padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px;">📝 داخلہ</button>
-        </div>
-        <button onclick="document.getElementById('secretPanel').style.display='none'" style="margin-top: 20px; background: #eee; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">بند کریں</button>
+        <button onclick="document.getElementById('finalPanel').style.display='none'" style="margin-top: 20px; background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">بند کریں</button>
     </div>
 </div>
 
 <script>
-  // کمپیوٹر والے آئیکن پر 3 بار کلک والا سسٹم
-  var clickCount = 0;
-  // آپ کی ویب سائٹ پر موجود کمپیوٹر آئیکن (fa-desktop یا fa-laptop) کو ڈھونڈ کر اس پر یہ فنکشن لگانا
-  document.addEventListener('click', function (e) {
-      if (e.target.classList.contains('fa-desktop') || e.target.classList.contains('fa-laptop') || e.target.closest('.fa-desktop')) {
-          clickCount++;
-          if (clickCount === 3) {
-              clickCount = 0; // ری سیٹ
-              var p = prompt("ایڈمن کوڈ (7890) درج کریں:");
-              if (p === "7890") {
-                  document.getElementById('secretPanel').style.display = 'block';
-              } else {
-                  alert("غلط کوڈ!");
-              }
+  var count = 0;
+  // ویب سائٹ پر کہیں بھی لگاتار 3 بار کلک کرنے سے پینل کھلے گا
+  document.addEventListener('click', function () {
+      count++;
+      if (count === 3) {
+          count = 0;
+          var pin = prompt("ایڈمن پاس ورڈ (7890) درج کریں:");
+          if (pin === "7890") {
+              document.getElementById('finalPanel').style.display = 'block';
+          } else if (pin !== null) {
+              alert("غلط کوڈ!");
           }
-          // 2 سیکنڈ بعد کلک کاؤنٹ ری سیٹ کر دیں تاکہ اگر وقفہ زیادہ ہو تو نہ کھلے
-          setTimeout(function(){ clickCount = 0; }, 2000);
       }
+      setTimeout(function(){ count = 0; }, 2000); // 2 سیکنڈ میں کلک پورے کرنے ہوں گے
   });
 
-  function saveToDb() {
-      var val = document.getElementById("newStatus").value;
-      if (val && typeof firebase !== 'undefined') {
-          firebase.database().ref("announcement").set(val)
+  function updateDb() {
+      var txt = document.getElementById("statusVal").value;
+      if (txt && typeof firebase !== 'undefined') {
+          firebase.database().ref("announcement").set(txt)
           .then(function() { 
-              alert("✅ کامیابی! اعلان بدل گیا ہے۔"); 
-              document.getElementById('secretPanel').style.display = 'none';
+              alert("✅ کامیابی! ویب سائٹ اپ ڈیٹ ہو گئی ہے۔"); 
+              document.getElementById('finalPanel').style.display = 'none';
           });
       }
   }
 
-  // لائیو اپ ڈیٹ
+  // لائیو اپ ڈیٹ دکھانے کا فنکشن
   if (typeof firebase !== 'undefined') {
       firebase.database().ref("announcement").on("value", function(s) {
           var t = s.val();
@@ -1795,7 +1723,5 @@ document.getElementById("regSlipContent").innerHTML=
       });
   }
 </script>
-</body>
-</html>
 </body>
 </html>
